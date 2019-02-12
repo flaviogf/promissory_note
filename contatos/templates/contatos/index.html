@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Telefone</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for it in contatos %}
+    <tr>
+      <td>{{ it.nome }}</td>
+      <td>{{ it.email }}</td>
+      <td>{{ it.telefone }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">Nenhum contato encontrado :(</td>
+    <tr>
+    {% endfor %}
+  </tbody>
+</table>
