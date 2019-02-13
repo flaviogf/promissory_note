@@ -1,4 +1,6 @@
 django
+django-widget-tweaks
+
 
 autopep8
 isort

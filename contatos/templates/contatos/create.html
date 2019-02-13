@@ -1,23 +1,33 @@
-<form method="post">
-  {% csrf_token %}
+{% extends 'commom/base.html' %}
 
-  {% for it in contato_form %}
+{% load widget_tweaks %}
 
-  <div>
-    {{ it.label_tag }}
-    {{ it }}
+{% block titulo %}Criar Contato{% endblock %}
+
+{% block conteudo %}
+    <form method="post">
+      {% csrf_token %}
+
+      {% for it in contato_form %}
+
+      <div>
+        {{ it.label_tag }}
+        {% render_field it %}
+      </div>
+
+      {% endfor %}
+
+      {% for it in endereco_form %}
+
+      <div>
+        {{ it.label_tag }}
+        {% render_field it %}
+      </div>
+
+      {% endfor %}
+
+      <button type="submit">Salvar</button>
+    </form>
   </div>
-
-  {% endfor %}
-
-  {% for it in endereco_form %}
-
-  <div>
-    {{ it.label_tag }}
-    {{ it }}
-  </div>
-
-  {% endfor %}
-
-  <button type="submit">Salvar</button>
-</form>
+</div>
+{% endblock %}
