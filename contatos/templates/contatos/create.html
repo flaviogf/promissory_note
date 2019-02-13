@@ -1,0 +1,23 @@
+<form method="post">
+  {% csrf_token %}
+
+  {% for it in contato_form %}
+
+  <div>
+    {{ it.label_tag }}
+    {{ it }}
+  </div>
+
+  {% endfor %}
+
+  {% for it in endereco_form %}
+
+  <div>
+    {{ it.label_tag }}
+    {{ it }}
+  </div>
+
+  {% endfor %}
+
+  <button type="submit">Salvar</button>
+</form>

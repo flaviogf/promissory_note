@@ -19,6 +19,13 @@ class Contato(models.Model):
 
     atualizado_em = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = 'Contato'
+        verbose_name_plural = 'Contatos'
+
+    def __str__(self):
+        return self.nome
+
 
 class Endereco(models.Model):
     contato = models.OneToOneField(
@@ -34,3 +41,10 @@ class Endereco(models.Model):
     bairro = models.CharField(max_length=100)
 
     numero = models.CharField(max_length=5)
+
+    class Meta:
+        verbose_name = 'Endereço'
+        verbose_name_plural = 'Endereços'
+
+    def __str__(self):
+        return f'{self.rua} - {self.bairro}'

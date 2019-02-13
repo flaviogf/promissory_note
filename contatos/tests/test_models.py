@@ -12,6 +12,12 @@ class TestContato(TestCase):
         self.assertEqual('flavio@email.com', contato.email)
         self.assertEqual('016999999999', contato.telefone)
 
+    def test_contato_str(self):
+        contato = Contato(
+            nome='Flavio', email='flavio@email.com', telefone='016999999999')
+
+        self.assertEqual('Flavio', contato.__str__())
+
 
 class TestEndereco(TestCase):
     def test_endereco_init(self):
@@ -30,3 +36,16 @@ class TestEndereco(TestCase):
         self.assertEqual('rua', endereco.rua)
         self.assertEqual('bairro', endereco.bairro)
         self.assertEqual('12345', endereco.numero)
+
+    def test_endereco_str(self):
+        contato = Contato(
+            nome='Flavio', email='flavio@email.com', telefone='016999999999')
+
+        endereco = Endereco(
+            contato=contato,
+            cep='14400000',
+            rua='rua',
+            bairro='bairro',
+            numero='12345')
+
+        self.assertEqual('rua - bairro', endereco.__str__())
