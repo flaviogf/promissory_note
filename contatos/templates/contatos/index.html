@@ -3,27 +3,30 @@
 {% block titulo %}Contatos{% endblock %}
 
 {% block conteudo %}
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>E-mail</th>
-      <th>Telefone</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    {% for it in contatos %}
-    <tr>
-      <td>{{ it.nome }}</td>
-      <td>{{ it.email }}</td>
-      <td>{{ it.telefone }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-      <td colspan="3">Nenhum contato encontrado :(</td>
-    <tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="card">
+  <div class="card-header">
+    <p class="card-header-title">Contatos</p>
+  </div>
+  <div class="card-content">
+    <table class="table is-striped is-fullwidth is-hoverable">
+      <tbody>
+        {% for it in contatos %}
+        <tr>
+          <td>{{ it.nome }} <small>{{ it.telefone }}</small></td>
+          <td>
+            <a class="button is-small is-primary" href="#">Editar</a>
+          </td>
+          <td>
+            <a class="button is-small is-danger" href="#">Excluir</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3">Nenhum contato encontrado :(</td>
+        <tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}
