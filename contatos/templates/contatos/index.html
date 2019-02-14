@@ -17,7 +17,7 @@
             <tr>
               <td>{{ it.nome }} <small>{{ it.telefone }}</small></td>
               <td class="is-pulled-right">
-                <a class="button is-primary is-small" href="#">Editar</a>
+                <a class="button is-primary is-small" href="{% url 'contatos:edit' it.contato_id %}">Editar</a>
                 <a class="button is-danger is-small" href="#">Excluir</a>
               </td>
             </tr>

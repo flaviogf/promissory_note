@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
 from contatos.forms import ContatoForm, EnderecoForm
@@ -34,6 +34,17 @@ class CadastraContatoView(View):
             return redirect('contatos:list')
 
         return render(request, 'contatos/create.html', {
+            'contato_form': contato_form,
+            'endereco_form': endereco_form
+        })
+
+
+class EditaContatoView(View):
+    def get(self, request, contato_id):
+        contato = get_object_or_404(Contato, contato_id=contato_id)
+        contato_form = ContatoForm(instance=contato)
+        endereco_form = EnderecoForm(instance=contato.endereco)
+        return render(request, 'contatos/edit.html', {
             'contato_form': contato_form,
             'endereco_form': endereco_form
         })

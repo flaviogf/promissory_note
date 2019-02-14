@@ -2,6 +2,8 @@ from http import HTTPStatus
 
 from django.test import Client, TestCase
 
+from contatos.models import Contato, Endereco
+
 
 class TestListaContatoView(TestCase):
     def test_lista_contato_view_get(self):
@@ -42,3 +44,25 @@ class TestCadastroContatoView(TestCase):
         response = client.post(url, request)
 
         self.assertEqual(HTTPStatus.FOUND, response.status_code)
+
+
+class TestEditaContatoView(TestCase):
+    def setUp(self):
+        self.contato = Contato.objects.create(
+            nome='Flavio', email='flavio@email.com', telefone='12345678911')
+
+        self.endereco = Endereco.objects.create(
+            contato=self.contato,
+            cep='144000000',
+            rua='rua',
+            bairro='bairro',
+            numero='12345')
+
+    def test_edita_contato_view_get(self):
+        url = f'/contatos/{self.contato.contato_id}/edita/'
+
+        client = Client()
+
+        response = client.get(url)
+
+        self.assertEqual(HTTPStatus.OK, response.status_code)
