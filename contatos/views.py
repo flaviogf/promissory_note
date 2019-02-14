@@ -48,3 +48,34 @@ class EditaContatoView(View):
             'contato_form': contato_form,
             'endereco_form': endereco_form
         })
+
+    def post(self, request, contato_id):
+        contato = get_object_or_404(Contato, contato_id=contato_id)
+        contato_form = ContatoForm(request.POST, instance=contato)
+        endereco_form = EnderecoForm(request.POST, instance=contato.endereco)
+
+        if contato_form.is_valid() and endereco_form.is_valid():
+            contato_form.save()
+            endereco_form.save()
+            return redirect('contatos:list')
+
+        return render(request, 'contatos/edit.html', {
+            'contato_form': contato_form,
+            'endereco_form': endereco_form
+        })
+
+
+class DeletaContatoView(View):
+    def get(self, request, contato_id):
+        contato = get_object_or_404(Contato, contato_id=contato_id)
+        contato_form = ContatoForm(instance=contato)
+        endereco_form = EnderecoForm(instance=contato.endereco)
+        return render(request, 'contatos/delete.html', {
+            'contato_form': contato_form,
+            'endereco_form': endereco_form
+        })
+
+    def post(self, request, contato_id):
+        contato = get_object_or_404(Contato, contato_id=contato_id)
+        contato.delete()
+        return redirect('contatos:list')
