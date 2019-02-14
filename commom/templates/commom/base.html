@@ -1,47 +1,32 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
-  <title>{% block titulo %}{% endblock %}</title>
-  <style>
-  html, body {
-    background-color: #ECF0F3;
-    height: 100%;
-  }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+  <link rel="stylesheet" href="{% static 'commom/base/base.css' %}">
 </head>
 <body>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="#">Promisórias</a>
+      <a class="navbar-item">Promisórias</a>
+
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
+
     <div class="navbar-menu">
       <div class="navbar-start">
         <a class="navbar-item" href="{% url 'contatos:list' %}">Contatos</a>
       </div>
     </div>
   </nav>
-  <div class="section">
-    <div class="container">
-      {% block conteudo %}{% endblock %}
-    </div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('.navbar-burger').click(function() {
-          $('.navbar-burger').toggleClass('is-active');
-          $('.navbar-menu').toggleClass('is-active');
-      });
-    });
-  </script>
-  {% block script %}{% endblock %}
+  {% block conteudo %}{% endblock %}
+  <script src="{% static 'commom/base/base.js' %}"></script>
 </body>
 </html>

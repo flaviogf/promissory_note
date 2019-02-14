@@ -3,30 +3,33 @@
 {% block titulo %}Contatos{% endblock %}
 
 {% block conteudo %}
-<div class="card">
-  <div class="card-header">
-    <p class="card-header-title">Contatos</p>
-  </div>
-  <div class="card-content">
-    <table class="table is-striped is-fullwidth is-hoverable">
-      <tbody>
-        {% for it in contatos %}
-        <tr>
-          <td>{{ it.nome }} <small>{{ it.telefone }}</small></td>
-          <td>
-            <a class="button is-small is-primary" href="#">Editar</a>
-          </td>
-          <td>
-            <a class="button is-small is-danger" href="#">Excluir</a>
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="3">Nenhum contato encontrado :(</td>
-        <tr>
-        {% endfor %}
-      </tbody>
-    </table>
+<div class="section">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header-title">Contatos</span>
+        <a class="card-header-icon" href="{% url 'contatos:create' %}">Adicionar</a>
+      </div>
+      <div class="card-content">
+        <table class="table is-fullwidth">
+          <tbody>
+          {% for it in contatos %}
+            <tr>
+              <td>{{ it.nome }} <small>{{ it.telefone }}</small></td>
+              <td class="is-pulled-right">
+                <a class="button is-primary is-small" href="#">Editar</a>
+                <a class="button is-danger is-small" href="#">Excluir</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="3">Nenhum contato encontrado :(</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

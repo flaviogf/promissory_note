@@ -5,29 +5,39 @@
 {% block titulo %}Criar Contato{% endblock %}
 
 {% block conteudo %}
-    <form method="post">
-      {% csrf_token %}
-
-      {% for it in contato_form %}
-
-      <div>
-        {{ it.label_tag }}
-        {% render_field it %}
+<div class="section">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header-title">Contatos</span>
       </div>
+      <div class="card-content">
+        <form method="post">
 
-      {% endfor %}
+          {% csrf_token %}
 
-      {% for it in endereco_form %}
+          {% for it in contato_form %}
+            <div class="field">
+              <div class="control">
+                {{ it.label_tag }}
+                {% render_field it class="input" %}
+              </div>
+            </div>
+          {% endfor %}
 
-      <div>
-        {{ it.label_tag }}
-        {% render_field it %}
+          {% for it in endereco_form %}
+            <div class="field">
+              <div class="control">
+                {{ it.label_tag }}
+                {% render_field it class="input" %}
+              </div>
+            </div>
+          {% endfor %}
+
+          <button class="button is-primary is-fullwidth" type="submit">Salvar</button>
+        </form>
       </div>
-
-      {% endfor %}
-
-      <button type="submit">Salvar</button>
-    </form>
+    </div>
   </div>
 </div>
 {% endblock %}
