@@ -35,10 +35,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+LIBS = [
     'widget_tweaks',
+]
+
+APPS = [
     'commom',
     'contatos',
+    'usuarios',
 ]
+
+INSTALLED_APPS += LIBS + APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
