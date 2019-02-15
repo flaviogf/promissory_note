@@ -9,6 +9,8 @@ class ContatoForm(forms.ModelForm):
 
         fields = '__all__'
 
+        exclude = ('usuario', )
+
 
 class EnderecoForm(forms.ModelForm):
     class Meta:

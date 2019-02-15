@@ -1,15 +1,24 @@
 from http import HTTPStatus
 
+from django.contrib.auth.models import User
 from django.test import Client, TestCase
+from django.urls import reverse
 
 from contatos.models import Contato, Endereco
 
 
 class TestListaContatoView(TestCase):
+    def setUp(self):
+        self.usuario = User.objects.create(username='flavio')
+        self.usuario.set_password('teste123!')
+        self.usuario.save()
+
     def test_lista_contato_view_get(self):
         url = '/contatos/'
 
         client = Client()
+
+        client.login(username='flavio', password='teste123!')
 
         response = client.get(url)
 
@@ -17,10 +26,17 @@ class TestListaContatoView(TestCase):
 
 
 class TestCadastroContatoView(TestCase):
+    def setUp(self):
+        self.usuario = User.objects.create(username='flavio')
+        self.usuario.set_password('teste123!')
+        self.usuario.save()
+
     def test_cadastra_contato_view_get(self):
         url = '/contatos/criar/'
 
         client = Client()
+
+        client.login(username='flavio', password='teste123!')
 
         response = client.get(url)
 
@@ -41,9 +57,13 @@ class TestCadastroContatoView(TestCase):
 
         client = Client()
 
+        client.login(username='flavio', password='teste123!')
+
         response = client.post(url, request)
 
-        self.assertEqual(HTTPStatus.FOUND, response.status_code)
+        redirect = reverse('contatos:list')
+
+        self.assertRedirects(response, redirect)
 
 
 class TestEditaContatoView(TestCase):
@@ -58,10 +78,16 @@ class TestEditaContatoView(TestCase):
             bairro='bairro',
             numero='12345')
 
+        self.usuario = User.objects.create(username='flavio')
+        self.usuario.set_password('teste123!')
+        self.usuario.save()
+
     def test_edita_contato_view_get(self):
         url = f'/contatos/{self.contato.contato_id}/edita/'
 
         client = Client()
+
+        client.login(username='flavio', password='teste123!')
 
         response = client.get(url)
 
@@ -82,9 +108,13 @@ class TestEditaContatoView(TestCase):
 
         client = Client()
 
+        client.login(username='flavio', password='teste123!')
+
         response = client.post(url, request)
 
-        self.assertEqual(HTTPStatus.FOUND, response.status_code)
+        redirect = reverse('contatos:list')
+
+        self.assertRedirects(response, redirect)
 
 
 class TestDeletaContatoView(TestCase):
@@ -99,10 +129,16 @@ class TestDeletaContatoView(TestCase):
             bairro='bairro',
             numero='12345')
 
+        self.usuario = User.objects.create(username='flavio')
+        self.usuario.set_password('teste123!')
+        self.usuario.save()
+
     def test_deleta_contato_view_get(self):
         url = f'/contatos/{self.contato.contato_id}/deleta/'
 
         client = Client()
+
+        client.login(username='flavio', password='teste123!')
 
         response = client.get(url)
 
@@ -123,6 +159,10 @@ class TestDeletaContatoView(TestCase):
 
         client = Client()
 
+        client.login(username='flavio', password='teste123!')
+
         response = client.post(url, request)
 
-        self.assertEqual(HTTPStatus.FOUND, response.status_code)
+        redirect = reverse('contatos:list')
+
+        self.assertRedirects(response, redirect)

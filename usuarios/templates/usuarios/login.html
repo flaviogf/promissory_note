@@ -1,0 +1,28 @@
+{% extends 'usuarios/base.html' %}
+
+{% load widget_tweaks %}
+
+{% block conteudo %}
+<div class="section">
+  <div class="container">
+    <div class="card">
+      <div class="card-content">
+        <form method="post">
+          {% csrf_token %}
+
+          {% for field in login_form %}
+            <div class="field">
+              <div class="control">
+                {{ field.label_tag }}
+                {% render_field field class="input" %}
+              </div>
+            </div>
+          {% endfor %}
+
+          <button class="button is-primary is-fullwidth">Entrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

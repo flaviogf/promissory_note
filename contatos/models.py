@@ -1,5 +1,6 @@
 import uuid
 
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -14,6 +15,9 @@ class Contato(models.Model):
     email = models.EmailField()
 
     telefone = models.CharField(max_length=12)
+
+    usuario = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='usuario', null=True)
 
     criado_em = models.DateTimeField(auto_now_add=True)
 
@@ -41,6 +45,10 @@ class Endereco(models.Model):
     bairro = models.CharField(max_length=100)
 
     numero = models.CharField(max_length=5)
+
+    criado_em = models.DateTimeField(auto_now_add=True, null=True)
+
+    atualizado_em = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         verbose_name = 'Endereço'

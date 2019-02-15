@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+  <link rel="stylesheet" href="{% static 'commom/base/base.css' %}">
+</head>
+<body>
+  <nav class="navbar is-dark">
+    <div class="navbar-brand">
+      <a class="navbar-item">Promisórias</a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href={% url 'usuarios:login' %}>Login</a>
+        <a class="navbar-item" href={% url 'usuarios:register' %}>Registrar-se</a>
+      </div>
+    </div>
+  </nav>
+  {% block conteudo %}{% endblock %}
+  <script src="{% static 'commom/base/base.js' %}"></script>
+</body>
+</html>
