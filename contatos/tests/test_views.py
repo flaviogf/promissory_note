@@ -68,8 +68,15 @@ class TestCadastroContatoView(TestCase):
 
 class TestEditaContatoView(TestCase):
     def setUp(self):
+        self.usuario = User.objects.create(username='flavio')
+        self.usuario.set_password('teste123!')
+        self.usuario.save()
+
         self.contato = Contato.objects.create(
-            nome='Flavio', email='flavio@email.com', telefone='12345678911')
+            nome='Flavio',
+            email='flavio@email.com',
+            telefone='12345678911',
+            usuario=self.usuario)
 
         self.endereco = Endereco.objects.create(
             contato=self.contato,
@@ -77,10 +84,6 @@ class TestEditaContatoView(TestCase):
             rua='rua',
             bairro='bairro',
             numero='12345')
-
-        self.usuario = User.objects.create(username='flavio')
-        self.usuario.set_password('teste123!')
-        self.usuario.save()
 
     def test_edita_contato_view_get(self):
         url = f'/contatos/{self.contato.contato_id}/edita/'
@@ -119,8 +122,15 @@ class TestEditaContatoView(TestCase):
 
 class TestDeletaContatoView(TestCase):
     def setUp(self):
+        self.usuario = User.objects.create(username='flavio')
+        self.usuario.set_password('teste123!')
+        self.usuario.save()
+
         self.contato = Contato.objects.create(
-            nome='Flavio', email='flavio@email.com', telefone='12345678911')
+            nome='Flavio',
+            email='flavio@email.com',
+            telefone='12345678911',
+            usuario=self.usuario)
 
         self.endereco = Endereco.objects.create(
             contato=self.contato,
@@ -128,10 +138,6 @@ class TestDeletaContatoView(TestCase):
             rua='rua',
             bairro='bairro',
             numero='12345')
-
-        self.usuario = User.objects.create(username='flavio')
-        self.usuario.set_password('teste123!')
-        self.usuario.save()
 
     def test_deleta_contato_view_get(self):
         url = f'/contatos/{self.contato.contato_id}/deleta/'

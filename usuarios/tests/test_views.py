@@ -60,3 +60,23 @@ class TestLoginView(TestCase):
         redirect = reverse('contatos:list')
 
         self.assertRedirects(response, redirect)
+
+
+class TestLogoutView(TestCase):
+    def setUp(self):
+        self.usuario = User.objects.create(username='flavio')
+        self.usuario.set_password('teste123!')
+        self.usuario.save()
+
+    def test_logout_view_post(self):
+        url = '/usuarios/logout/'
+
+        client = Client()
+
+        client.login(username='flavio', password='teste123!')
+
+        response = client.get(url)
+
+        redirect = reverse('usuarios:login')
+
+        self.assertRedirects(response, redirect)

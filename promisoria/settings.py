@@ -42,7 +42,7 @@ LIBS = [
 ]
 
 APPS = [
-    'commom',
+    'infra',
     'contatos',
     'usuarios',
 ]
@@ -131,3 +131,7 @@ STATIC_URL = '/static/'
 
 # Auth
 LOGIN_URL = '/usuarios/login/'
+
+LOGIN_REDIRECT_URL = '/contatos/'
+
+LOGOUT_REDIRECT_URL = LOGIN_URL

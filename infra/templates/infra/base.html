@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
-  <link rel="stylesheet" href="{% static 'commom/base/base.css' %}">
+  <link rel="stylesheet" href="{% static 'infra/base/base.css' %}">
 </head>
 <body>
   <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
@@ -24,9 +24,20 @@
       <div class="navbar-start">
         <a class="navbar-item" href="{% url 'contatos:list' %}">Contatos</a>
       </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown">
+          <a class="navbar-link">Conta</a>
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="{% url 'usuarios:logout' %}">Sair</a>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
   {% block conteudo %}{% endblock %}
-  <script src="{% static 'commom/base/base.js' %}"></script>
+  <script src="{% static 'infra/menu/menu.js' %}"></script>
+  <script src="{% static 'infra/dropdown-conta/dropdown-conta.js' %}"></script>
 </body>
 </html>

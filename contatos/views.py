@@ -5,11 +5,13 @@ from django.views import View
 
 from contatos.forms import ContatoForm, EnderecoForm
 from contatos.models import Contato
+from infra.log import log
 
 # Create your views here.
 
 
 class ListaContatoView(View):
+    @method_decorator(log('contatos:list'))
     @method_decorator(login_required)
     def get(self, request):
         contatos = Contato.objects.filter(usuario=request.user)
@@ -17,6 +19,7 @@ class ListaContatoView(View):
 
 
 class CadastraContatoView(View):
+    @method_decorator(log('contatos:create'))
     @method_decorator(login_required)
     def get(self, request):
         contato_form = ContatoForm()
@@ -26,6 +29,7 @@ class CadastraContatoView(View):
             'endereco_form': endereco_form
         })
 
+    @method_decorator(log('contatos:create'))
     @method_decorator(login_required)
     def post(self, request):
         contato_form = ContatoForm(request.POST or None)
@@ -47,9 +51,11 @@ class CadastraContatoView(View):
 
 
 class EditaContatoView(View):
+    @method_decorator(log('contatos:edit'))
     @method_decorator(login_required)
     def get(self, request, contato_id):
-        contato = get_object_or_404(Contato, contato_id=contato_id)
+        contato = get_object_or_404(
+            Contato, contato_id=contato_id, usuario=request.user)
         contato_form = ContatoForm(instance=contato)
         endereco_form = EnderecoForm(instance=contato.endereco)
         return render(request, 'contatos/edit.html', {
@@ -57,9 +63,11 @@ class EditaContatoView(View):
             'endereco_form': endereco_form
         })
 
+    @method_decorator(log('contatos:edit'))
     @method_decorator(login_required)
     def post(self, request, contato_id):
-        contato = get_object_or_404(Contato, contato_id=contato_id)
+        contato = get_object_or_404(
+            Contato, contato_id=contato_id, usuario=request.user)
         contato_form = ContatoForm(request.POST, instance=contato)
         endereco_form = EnderecoForm(request.POST, instance=contato.endereco)
 
@@ -75,9 +83,11 @@ class EditaContatoView(View):
 
 
 class DeletaContatoView(View):
+    @method_decorator(log('contatos:delete'))
     @method_decorator(login_required)
     def get(self, request, contato_id):
-        contato = get_object_or_404(Contato, contato_id=contato_id)
+        contato = get_object_or_404(
+            Contato, contato_id=contato_id, usuario=request.user)
         contato_form = ContatoForm(instance=contato)
         endereco_form = EnderecoForm(instance=contato.endereco)
         return render(request, 'contatos/delete.html', {
@@ -85,8 +95,10 @@ class DeletaContatoView(View):
             'endereco_form': endereco_form
         })
 
+    @method_decorator(log('contatos:delete'))
     @method_decorator(login_required)
     def post(self, request, contato_id):
-        contato = get_object_or_404(Contato, contato_id=contato_id)
+        contato = get_object_or_404(
+            Contato, contato_id=contato_id, usuario=request.user)
         contato.delete()
         return redirect('contatos:list')

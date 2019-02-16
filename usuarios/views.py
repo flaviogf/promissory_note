@@ -1,18 +1,22 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.views import View
 
+from infra.log import log
 from usuarios.forms import LoginForm, RegistrarUsuarioForm
 
 # Create your views here.
 
 
 class RegistarUsuarioView(View):
+    @method_decorator(log('usuarios:register'))
     def get(self, request):
         registrar_usuario_form = RegistrarUsuarioForm()
         return render(request, 'usuarios/register.html',
                       {'registrar_usuario_form': registrar_usuario_form})
 
+    @method_decorator(log('usuarios:register'))
     def post(self, request):
         registrar_usuario_form = RegistrarUsuarioForm(request.POST)
         if registrar_usuario_form.is_valid():
@@ -24,16 +28,26 @@ class RegistarUsuarioView(View):
 
 
 class LoginView(View):
+    @method_decorator(log('usuarios:login'))
     def get(self, request):
         login_form = LoginForm()
         return render(request, 'usuarios/login.html',
                       {'login_form': login_form})
 
+    @method_decorator(log('usuarios:login'))
     def post(self, request):
         login_form = LoginForm(data=request.POST)
         if login_form.is_valid():
+            url = request.GET.get('next', 'contatos:list')
             usuario = login_form.get_user()
             login(request, usuario)
-            return redirect('contatos:list')
+            return redirect(url)
         return render(request, 'usuarios/login.html',
                       {'login_form': login_form})
+
+
+class LogoutView(View):
+    @method_decorator(log('usuarios:logout'))
+    def get(self, request):
+        logout(request)
+        return redirect('usuarios:login')
