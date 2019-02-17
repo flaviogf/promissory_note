@@ -7,24 +7,6 @@ from django.urls import reverse
 from contatos.models import Contato, Endereco
 
 
-class TestListaContatoView(TestCase):
-    def setUp(self):
-        self.usuario = User.objects.create(username='flavio')
-        self.usuario.set_password('teste123!')
-        self.usuario.save()
-
-    def test_lista_contato_view_get(self):
-        url = '/contatos/'
-
-        client = Client()
-
-        client.login(username='flavio', password='teste123!')
-
-        response = client.get(url)
-
-        self.assertEqual(HTTPStatus.OK, response.status_code)
-
-
 class TestCadastroContatoView(TestCase):
     def setUp(self):
         self.usuario = User.objects.create(username='flavio')
@@ -172,3 +154,21 @@ class TestDeletaContatoView(TestCase):
         redirect = reverse('contatos:list')
 
         self.assertRedirects(response, redirect)
+
+
+class TestListaContatoView(TestCase):
+    def setUp(self):
+        self.usuario = User.objects.create(username='flavio')
+        self.usuario.set_password('teste123!')
+        self.usuario.save()
+
+    def test_lista_contato_view_get(self):
+        url = '/contatos/'
+
+        client = Client()
+
+        client.login(username='flavio', password='teste123!')
+
+        response = client.get(url)
+
+        self.assertEqual(HTTPStatus.OK, response.status_code)

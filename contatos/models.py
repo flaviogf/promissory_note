@@ -56,3 +56,19 @@ class Endereco(models.Model):
 
     def __str__(self):
         return f'{self.rua} - {self.bairro}'
+
+
+class AtividadeContato(models.Model):
+    mensagem = models.CharField(max_length=100)
+
+    status_atual = models.TextField(null=True, blank=True)
+
+    status_anterior = models.TextField(null=True, blank=True)
+
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    atualizado_em = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Atividade contato'
+        verbose_name_plural = 'Atividades contatos'
