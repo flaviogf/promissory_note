@@ -2,42 +2,26 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
-  <link rel="stylesheet" href="{% static 'infra/base/base.css' %}">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
+
 <body>
-  <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item">Promisórias</a>
-
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="{% url 'contatos:list' %}">Contatos</a>
-      </div>
-
-      <div class="navbar-end">
-        <div class="navbar-item has-dropdown">
-          <a class="navbar-link">Conta</a>
-
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="{% url 'usuarios:logout' %}">Sair</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
+  {% block menu %}{% endblock %}
   {% block conteudo %}{% endblock %}
-  <script src="{% static 'infra/menu/menu.js' %}"></script>
-  <script src="{% static 'infra/dropdown-conta/dropdown-conta.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(() => {
+      $('.dropdown-trigger').dropdown()
+    })
+
+  </script>
 </body>
+
 </html>

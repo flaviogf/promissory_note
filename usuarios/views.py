@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from infra.log import log
+from infra.utils import log
 from usuarios.forms import LoginForm, RegistrarUsuarioForm
 
 # Create your views here.

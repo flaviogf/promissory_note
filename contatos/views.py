@@ -5,7 +5,7 @@ from django.views import View
 
 from contatos.forms import ContatoForm, EnderecoForm
 from contatos.models import Contato
-from infra.log import log
+from infra.utils import log
 
 # Create your views here.
 

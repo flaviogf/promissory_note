@@ -2,40 +2,50 @@
 
 {% load widget_tweaks %}
 
-{% block titulo %}Criar Contato{% endblock %}
+{% block titulo %}Cadastrar contato{% endblock %}
+
+{% block menu %}
+{% include 'contatos/menu.html' %}
+{% endblock %}
 
 {% block conteudo %}
-<div class="section">
-  <div class="container">
-    <div class="card">
-      <div class="card-header">
-        <span class="card-header-title">Contatos</span>
-      </div>
-      <div class="card-content">
-        <form method="post">
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">Cadastrar contato</div>
 
-          {% csrf_token %}
+          <form method="post">
 
-          {% for it in contato_form %}
-            <div class="field">
-              <div class="control">
+            {% csrf_token %}
+
+            {% for it in contato_form %}
+
+            <div class="row">
+              <div class="input-field col s12">
                 {{ it.label_tag }}
-                {% render_field it class="input" %}
+                {% render_field it %}
               </div>
             </div>
-          {% endfor %}
 
-          {% for it in endereco_form %}
-            <div class="field">
-              <div class="control">
+            {% endfor %}
+
+            {% for it in endereco_form %}
+
+            <div class="row">
+              <div class="input-field col s12">
                 {{ it.label_tag }}
-                {% render_field it class="input" %}
+                {% render_field it %}
               </div>
             </div>
-          {% endfor %}
 
-          <button class="button is-primary is-fullwidth" type="submit">Criar</button>
-        </form>
+            {% endfor %}
+
+            <button class="waves-effect waves-light btn" type="submit">Criar</button>
+          </form>
+
+        </div>
       </div>
     </div>
   </div>
