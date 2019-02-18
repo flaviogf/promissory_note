@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from contatos.models import Contato, Endereco
+from contatos.models import Contato, Endereco, HistoricoContato
 
 
 class TestCadastroContatoView(TestCase):
@@ -46,6 +46,8 @@ class TestCadastroContatoView(TestCase):
         redirect = reverse('contatos:list')
 
         self.assertRedirects(response, redirect)
+        self.assertEqual(1, Contato.objects.count())
+        self.assertEqual(1, HistoricoContato.objects.count())
 
 
 class TestEditaContatoView(TestCase):
@@ -100,6 +102,8 @@ class TestEditaContatoView(TestCase):
         redirect = reverse('contatos:list')
 
         self.assertRedirects(response, redirect)
+        self.assertEqual(1, Contato.objects.count())
+        self.assertEqual(2, HistoricoContato.objects.count())
 
 
 class TestDeletaContatoView(TestCase):

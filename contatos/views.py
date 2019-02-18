@@ -4,7 +4,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from contatos.forms import ContatoForm, EnderecoForm
-from contatos.models import AtividadeContato, Contato
+from contatos.models import Contato
 from infra.utils import log
 
 # Create your views here.
@@ -42,9 +42,6 @@ class CadastraContatoView(View):
             contato.save()
             endereco.contato = contato
             endereco.save()
-            AtividadeContato.objects.create(
-                mensagem=f'Contato {contato.nome} foi criado',
-                status_atual=contato.__dict__)
             return redirect('contatos:list')
 
         return render(request, 'contatos/create.html', {
@@ -75,12 +72,8 @@ class EditaContatoView(View):
         endereco_form = EnderecoForm(request.POST, instance=contato.endereco)
 
         if contato_form.is_valid() and endereco_form.is_valid():
-            novo_contato = contato_form.save()
+            contato_form.save()
             endereco_form.save()
-            AtividadeContato.objects.create(
-                mensagem=f'Contato {contato.nome} foi editado',
-                status_atual=novo_contato.__dict__,
-                status_anterior=contato.__dict__)
             return redirect('contatos:list')
 
         return render(request, 'contatos/edit.html', {
@@ -108,8 +101,4 @@ class DeletaContatoView(View):
         contato = get_object_or_404(
             Contato, contato_id=contato_id, usuario=request.user)
         contato.delete()
-        AtividadeContato.objects.create(
-            mensagem=f'Contato {contato.nome} foi deletado',
-            status_atual=None,
-            status_anterior=contato.__dict__)
         return redirect('contatos:list')

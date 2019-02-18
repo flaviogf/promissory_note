@@ -2,6 +2,8 @@ import uuid
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -31,6 +33,15 @@ class Contato(models.Model):
         return self.nome
 
 
+@receiver(post_save, sender=Contato, dispatch_uid='post_save_contato')
+def post_save_contato(sender, instance, *args, **kwargs):
+    HistoricoContato.objects.create(
+        contato=instance,
+        nome=instance.nome,
+        email=instance.email,
+        telefone=instance.telefone)
+
+
 class Endereco(models.Model):
     contato = models.OneToOneField(
         Contato,
@@ -58,17 +69,16 @@ class Endereco(models.Model):
         return f'{self.rua} - {self.bairro}'
 
 
-class AtividadeContato(models.Model):
-    mensagem = models.CharField(max_length=100)
+class HistoricoContato(models.Model):
+    contato = models.ForeignKey(
+        Contato, on_delete=models.CASCADE, related_name='historicos')
 
-    status_atual = models.TextField(null=True, blank=True)
+    nome = models.CharField(max_length=100)
 
-    status_anterior = models.TextField(null=True, blank=True)
+    email = models.EmailField()
+
+    telefone = models.CharField(max_length=12)
 
     criado_em = models.DateTimeField(auto_now_add=True)
 
     atualizado_em = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = 'Atividade contato'
-        verbose_name_plural = 'Atividades contatos'

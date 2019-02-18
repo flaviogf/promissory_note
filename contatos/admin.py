@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from contatos.models import AtividadeContato, Contato, Endereco
+from contatos.models import Contato, Endereco, HistoricoContato
 
 # Register your models here.
 
@@ -13,10 +13,10 @@ class EnderecoAdmin(admin.ModelAdmin):
     list_display = ('cep', 'rua', 'bairro')
 
 
-class AtividadeContatoAdmin(admin.ModelAdmin):
-    list_display = ('mensagem', 'status_atual', 'atualizado_em')
+class HistoricoContatoAdmin(admin.ModelAdmin):
+    list_display = ('contato', 'nome', 'email', 'telefone', 'atualizado_em')
 
 
 admin.site.register(Contato, ContatoAdmin)
 admin.site.register(Endereco, EnderecoAdmin)
-admin.site.register(AtividadeContato, AtividadeContatoAdmin)
+admin.site.register(HistoricoContato, HistoricoContatoAdmin)
