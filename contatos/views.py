@@ -5,13 +5,13 @@ from django.views import View
 
 from contatos.forms import ContatoForm, EnderecoForm
 from contatos.models import Contato
-from infra.utils import log
+from infra.utils import log_request
 
 # Create your views here.
 
 
 class ListaContatoView(View):
-    @method_decorator(log('contatos:list'))
+    @method_decorator(log_request)
     @method_decorator(login_required)
     def get(self, request):
         contatos = Contato.objects.filter(usuario=request.user)
@@ -19,7 +19,7 @@ class ListaContatoView(View):
 
 
 class CadastraContatoView(View):
-    @method_decorator(log('contatos:create'))
+    @method_decorator(log_request)
     @method_decorator(login_required)
     def get(self, request):
         contato_form = ContatoForm()
@@ -29,7 +29,7 @@ class CadastraContatoView(View):
             'endereco_form': endereco_form
         })
 
-    @method_decorator(log('contatos:create'))
+    @method_decorator(log_request)
     @method_decorator(login_required)
     def post(self, request):
         contato_form = ContatoForm(request.POST or None)
@@ -51,7 +51,7 @@ class CadastraContatoView(View):
 
 
 class EditaContatoView(View):
-    @method_decorator(log('contatos:edit'))
+    @method_decorator(log_request)
     @method_decorator(login_required)
     def get(self, request, contato_id):
         contato = get_object_or_404(
@@ -63,7 +63,7 @@ class EditaContatoView(View):
             'endereco_form': endereco_form
         })
 
-    @method_decorator(log('contatos:edit'))
+    @method_decorator(log_request)
     @method_decorator(login_required)
     def post(self, request, contato_id):
         contato = get_object_or_404(
@@ -83,7 +83,7 @@ class EditaContatoView(View):
 
 
 class DeletaContatoView(View):
-    @method_decorator(log('contatos:delete'))
+    @method_decorator(log_request)
     @method_decorator(login_required)
     def get(self, request, contato_id):
         contato = get_object_or_404(
@@ -95,7 +95,7 @@ class DeletaContatoView(View):
             'endereco_form': endereco_form
         })
 
-    @method_decorator(log('contatos:delete'))
+    @method_decorator(log_request)
     @method_decorator(login_required)
     def post(self, request, contato_id):
         contato = get_object_or_404(

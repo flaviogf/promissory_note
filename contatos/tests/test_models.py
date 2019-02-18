@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from contatos.models import Contato, Endereco, HistoricoContato
+from contatos.models import Contato, Endereco, HistoricoContato, HistoricoEndereco
 
 
 class TestContato(TestCase):
@@ -65,3 +65,29 @@ class TestHistoricoContato(TestCase):
         self.assertEqual(contato.nome, historico_contato.nome)
         self.assertEqual(contato.email, historico_contato.email)
         self.assertEqual(contato.telefone, historico_contato.telefone)
+
+
+class TestHistoricoEndereco(TestCase):
+    def test_historico_endereco_init(self):
+        contato = Contato(
+            nome='Flavio', email='flavio@email.com', telefone='016999999999')
+
+        endereco = Endereco(
+            contato=contato,
+            cep='14400000',
+            rua='rua',
+            bairro='bairro',
+            numero='12345')
+
+        historico_endereco = HistoricoEndereco(
+            endereco=endereco,
+            cep=endereco.cep,
+            rua=endereco.rua,
+            bairro=endereco.bairro,
+            numero=endereco.numero)
+
+        self.assertEqual(endereco, historico_endereco.endereco)
+        self.assertEqual(endereco.cep, historico_endereco.cep)
+        self.assertEqual(endereco.rua, historico_endereco.rua)
+        self.assertEqual(endereco.bairro, historico_endereco.bairro)
+        self.assertEqual(endereco.numero, historico_endereco.numero)

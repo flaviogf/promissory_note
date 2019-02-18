@@ -7,7 +7,7 @@ LOGGING_CONFIG = {
     'formatters': {
         'padrao': {
             'class': 'logging.Formatter',
-            'format': '{levelname} {module} {created} {msg}',
+            'format': '{levelname} {created} {msg}',
             'style': '{',
         },
     },
@@ -35,14 +35,13 @@ logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger('promisoria')
 
 
-def log(mensagem=None):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            result = func(*args, **kwargs)
-            logger.info(mensagem)
-            return result
+def log_request(func):
+    @wraps(func)
+    def wrapper(request, *args, **kwargs):
+        result = func(request, *args, **kwargs)
+        usuario = request.user.username if request.user.is_authenticated else 'anonimo'
+        msg = f'{usuario} - {request.path} - {request.method}'
+        logger.info(msg)
+        return result
 
-        return wrapper
-
-    return decorator
+    return wrapper
