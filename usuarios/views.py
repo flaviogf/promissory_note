@@ -38,7 +38,7 @@ class LoginView(View):
     def post(self, request):
         login_form = LoginForm(data=request.POST)
         if login_form.is_valid():
-            url = request.GET.get('next', 'contatos:list')
+            url = request.GET.get('next', 'dashboard:index')
             usuario = login_form.get_user()
             login(request, usuario)
             return redirect(url)

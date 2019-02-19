@@ -40,6 +40,10 @@
                 <td>{{ it.nome }}</td>
                 <td>{{ it.telefone }}</td>
               </tr>
+              {% empty %}
+              <tr>
+                <td class="center-align" colspan="3">Nenhuma atividade encontrada :(</td>
+              </tr>
               {% endfor %}
             </tbody>
           </table>

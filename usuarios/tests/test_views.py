@@ -57,7 +57,7 @@ class TestLoginView(TestCase):
 
         response = client.post(url, request)
 
-        redirect = reverse('contatos:list')
+        redirect = reverse('dashboard:index')
 
         self.assertRedirects(response, redirect)
 
