@@ -1,15 +1,79 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'infra/base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Contas Contato</title>
-</head>
+{% load widget_tweaks %}
 
-<body>
-  <h1>Contas Contato</h1>
-</body>
+{% block titulo %}Contas {{ contato.nome }}{% endblock %}
 
-</html>
+{% block menu %}
+{% include 'contas/menu.html' %}
+{% endblock %}
+
+{% block conteudo %}
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+
+          <div class="card-title">Cadastrar conta</div>
+
+          <form method="POST">
+            {% csrf_token %}
+
+            {% for it in conta_form.hidden_fields %}
+            {{ it }}
+            {% endfor %}
+
+            {% for it in conta_form.visible_fields %}
+            <div class="row">
+              <div class="input-field col s12">
+                {% render_field it %}
+                {{ it.label_tag }}
+              </div>
+            </div>
+            {% endfor %}
+
+            <button class="waves-effect waves-light btn" type="submit">Criar</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">Contas {{ contato.nome }}</div>
+
+          <div class="row">
+            <div class="col s12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Data a receber</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for it in contas %}
+                  <tr>
+                    <td>{{ it.data_recebimento_esperado }}</td>
+                    <td>{{ it.valor }}</td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td class="center-align" colspan="2">Nenhuma conta encontrada :(</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

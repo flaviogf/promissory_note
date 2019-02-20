@@ -38,10 +38,10 @@ logger = logging.getLogger('promisoria')
 def log_request(func):
     @wraps(func)
     def wrapper(request, *args, **kwargs):
-        result = func(request, *args, **kwargs)
+        response = func(request, *args, **kwargs)
         usuario = request.user.username if request.user.is_authenticated else 'anonimo'
-        msg = f'{usuario} - {request.path} - {request.method}'
+        msg = f'{usuario} - {request.path} - {request.method} - {response.status_code}'
         logger.info(msg)
-        return result
+        return response
 
     return wrapper

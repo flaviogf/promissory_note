@@ -11,7 +11,7 @@ class TestContaForm(TestCase):
             nome='Flavio', email='flavio@email.com', telefone='016999999999')
 
         request = {
-            'contato': contato,
+            'contato': contato.contato_id,
             'valor': 100.0,
             'data_recebimento_esperado': datetime.now()
         }

@@ -1,16 +1,1 @@
-<ul id="contatos-dropdown" class="dropdown-content">
-  <li><a href="{% url 'contatos:list' %}">Listagem</a></li>
-  <li><a href="{% url 'contatos:create' %}">Cadastro</a></li>
-</ul>
-
-<nav>
-  <div class="container">
-    <div class="nav-wrapper">
-      <a href="{% url 'dashboard:index' %}" class="brand-logo">Promisórias</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a class="dropdown-trigger" href="#!" data-target="contatos-dropdown">Contatos<i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a href="{% url 'usuarios:logout' %}">Sair</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+{% extends 'infra/menu.html' %}

@@ -1,0 +1,11 @@
+<nav>
+  <div class="container">
+    <div class="nav-wrapper">
+      <a href="{% url 'dashboard:index' %}" class="brand-logo">Promisórias</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="{% url 'contatos:list' %}">Contatos</a></li>
+        <li><a href="{% url 'usuarios:logout' %}">Sair</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

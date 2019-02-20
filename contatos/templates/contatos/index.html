@@ -28,6 +28,7 @@
                 <td>{{ it.nome }}</td>
                 <td>{{ it.telefone }}</td>
                 <td class="right-align">
+                  <a class="waves-effect waves-light btn orange" href="{% url 'contas:contato-create' it.contato_id %}">Contas</a>
                   <a class="waves-effect waves-light btn light-blue" href="{% url 'contatos:edit' it.contato_id %}">Editar</a>
                   <a class="waves-effect waves-light btn red" href="{% url 'contatos:delete' it.contato_id %}">Deletar</a>
                 </td>
@@ -45,4 +46,10 @@
     </div>
   </div>
 </div>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large red" href="{% url 'contatos:create' %}">
+      <i class="large material-icons">add</i>
+    </a>
+  </div>
 {% endblock %}
