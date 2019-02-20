@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -9,7 +9,7 @@ from contatos.models import Contato, Endereco, HistoricoContato, HistoricoEndere
 
 class TestCadastroContatoView(TestCase):
     def setUp(self):
-        self.usuario = User.objects.create(username='flavio')
+        self.usuario = get_user_model().objects.create(username='flavio')
         self.usuario.set_password('teste123!')
         self.usuario.save()
 
@@ -53,7 +53,7 @@ class TestCadastroContatoView(TestCase):
 
 class TestEditaContatoView(TestCase):
     def setUp(self):
-        self.usuario = User.objects.create(username='flavio')
+        self.usuario = get_user_model().objects.create(username='flavio')
         self.usuario.set_password('teste123!')
         self.usuario.save()
 
@@ -110,7 +110,7 @@ class TestEditaContatoView(TestCase):
 
 class TestDeletaContatoView(TestCase):
     def setUp(self):
-        self.usuario = User.objects.create(username='flavio')
+        self.usuario = get_user_model().objects.create(username='flavio')
         self.usuario.set_password('teste123!')
         self.usuario.save()
 
@@ -164,7 +164,7 @@ class TestDeletaContatoView(TestCase):
 
 class TestListaContatoView(TestCase):
     def setUp(self):
-        self.usuario = User.objects.create(username='flavio')
+        self.usuario = get_user_model().objects.create(username='flavio')
         self.usuario.set_password('teste123!')
         self.usuario.save()
 

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from usuarios.forms import LoginForm, RegistrarUsuarioForm
@@ -19,7 +19,7 @@ class TestRegistarUsuarioForm(TestCase):
 
 class TestLoginForm(TestCase):
     def setUp(self):
-        self.usuario = User.objects.create(username='flavio')
+        self.usuario = get_user_model().objects.create(username='flavio')
         self.usuario.set_password('teste123!')
         self.usuario.save()
 

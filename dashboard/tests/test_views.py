@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 
 from dashboard.views import DashboardView
@@ -8,7 +8,7 @@ from dashboard.views import DashboardView
 
 class TestDashboardView(TestCase):
     def setUp(self):
-        self.usuario = User.objects.create(username='flaviogf')
+        self.usuario = get_user_model().objects.create(username='flaviogf')
         self.usuario.set_password('teste123!')
         self.usuario.save()
 

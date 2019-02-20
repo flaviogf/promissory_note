@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -35,7 +35,7 @@ class TestRegistrarUsuarioView(TestCase):
 
 class TestLoginView(TestCase):
     def setUp(self):
-        self.usuario = User.objects.create(username='flavio')
+        self.usuario = get_user_model().objects.create(username='flavio')
         self.usuario.set_password('teste123!')
         self.usuario.save()
 
@@ -64,7 +64,7 @@ class TestLoginView(TestCase):
 
 class TestLogoutView(TestCase):
     def setUp(self):
-        self.usuario = User.objects.create(username='flavio')
+        self.usuario = get_user_model().objects.create(username='flavio')
         self.usuario.set_password('teste123!')
         self.usuario.save()
 
