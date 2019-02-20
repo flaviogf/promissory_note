@@ -4,8 +4,8 @@ from contatos.models import Contato, Endereco, HistoricoContato, HistoricoEndere
 
 
 class TestContato(TestCase):
-    def test_contato_init(self):
-        contato = Contato(
+    def test_contato_create(self):
+        contato = Contato.objects.create(
             nome='Flavio', email='flavio@email.com', telefone='016999999999')
 
         self.assertEqual('Flavio', contato.nome)
@@ -13,18 +13,18 @@ class TestContato(TestCase):
         self.assertEqual('016999999999', contato.telefone)
 
     def test_contato_str(self):
-        contato = Contato(
+        contato = Contato.objects.create(
             nome='Flavio', email='flavio@email.com', telefone='016999999999')
 
         self.assertEqual('Flavio', contato.__str__())
 
 
 class TestEndereco(TestCase):
-    def test_endereco_init(self):
-        contato = Contato(
+    def test_endereco_create(self):
+        contato = Contato.objects.create(
             nome='Flavio', email='flavio@email.com', telefone='016999999999')
 
-        endereco = Endereco(
+        endereco = Endereco.objects.create(
             contato=contato,
             cep='14400000',
             rua='rua',
@@ -38,10 +38,10 @@ class TestEndereco(TestCase):
         self.assertEqual('12345', endereco.numero)
 
     def test_endereco_str(self):
-        contato = Contato(
+        contato = Contato.objects.create(
             nome='Flavio', email='flavio@email.com', telefone='016999999999')
 
-        endereco = Endereco(
+        endereco = Endereco.objects.create(
             contato=contato,
             cep='14400000',
             rua='rua',
@@ -52,11 +52,11 @@ class TestEndereco(TestCase):
 
 
 class TestHistoricoContato(TestCase):
-    def test_historico_contato_init(self):
-        contato = Contato(
+    def test_historico_contato_create(self):
+        contato = Contato.objects.create(
             nome='Flavio', email='flavio@email.com', telefone='016999999999')
 
-        historico_contato = HistoricoContato(
+        historico_contato = HistoricoContato.objects.create(
             contato=contato,
             nome=contato.nome,
             email=contato.email,
@@ -68,18 +68,18 @@ class TestHistoricoContato(TestCase):
 
 
 class TestHistoricoEndereco(TestCase):
-    def test_historico_endereco_init(self):
-        contato = Contato(
+    def test_historico_endereco_create(self):
+        contato = Contato.objects.create(
             nome='Flavio', email='flavio@email.com', telefone='016999999999')
 
-        endereco = Endereco(
+        endereco = Endereco.objects.create(
             contato=contato,
             cep='14400000',
             rua='rua',
             bairro='bairro',
             numero='12345')
 
-        historico_endereco = HistoricoEndereco(
+        historico_endereco = HistoricoEndereco.objects.create(
             endereco=endereco,
             cep=endereco.cep,
             rua=endereco.rua,

@@ -46,6 +46,7 @@ APPS = [
     'contatos',
     'usuarios',
     'dashboard',
+    'contas',
 ]
 
 INSTALLED_APPS += LIBS + APPS
