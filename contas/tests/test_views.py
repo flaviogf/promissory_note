@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
 
+from contas.models import Conta
 from contatos.models import Contato
 
 
@@ -56,6 +57,42 @@ class TestContasContatoView(TestCase):
         }
 
         response = client.post(url_request, request)
+
+        url_redirect = reverse(
+            'contas:contato-create', kwargs={'contato_id': contato.contato_id})
+
+        self.assertRedirects(response, url_redirect)
+
+
+class TestContasContatoRecebeView(TestCase):
+    def test_contas_contato_receber_post(self):
+        usuario = get_user_model().objects.create(username='flavio')
+        usuario.set_password('teste123!')
+        usuario.save()
+
+        contato = Contato.objects.create(
+            usuario=usuario,
+            nome='fernando',
+            email='fernando@email.com',
+            telefone='016999999999')
+
+        conta = Conta.objects.create(
+            contato=contato,
+            valor=200.0,
+            data_recebimento_esperado=datetime.now().date())
+
+        client = Client()
+
+        client.login(username='flavio', password='teste123!')
+
+        url_request = reverse(
+            'contas:contato-recebe',
+            kwargs={
+                'contato_id': contato.contato_id,
+                'conta_id': conta.conta_id
+            })
+
+        response = client.get(url_request)
 
         url_redirect = reverse(
             'contas:contato-create', kwargs={'contato_id': contato.contato_id})

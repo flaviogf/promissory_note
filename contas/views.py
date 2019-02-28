@@ -18,13 +18,20 @@ class ContasContatoView(View):
     def get(self, request, contato_id):
         contato = get_object_or_404(
             Contato, contato_id=contato_id, usuario=request.user)
+
         contas = Conta.objects.filter(contato=contato)
+
+        contas_recebidas = [it for it in contas if it.recebida]
+        contas_pendentes = [it for it in contas if not it.recebida]
+
         conta_form = ContaForm(initial={'contato': contato.contato_id})
-        return render(request, 'contas/contato/create.html', {
-            'contato': contato,
-            'conta_form': conta_form,
-            'contas': contas
-        })
+        return render(
+            request, 'contas/contato/create.html', {
+                'contato': contato,
+                'conta_form': conta_form,
+                'contas_recebidas': contas_recebidas,
+                'contas_pendentes': contas_pendentes,
+            })
 
     @method_decorator(log_request)
     @method_decorator(login_required)
@@ -46,3 +53,20 @@ class ContasContatoView(View):
             'conta_form': conta_form,
             'contas': contas
         })
+
+
+class ContasContatoRecebeView(View):
+    @method_decorator(log_request)
+    @method_decorator(login_required)
+    def get(self, request, contato_id, conta_id):
+        contato = get_object_or_404(
+            Contato, usuario=request.user, contato_id=contato_id)
+        conta = get_object_or_404(Conta, contato=contato, conta_id=conta_id)
+
+        conta.recebe()
+
+        conta.save()
+
+        url = reverse(
+            'contas:contato-create', kwargs={'contato_id': contato_id})
+        return redirect(url)

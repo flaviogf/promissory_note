@@ -45,7 +45,46 @@
     <div class="col s12">
       <div class="card">
         <div class="card-content">
-          <div class="card-title">Contas {{ contato.nome }}</div>
+          <div class="card-title">Contas pendentes</div>
+
+          <div class="row">
+            <div class="col s12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Data a receber</th>
+                    <th>Valor</th>
+                    <th class="right">Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for it in contas_pendentes %}
+                  <tr>
+                    <td>{{ it.data_recebimento_esperado }}</td>
+                    <td>{{ it.valor }}</td>
+                    <td class="right">
+                      <a class="waves-effect waves-light btn green" href="{% url 'contas:contato-recebe' contato.contato_id it.conta_id %}">Receber</a>
+                    </td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td class="center-align" colspan="3">Nenhuma conta pendente :(</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">Contas recebidas</div>
 
           <div class="row">
             <div class="col s12">
@@ -57,14 +96,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for it in contas %}
+                  {% for it in contas_recebidas %}
                   <tr>
                     <td>{{ it.data_recebimento_esperado }}</td>
                     <td>{{ it.valor }}</td>
                   </tr>
                   {% empty %}
                   <tr>
-                    <td class="center-align" colspan="2">Nenhuma conta encontrada :(</td>
+                    <td class="center-align" colspan="2">Nenhuma conta recebida :(</td>
                   </tr>
                   {% endfor %}
                 </tbody>
