@@ -2,8 +2,9 @@ from datetime import datetime
 
 from django.test import TestCase
 
-from contatos.models import Contato
 from contas.forms import ContaForm
+from contatos.models import Contato
+
 
 class TestContaForm(TestCase):
     def test_conta_form_is_valid_true(self):
@@ -13,7 +14,7 @@ class TestContaForm(TestCase):
         request = {
             'contato': contato.contato_id,
             'valor': 100.0,
-            'data_recebimento_esperado': datetime.now()
+            'data_recebimento_esperado': datetime.now().date()
         }
 
         form = ContaForm(request)
