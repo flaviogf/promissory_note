@@ -7,6 +7,7 @@ from contatos.models import Contato
 
 # Create your models here.
 
+
 class Conta(models.Model):
     conta_id = models.UUIDField(
         primary_key=True, default=uuid4, editable=False)
@@ -24,15 +25,33 @@ class Conta(models.Model):
 
     atualizado_em = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['data_recebimento_esperado']
+
     @property
     def recebida(self):
         return self.data_recebimento is not None
 
     @property
     def vencida(self):
-        return self.data_recebimento_esperado.date() < datetime.now().date() \
+        return self.data_recebimento_esperado < datetime.now().date() \
             and not self.recebida
 
     def recebe(self, data_recebimento=None):
         data_recebimento = data_recebimento or datetime.now()
         self.data_recebimento = data_recebimento
+
+
+class HistoricoConta(models.Model):
+    conta = models.ForeignKey(
+        Conta, on_delete=models.CASCADE, related_name='historicos')
+
+    valor = models.DecimalField(max_digits=8, decimal_places=2)
+
+    data_recebimento_esperado = models.DateField()
+
+    data_recebimento = models.DateField(blank=True, null=True)
+
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    atualizado_em = models.DateTimeField(auto_now=True)

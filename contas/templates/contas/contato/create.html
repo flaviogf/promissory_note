@@ -52,6 +52,7 @@
               <table>
                 <thead>
                   <tr>
+                    <th>Status</th>
                     <th>Data a receber</th>
                     <th>Valor</th>
                     <th class="right">Ações</th>
@@ -60,10 +61,18 @@
                 <tbody>
                   {% for it in contas_pendentes %}
                   <tr>
+                    <td>
+                      {% if it.vencida %}
+                      <i class="material-icons orange-text">warning</i>
+                      {% else %}
+                      <i class="material-icons green-text">check</i>
+                      {% endif %}
+                    </td>
                     <td>{{ it.data_recebimento_esperado }}</td>
                     <td>{{ it.valor }}</td>
                     <td class="right">
-                      <a class="waves-effect waves-light btn green" href="{% url 'contas:contato-recebe' contato.contato_id it.conta_id %}">Receber</a>
+                      <a class="waves-effect waves-light btn green"
+                        href="{% url 'contas:contato-recebe' contato.contato_id it.conta_id %}">Receber</a>
                     </td>
                   </tr>
                   {% empty %}
@@ -91,14 +100,14 @@
               <table>
                 <thead>
                   <tr>
-                    <th>Data a receber</th>
+                    <th>Data recebimento</th>
                     <th>Valor</th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for it in contas_recebidas %}
                   <tr>
-                    <td>{{ it.data_recebimento_esperado }}</td>
+                    <td>{{ it.data_recebimento }}</td>
                     <td>{{ it.valor }}</td>
                   </tr>
                   {% empty %}
