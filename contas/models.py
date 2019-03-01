@@ -4,6 +4,8 @@ from uuid import uuid4
 from django.db import models
 
 from contatos.models import Contato
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -40,6 +42,14 @@ class Conta(models.Model):
     def recebe(self, data_recebimento=None):
         data_recebimento = data_recebimento or datetime.now()
         self.data_recebimento = data_recebimento
+
+
+@receiver(post_save, sender=Conta, dispatch_uid='post_save_contas')
+def post_save_conta(sender, instance, **kwargs):
+    HistoricoConta.objects.create(conta=instance,
+                                  valor=instance.valor,
+                                  data_recebimento_esperado=instance.data_recebimento_esperado,
+                                  data_recebimento=instance.data_recebimento)
 
 
 class HistoricoConta(models.Model):
