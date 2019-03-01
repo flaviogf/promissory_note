@@ -18,10 +18,56 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
     $(document).ready(() => {
-      $('.dropdown-trigger').dropdown()
+      $('.dropdown-trigger').dropdown();
       $('select').formSelect();
       $('.fixed-action-btn').floatingActionButton();
-    })
+      $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        i18n: {
+          weekdaysAbbrev: [
+            'D',
+            'S',
+            'T',
+            'Q',
+            'Q',
+            'S',
+            'S',
+          ],
+          weekdaysShort: [
+            'Dom',
+            'Seg',
+            'Ter',
+            'Quar',
+            'Quin',
+            'Sex',
+            'Sab',
+          ],
+          weekdays: [
+            'Domingo',
+            'Segunda',
+            'Terça',
+            'Quarta',
+            'Quinta',
+            'Sexta',
+            'Sabado',
+          ],
+          months: [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+            'Junho',
+            'Julho',
+            'Agosto',
+            'Setembro',
+            'Outubro',
+            'Novembro',
+            'Dezembro',
+          ],
+        },
+      });
+    });
 
   </script>
 </body>

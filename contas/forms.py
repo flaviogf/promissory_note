@@ -1,4 +1,5 @@
 from django import forms
+
 from contas.models import Conta
 
 
@@ -8,6 +9,11 @@ class ContaForm(forms.ModelForm):
 
         fields = '__all__'
 
-        exclude = ('data_recebimento',)
+        exclude = ('data_recebimento', )
 
-        widgets = {'contato': forms.HiddenInput()}
+        widgets = {
+            'contato':
+            forms.HiddenInput(),
+            'data_recebimento_esperado':
+            forms.TextInput(attrs={'class': 'datepicker'})
+        }

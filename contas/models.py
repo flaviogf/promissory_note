@@ -2,10 +2,10 @@ from datetime import datetime
 from uuid import uuid4
 
 from django.db import models
-
-from contatos.models import Contato
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+from contatos.models import Contato
 
 # Create your models here.
 
@@ -46,10 +46,11 @@ class Conta(models.Model):
 
 @receiver(post_save, sender=Conta, dispatch_uid='post_save_contas')
 def post_save_conta(sender, instance, **kwargs):
-    HistoricoConta.objects.create(conta=instance,
-                                  valor=instance.valor,
-                                  data_recebimento_esperado=instance.data_recebimento_esperado,
-                                  data_recebimento=instance.data_recebimento)
+    HistoricoConta.objects.create(
+        conta=instance,
+        valor=instance.valor,
+        data_recebimento_esperado=instance.data_recebimento_esperado,
+        data_recebimento=instance.data_recebimento)
 
 
 class HistoricoConta(models.Model):
@@ -65,3 +66,10 @@ class HistoricoConta(models.Model):
     criado_em = models.DateTimeField(auto_now_add=True)
 
     atualizado_em = models.DateTimeField(auto_now=True)
+
+    @property
+    def recebida(self):
+        return self.data_recebimento is not None
+
+    class Meta:
+        ordering = ['-atualizado_em']

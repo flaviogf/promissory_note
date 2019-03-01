@@ -19,10 +19,14 @@ class ContasContatoView(View):
         contato = get_object_or_404(
             Contato, contato_id=contato_id, usuario=request.user)
 
-        contas_recebidas = [it for it in Conta.objects.filter(
-            contato=contato) if it.recebida]
-        contas_pendentes = [it for it in Conta.objects.filter(
-            contato=contato).order_by('data_recebimento') if not it.recebida]
+        contas_recebidas = [
+            it for it in Conta.objects.filter(
+                contato=contato).order_by('-data_recebimento') if it.recebida
+        ]
+        contas_pendentes = [
+            it for it in Conta.objects.filter(contato=contato)
+            if not it.recebida
+        ]
 
         conta_form = ContaForm(initial={'contato': contato.contato_id})
         return render(
@@ -46,10 +50,14 @@ class ContasContatoView(View):
                 'contas:contato-create', kwargs={'contato_id': contato_id})
             return redirect(url)
 
-        contas_recebidas = [it for it in Conta.objects.filter(
-            contato=contato) if it.recebida]
-        contas_pendentes = [it for it in Conta.objects.filter(
-            contato=contato).order_by('data_recebimento') if not it.recebida]
+        contas_recebidas = [
+            it for it in Conta.objects.filter(
+                contato=contato).order_by('-data_recebimento') if it.recebida
+        ]
+        contas_pendentes = [
+            it for it in Conta.objects.filter(contato=contato)
+            if not it.recebida
+        ]
 
         return render(
             request, 'contas/contato/create.html', {
