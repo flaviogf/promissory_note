@@ -5,7 +5,9 @@ backcall==0.1.0
 certifi==2018.11.29
 decorator==4.3.2
 Django==2.1.7
+django-filter==2.1.0
 django-widget-tweaks==1.4.3
+djangorestframework==3.9.1
 entrypoints==0.3
 ipdb==0.11
 ipython==7.2.0
@@ -13,6 +15,7 @@ ipython-genutils==0.2.0
 isort==4.3.4
 jedi==0.13.2
 lazy-object-proxy==1.3.1
+Markdown==3.0.1
 mccabe==0.6.1
 parso==0.3.4
 pexpect==4.6.0

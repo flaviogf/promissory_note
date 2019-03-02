@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 LIBS = [
@@ -45,6 +46,7 @@ APPS = [
     'infra',
     'contatos',
     'usuarios',
+    'usuarios_api_v1',
     'dashboard',
     'contas',
 ]
