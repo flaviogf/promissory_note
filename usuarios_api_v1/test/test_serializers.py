@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from usuarios_api_v1.serializers import RegistraUsuarioSerializer
@@ -38,6 +39,48 @@ class TestRegistraUsuarioSerializer(TestCase):
             'username': 'flavio',
             'password1': 'teste',
             'password2': 'teste'
+        }
+
+        serializer = RegistraUsuarioSerializer(data=request)
+
+        self.assertFalse(serializer.is_valid())
+
+    def test_registra_usuario_serializer_create(self):
+        request = {
+            'username': 'flavio',
+            'password1': 'teste123!',
+            'password2': 'teste123!',
+        }
+
+        usuario = RegistraUsuarioSerializer().create(validated_data=request)
+
+        self.assertIsInstance(usuario, get_user_model())
+
+    def test_registra_usuario_serializer_save(self):
+        request = {
+            'username': 'flavio',
+            'password1': 'teste123!',
+            'password2': 'teste123!',
+        }
+
+        serializer = RegistraUsuarioSerializer(data=request)
+
+        serializer.save()
+
+        total_usuarios = get_user_model().objects.count()
+
+        self.assertEqual(1, total_usuarios)
+
+    def test_registra_usuario_serializer_is_valid_false_username_existente(
+            self):
+        usuario = get_user_model().objects.create(username='flavio')
+        usuario.set_password('teste123!')
+        usuario.save()
+
+        request = {
+            'username': 'flavio',
+            'password1': 'teste123!',
+            'password2': 'teste123!',
         }
 
         serializer = RegistraUsuarioSerializer(data=request)
