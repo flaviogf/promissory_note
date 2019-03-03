@@ -42,3 +42,19 @@ class RegistraUsuarioSerializer(serializers.Serializer):
     def save(self):
         if super().is_valid():
             super().save()
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        username = data['username']
+        password = data['password']
+
+        try:
+            get_user_model().objects.get(username=username, password=password)
+        except ObjectDoesNotExist:
+            raise serializers.ValidationError('usuario nao autenticado')
+
+        return data

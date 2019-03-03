@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from usuarios_api_v1.serializers import RegistraUsuarioSerializer
+from usuarios_api_v1.serializers import LoginSerializer, RegistraUsuarioSerializer
 
 
 class TestRegistraUsuarioSerializer(TestCase):
@@ -84,5 +84,34 @@ class TestRegistraUsuarioSerializer(TestCase):
         }
 
         serializer = RegistraUsuarioSerializer(data=request)
+
+        self.assertFalse(serializer.is_valid())
+
+
+class LoginSerializerTest(TestCase):
+    def test_login_serializer_init(self):
+        request = {'username': 'flavio', 'password': 'teste123!'}
+
+        serializer = LoginSerializer(data=request)
+
+        self.assertIsInstance(serializer, LoginSerializer)
+
+    def test_login_serializer_is_valid_true(self):
+        usuario = get_user_model().objects.create(
+            username='flavio', password='teste123!')
+
+        request = {'username': 'flavio', 'password': 'teste123!'}
+
+        serializer = LoginSerializer(data=request)
+
+        self.assertTrue(serializer.is_valid())
+
+    def test_login_serializer_is_valid_false(self):
+        usuario = get_user_model().objects.create(
+            username='flavio', password='teste123!')
+
+        request = {'username': 'flavio', 'password': 'teste123'}
+
+        serializer = LoginSerializer(data=request)
 
         self.assertFalse(serializer.is_valid())
