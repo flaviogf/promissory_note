@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model, authenticate
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-from usuarios_api_v1.mixins import ErrorArrayMixin
+from infra.mixins import ErrorArrayMixin
 
 
 class RegistraUsuarioSerializer(ErrorArrayMixin, serializers.Serializer):

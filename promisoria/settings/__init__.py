@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -47,7 +48,6 @@ APPS = [
     'infra',
     'contatos',
     'usuarios',
-    'usuarios_api_v1',
     'dashboard',
     'contas',
 ]
@@ -140,3 +140,10 @@ LOGIN_URL = '/usuarios/login/'
 LOGIN_REDIRECT_URL = '/contatos/'
 
 LOGOUT_REDIRECT_URL = LOGIN_URL
+
+# Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}

@@ -1,17 +1,17 @@
-from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.status import (HTTP_201_CREATED,
-                                   HTTP_400_BAD_REQUEST,
-                                   HTTP_401_UNAUTHORIZED)
-from rest_framework.viewsets import ViewSet
+from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED
+from rest_framework.views import APIView
 
-from usuarios_api_v1.serializers import RegistraUsuarioSerializer, LoginSerializer
+from usuarios.serializers import LoginSerializer, RegistraUsuarioSerializer
+from infra.decorators import log_request
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 
 
-class UsuarioViewSet(ViewSet):
-    def create(self, request):
+class UsuarioAPIView(APIView):
+    @method_decorator(log_request)
+    def post(self, request):
         serializer = RegistraUsuarioSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -21,8 +21,9 @@ class UsuarioViewSet(ViewSet):
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
-class LoginViewSet(ViewSet):
-    def autentica(self, request):
+class LoginAPIView(APIView):
+    @method_decorator(log_request)
+    def post(self, request):
         serializer = LoginSerializer(data=request.data)
 
         if serializer.is_valid():

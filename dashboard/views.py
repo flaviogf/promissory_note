@@ -5,7 +5,7 @@ from django.views import View
 
 from contas.models import Conta, HistoricoConta
 from contatos.models import Contato, Endereco, HistoricoContato
-from infra.utils import log_request
+from infra.decorators import log_request
 
 # Create your views here.
 

@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from usuarios_api_v1.serializers import LoginSerializer, RegistraUsuarioSerializer
+from usuarios.serializers import LoginSerializer, RegistraUsuarioSerializer
 
 
 class TestRegistraUsuarioSerializer(TestCase):

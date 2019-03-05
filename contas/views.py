@@ -7,7 +7,7 @@ from django.views import View
 from contas.forms import ContaForm
 from contas.models import Conta
 from contatos.models import Contato
-from infra.utils import log_request
+from infra.decorators import log_request
 
 # Create your views here.
 
