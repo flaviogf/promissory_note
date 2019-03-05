@@ -1,7 +1,7 @@
 from django.urls import path
 
+from contatos.api import ContatoAPIView, ContatosAPIView
 from contatos.views import CadastraContatoView, DeletaContatoView, EditaContatoView, ListaContatoView
-from contatos.api import ContatoAPIView
 
 app_name = 'contatos'
 
@@ -13,5 +13,7 @@ urlpatterns = [
         '<uuid:contato_id>/deleta/',
         DeletaContatoView.as_view(),
         name='delete'),
-    path('api/v1/<uuid:contato_id>/', ContatoAPIView.as_view(), name='contatos_api_v1'),
+    path('api/v1/<uuid:contato_id>/',
+         ContatoAPIView.as_view(), name='contatos_api_v1'),
+    path('api/v1/', ContatosAPIView.as_view(), name='contatos_api_v1'),
 ]
