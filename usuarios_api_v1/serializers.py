@@ -1,11 +1,13 @@
 import re
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
+from usuarios_api_v1.mixins import ErrorArrayMixin
 
 
-class RegistraUsuarioSerializer(serializers.Serializer):
+class RegistraUsuarioSerializer(ErrorArrayMixin, serializers.Serializer):
     username = serializers.CharField()
     password1 = serializers.CharField()
     password2 = serializers.CharField()
@@ -44,7 +46,7 @@ class RegistraUsuarioSerializer(serializers.Serializer):
             super().save()
 
 
-class LoginSerializer(serializers.Serializer):
+class LoginSerializer(ErrorArrayMixin, serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
 
@@ -52,9 +54,17 @@ class LoginSerializer(serializers.Serializer):
         username = data['username']
         password = data['password']
 
-        try:
-            get_user_model().objects.get(username=username, password=password)
-        except ObjectDoesNotExist:
+        if not authenticate(username=username, password=password):
             raise serializers.ValidationError('usuario nao autenticado')
 
         return data
+
+    def get_token(self):
+        if self.is_valid():
+            username = self.validated_data['username']
+            password = self.validated_data['password']
+            usuario = authenticate(username=username, password=password)
+            token, _ = Token.objects.get_or_create(user=usuario)
+            return token.key
+
+        return None

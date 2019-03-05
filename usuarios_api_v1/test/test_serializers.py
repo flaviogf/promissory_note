@@ -97,8 +97,9 @@ class LoginSerializerTest(TestCase):
         self.assertIsInstance(serializer, LoginSerializer)
 
     def test_login_serializer_is_valid_true(self):
-        usuario = get_user_model().objects.create(
-            username='flavio', password='teste123!')
+        usuario = get_user_model().objects.create(username='flavio')
+        usuario.set_password('teste123!')
+        usuario.save()
 
         request = {'username': 'flavio', 'password': 'teste123!'}
 
@@ -107,11 +108,34 @@ class LoginSerializerTest(TestCase):
         self.assertTrue(serializer.is_valid())
 
     def test_login_serializer_is_valid_false(self):
-        usuario = get_user_model().objects.create(
-            username='flavio', password='teste123!')
+        usuario = get_user_model().objects.create(username='flavio')
+        usuario.set_password('teste123!')
+        usuario.save()
 
         request = {'username': 'flavio', 'password': 'teste123'}
 
         serializer = LoginSerializer(data=request)
 
         self.assertFalse(serializer.is_valid())
+
+    def test_login_serializer_get_token(self):
+        usuario = get_user_model().objects.create(username='flavio')
+        usuario.set_password('teste123!')
+        usuario.save()
+
+        request = {'username': 'flavio', 'password': 'teste123!'}
+
+        serializer = LoginSerializer(data=request)
+
+        self.assertIsInstance(serializer.get_token(), str)
+
+    def test_login_serializer_get_token_invalido(self):
+        usuario = get_user_model().objects.create(username='flavio')
+        usuario.set_password('teste123!')
+        usuario.save()
+
+        request = {'username': 'flavio', 'password': 'teste123'}
+
+        serializer = LoginSerializer(data=request)
+
+        self.assertIsNone(serializer.get_token())
