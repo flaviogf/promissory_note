@@ -1,8 +1,7 @@
 from django.http import HttpResponse
-from django.views.defaults import page_not_found
 
 from rest_framework.response import Response
-from rest_framework.status import HTTP_404_NOT_FOUND
+from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_500_INTERNAL_SERVER_ERROR
 from rest_framework.views import exception_handler
 
 
@@ -13,3 +12,7 @@ def custom_exception_handler(exc, context):
 
 def not_found(request, exception):
     return HttpResponse(status=HTTP_404_NOT_FOUND)
+
+
+def server_error(request):
+    return HttpResponse(status=HTTP_500_INTERNAL_SERVER_ERROR)

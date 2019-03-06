@@ -25,3 +25,4 @@ urlpatterns = [
 ]
 
 handler404 = "infra.utils.not_found"
+handler500 = "infra.utils.server_error"

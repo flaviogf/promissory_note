@@ -1,10 +1,14 @@
-from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED
-from rest_framework.views import APIView
-
-from usuarios.serializers import LoginSerializer, RegistraUsuarioSerializer
-from infra.decorators import log_request
 from django.utils.decorators import method_decorator
+
+from infra.decorators import log_request
+from rest_framework.response import Response
+from rest_framework.status import (
+    HTTP_201_CREATED,
+    HTTP_400_BAD_REQUEST,
+    HTTP_401_UNAUTHORIZED,
+)
+from rest_framework.views import APIView
+from usuarios.serializers import LoginSerializer, RegistraUsuarioSerializer
 
 # Create your views here.
 
