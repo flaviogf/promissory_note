@@ -25,6 +25,7 @@ class ContatoAPIView(APIView):
 class ContatosAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
+    @method_decorator(log_request)
     def post(self, request):
         contato_serializer = ContatoSerializer(data=request.data or None)
         endereco_serializer = EnderecoSerializer(data=request.data or None)
