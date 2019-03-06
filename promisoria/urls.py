@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('', include('dashboard.urls', namespace='dashboard')),
-    path('admin/', admin.site.urls),
-    path('contatos/', include('contatos.urls', namespace='contatos')),
-    path('usuarios/', include('usuarios.urls', namespace='usuarios')),
-    path('contas/', include('contas.urls', namespace='contas')),
+    path("", include("dashboard.urls", namespace="dashboard")),
+    path("admin/", admin.site.urls),
+    path("contatos/", include("contatos.urls", namespace="contatos")),
+    path("usuarios/", include("usuarios.urls", namespace="usuarios")),
+    path("contas/", include("contas.urls", namespace="contas")),
 ]
+
+handler404 = "infra.utils.not_found"
