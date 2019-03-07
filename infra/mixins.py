@@ -1,5 +1,4 @@
-class ErrorArrayMixin():
-
+class ErrorArrayMixin:
     @property
     def errors(self):
         errors = super().errors

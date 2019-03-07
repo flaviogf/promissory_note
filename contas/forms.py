@@ -7,13 +7,11 @@ class ContaForm(forms.ModelForm):
     class Meta:
         model = Conta
 
-        fields = '__all__'
+        fields = "__all__"
 
-        exclude = ('data_recebimento', )
+        exclude = ("data_recebimento",)
 
         widgets = {
-            'contato':
-            forms.HiddenInput(),
-            'data_recebimento_esperado':
-            forms.TextInput(attrs={'class': 'datepicker'})
+            "contato": forms.HiddenInput(),
+            "data_recebimento_esperado": forms.TextInput(attrs={"class": "datepicker"}),
         }

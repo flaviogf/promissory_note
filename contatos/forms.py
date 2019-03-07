@@ -7,15 +7,15 @@ class ContatoForm(forms.ModelForm):
     class Meta:
         model = Contato
 
-        fields = '__all__'
+        fields = "__all__"
 
-        exclude = ('usuario', )
+        exclude = ("usuario",)
 
 
 class EnderecoForm(forms.ModelForm):
     class Meta:
         model = Endereco
 
-        fields = '__all__'
+        fields = "__all__"
 
-        exclude = ('contato', )
+        exclude = ("contato",)

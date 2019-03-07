@@ -42,3 +42,9 @@ class ContatosAPIView(APIView):
         errors = contato_serializer.errors + endereco_serializer.errors
 
         return Response(errors, HTTP_400_BAD_REQUEST)
+
+    @method_decorator(log_request)
+    def get(self, request):
+        contatos = Contato.objects.filter(usuario=request.user)
+        contatos_serializer = ContatoSerializer(contatos, many=True)
+        return Response(contatos_serializer.data)

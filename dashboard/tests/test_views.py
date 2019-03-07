@@ -8,16 +8,16 @@ from dashboard.views import DashboardView
 
 class TestDashboardView(TestCase):
     def setUp(self):
-        self.usuario = get_user_model().objects.create(username='flaviogf')
-        self.usuario.set_password('teste123!')
+        self.usuario = get_user_model().objects.create(username="flaviogf")
+        self.usuario.set_password("teste123!")
         self.usuario.save()
 
     def test_dashboard_view_get(self):
-        url = ''
+        url = ""
 
         client = Client()
 
-        client.login(username='flaviogf', password='teste123!')
+        client.login(username="flaviogf", password="teste123!")
 
         response = client.get(url)
 

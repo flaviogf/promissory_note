@@ -6,19 +6,19 @@ from contatos.models import Contato, Endereco, HistoricoContato, HistoricoEndere
 
 
 class ContatoAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'email', 'telefone')
+    list_display = ("nome", "email", "telefone")
 
 
 class EnderecoAdmin(admin.ModelAdmin):
-    list_display = ('cep', 'rua', 'bairro')
+    list_display = ("cep", "rua", "bairro")
 
 
 class HistoricoContatoAdmin(admin.ModelAdmin):
-    list_display = ('contato', 'nome', 'email', 'telefone', 'atualizado_em')
+    list_display = ("contato", "nome", "email", "telefone", "atualizado_em")
 
 
 class HistoricoEnderecoAdmin(admin.ModelAdmin):
-    list_display = ('endereco', 'cep', 'rua', 'bairro', 'atualizado_em')
+    list_display = ("endereco", "cep", "rua", "bairro", "atualizado_em")
 
 
 admin.site.register(Contato, ContatoAdmin)
