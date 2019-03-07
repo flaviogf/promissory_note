@@ -6,7 +6,11 @@ from contatos.serializers import ContatoSerializer, EnderecoSerializer
 from infra.decorators import log_request
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
+from rest_framework.status import (
+    HTTP_201_CREATED,
+    HTTP_204_NO_CONTENT,
+    HTTP_400_BAD_REQUEST,
+)
 from rest_framework.views import APIView
 
 
@@ -20,6 +24,13 @@ class ContatoAPIView(APIView):
         )
         serializer = ContatoSerializer(contato)
         return Response(serializer.data)
+
+    def delete(self, request, contato_id):
+        contato = get_object_or_404(
+            Contato, usuario=request.user, contato_id=contato_id
+        )
+        contato.delete()
+        return Response(status=HTTP_204_NO_CONTENT)
 
 
 class ContatosAPIView(APIView):
