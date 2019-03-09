@@ -25,8 +25,8 @@ class Conta(models.Model):
 
     atualizado_em = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        ordering = ["data_recebimento_esperado"]
+    def __str__(self):
+        return f"{self.contato} {self.valor}"
 
     @property
     def recebida(self):
@@ -41,6 +41,9 @@ class Conta(models.Model):
     def recebe(self, data_recebimento=None):
         data_recebimento = data_recebimento or datetime.now()
         self.data_recebimento = data_recebimento
+
+    class Meta:
+        ordering = ["data_recebimento_esperado"]
 
 
 @receiver(post_save, sender=Conta, dispatch_uid="post_save_contas")
@@ -67,6 +70,9 @@ class HistoricoConta(models.Model):
     criado_em = models.DateTimeField(auto_now_add=True)
 
     atualizado_em = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.conta}/{self.conta.contato} {self.valor}"
 
     @property
     def recebida(self):

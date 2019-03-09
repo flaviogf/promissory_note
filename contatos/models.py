@@ -23,13 +23,13 @@ class Contato(models.Model):
 
     atualizado_em = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.nome
+
     class Meta:
         verbose_name = "Contato"
         verbose_name_plural = "Contatos"
         ordering = ["-criado_em"]
-
-    def __str__(self):
-        return self.nome
 
 
 @receiver(post_save, sender=Contato, dispatch_uid="post_save_contato")
@@ -59,13 +59,13 @@ class Endereco(models.Model):
 
     atualizado_em = models.DateTimeField(auto_now=True, null=True)
 
+    def __str__(self):
+        return self.rua
+
     class Meta:
         verbose_name = "Endereço"
         verbose_name_plural = "Endereços"
         ordering = ["-criado_em"]
-
-    def __str__(self):
-        return f"{self.rua} - {self.bairro}"
 
 
 @receiver(post_save, sender=Endereco, dispatch_uid="post_save_endereco")
@@ -94,6 +94,9 @@ class HistoricoContato(models.Model):
 
     atualizado_em = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.contato}/{self.nome}"
+
     class Meta:
         verbose_name = "Histórico Contato"
         verbose_name_plural = "Históricos Contatos"
@@ -116,6 +119,9 @@ class HistoricoEndereco(models.Model):
     criado_em = models.DateTimeField(auto_now_add=True, null=True)
 
     atualizado_em = models.DateTimeField(auto_now=True, null=True)
+
+    def __str__(self):
+        return f"{self.endereco}/{self.rua}"
 
     class Meta:
         verbose_name = "Histórico Endereço"
