@@ -9,8 +9,6 @@ from contas.models import Conta
 from contatos.models import Contato
 from infra.decorators import log_request
 
-# Create your views here.
-
 
 class ContasContatoView(View):
     @method_decorator(log_request)

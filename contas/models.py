@@ -7,8 +7,6 @@ from django.dispatch import receiver
 
 from contatos.models import Contato
 
-# Create your models here.
-
 
 class Conta(models.Model):
     conta_id = models.UUIDField(primary_key=True, default=uuid4, editable=False)

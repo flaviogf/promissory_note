@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-
-from contatos.models import Contato
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 from rest_framework.test import APIClient, APITestCase
+
+from contatos.models import Contato
 
 
 class TestContatoAPIView(APITestCase):

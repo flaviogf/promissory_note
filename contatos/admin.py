@@ -2,8 +2,6 @@ from django.contrib import admin
 
 from contatos.models import Contato, Endereco, HistoricoContato, HistoricoEndereco
 
-# Register your models here.
-
 
 class ContatoAdmin(admin.ModelAdmin):
     list_display = ("nome", "email", "telefone")

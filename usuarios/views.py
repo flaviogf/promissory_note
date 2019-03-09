@@ -6,8 +6,6 @@ from django.views import View
 from infra.decorators import log_request
 from usuarios.forms import LoginForm, RegistrarUsuarioForm
 
-# Create your views here.
-
 
 class RegistarUsuarioView(View):
     @method_decorator(log_request)

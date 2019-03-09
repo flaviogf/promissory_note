@@ -1,6 +1,7 @@
+from rest_framework import serializers
+
 from contatos.models import Contato, Endereco
 from infra.mixins import ErrorArrayMixin
-from rest_framework import serializers
 
 
 class ContatoSerializer(ErrorArrayMixin, serializers.ModelSerializer):

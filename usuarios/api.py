@@ -1,6 +1,4 @@
 from django.utils.decorators import method_decorator
-
-from infra.decorators import log_request
 from rest_framework.response import Response
 from rest_framework.status import (
     HTTP_201_CREATED,
@@ -8,9 +6,9 @@ from rest_framework.status import (
     HTTP_401_UNAUTHORIZED,
 )
 from rest_framework.views import APIView
-from usuarios.serializers import LoginSerializer, RegistraUsuarioSerializer
 
-# Create your views here.
+from infra.decorators import log_request
+from usuarios.serializers import LoginSerializer, RegistraUsuarioSerializer
 
 
 class UsuarioAPIView(APIView):

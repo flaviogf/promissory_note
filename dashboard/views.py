@@ -7,8 +7,6 @@ from contas.models import Conta, HistoricoConta
 from contatos.models import Contato, Endereco, HistoricoContato
 from infra.decorators import log_request
 
-# Create your views here.
-
 
 class DashboardView(View):
     @method_decorator(log_request)

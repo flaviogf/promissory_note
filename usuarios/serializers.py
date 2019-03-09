@@ -2,10 +2,10 @@ import re
 
 from django.contrib.auth import authenticate, get_user_model
 from django.core.exceptions import ObjectDoesNotExist
-
-from infra.mixins import ErrorArrayMixin
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+
+from infra.mixins import ErrorArrayMixin
 
 
 class RegistraUsuarioSerializer(ErrorArrayMixin, serializers.Serializer):
