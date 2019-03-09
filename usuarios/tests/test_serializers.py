@@ -1,7 +1,18 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from usuarios.serializers import LoginSerializer, RegistraUsuarioSerializer
+from usuarios.serializers import (
+    LoginSerializer,
+    RegistraUsuarioSerializer,
+    UsuarioSerializer,
+)
+
+
+class TestUsuarioSerializer(TestCase):
+    def test_usuario_serializer_init(self):
+        usuario = get_user_model().objects.create(username="flavio")
+        serializer = UsuarioSerializer(usuario)
+        self.assertEqual("flavio", serializer.data["username"])
 
 
 class TestRegistraUsuarioSerializer(TestCase):

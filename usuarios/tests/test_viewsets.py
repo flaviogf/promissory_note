@@ -4,9 +4,9 @@ from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED
 from rest_framework.test import APITestCase
 
 
-class TestUsuarioAPIView(APITestCase):
-    def test_usuario_view_set_created(self):
-        url = reverse("usuarios:usuarios_api_v1")
+class UsuarioViewSet(APITestCase):
+    def test_usuario_view_set_registra(self):
+        url = reverse("usuarios:api-v2-registra")
 
         request = {
             "username": "flavio",
@@ -18,14 +18,12 @@ class TestUsuarioAPIView(APITestCase):
 
         self.assertEqual(HTTP_201_CREATED, response.status_code)
 
-
-class TestLoginAPIView(APITestCase):
-    def test_autentica(self):
+    def test_usuario_view_set_login(self):
         usuario = get_user_model().objects.create(username="flavio")
         usuario.set_password("teste123!")
         usuario.save()
 
-        url = reverse("usuarios:usuarios_api_v1_login")
+        url = reverse("usuarios:api-v2-login")
 
         request = {"username": "flavio", "password": "teste123!"}
 

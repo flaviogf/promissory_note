@@ -8,10 +8,29 @@ from rest_framework.authtoken.models import Token
 from infra.mixins import ErrorArrayMixin
 
 
+class UsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ("username",)
+
+
 class RegistraUsuarioSerializer(ErrorArrayMixin, serializers.Serializer):
     username = serializers.CharField()
     password1 = serializers.CharField()
     password2 = serializers.CharField()
+
+    def create(self, validated_data):
+        usuario = get_user_model().objects.create(username=validated_data["username"])
+        usuario.set_password(validated_data["password1"])
+        usuario.save()
+        return usuario
+
+    def update(self, validated_data):
+        pass
+
+    def save(self):
+        if super().is_valid():
+            return super().save()
 
     def validate_username(self, value):
         try:
@@ -35,16 +54,6 @@ class RegistraUsuarioSerializer(ErrorArrayMixin, serializers.Serializer):
 
         return data
 
-    def create(self, validated_data):
-        usuario = get_user_model().objects.create(username=validated_data["username"])
-        usuario.set_password(validated_data["password1"])
-        usuario.save()
-        return usuario
-
-    def save(self):
-        if super().is_valid():
-            super().save()
-
 
 class LoginSerializer(ErrorArrayMixin, serializers.Serializer):
     username = serializers.CharField(
@@ -61,6 +70,12 @@ class LoginSerializer(ErrorArrayMixin, serializers.Serializer):
             "null": "senha invalida",
         }
     )
+
+    def create(self, validated_data):
+        pass
+
+    def update(self, validated_data):
+        pass
 
     def validate(self, data):
         username = data["username"]
