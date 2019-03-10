@@ -1,8 +1,13 @@
 from django.urls import path
+from rest_framework.routers import SimpleRouter
 
 from contas.views import ContasContatoRecebeView, ContasContatoView
+from contas.viewsets import ContaViewSet
 
 app_name = "contas"
+
+router = SimpleRouter()
+router.register("api/v2/", ContaViewSet, base_name="api-v2")
 
 urlpatterns = [
     path(
@@ -13,4 +18,4 @@ urlpatterns = [
         ContasContatoRecebeView.as_view(),
         name="contato-recebe",
     ),
-]
+] + router.urls
