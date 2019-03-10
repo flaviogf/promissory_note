@@ -1,14 +1,12 @@
-from django.contrib.auth import get_user_model
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_400_BAD_REQUEST,
     HTTP_401_UNAUTHORIZED,
 )
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ViewSet
 
 from infra.decorators import log_request
 from usuarios.serializers import (
@@ -18,17 +16,7 @@ from usuarios.serializers import (
 )
 
 
-class UsuarioViewSet(ModelViewSet):
-    serializer_class = UsuarioSerializer
-    queryset = get_user_model().objects.all()
-
-    def get_permissions(self):
-        return (
-            [IsAuthenticated(), IsAdminUser()]
-            if self.action not in ("registra", "login")
-            else [AllowAny()]
-        )
-
+class UsuarioViewSet(ViewSet):
     @action(methods=("post",), detail=False)
     @method_decorator(log_request)
     def registra(self, request):

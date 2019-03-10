@@ -38,6 +38,13 @@ class EnderecoSerializer(ErrorArrayMixin, serializers.ModelSerializer):
         model = Endereco
         fields = "__all__"
         extra_kwargs = {
+            "contato": {
+                "error_messages": {
+                    "required": "contato invalido",
+                    "blank": "contato invalido",
+                    "null": "contato invalido",
+                }
+            },
             "cep": {
                 "error_messages": {
                     "required": "cep invalido",
@@ -60,13 +67,6 @@ class EnderecoSerializer(ErrorArrayMixin, serializers.ModelSerializer):
                 }
             },
             "numero": {
-                "error_messages": {
-                    "required": "numero invalido",
-                    "blank": "numero invalido",
-                    "null": "numero invalido",
-                }
-            },
-            "contato": {
                 "error_messages": {
                     "required": "numero invalido",
                     "blank": "numero invalido",

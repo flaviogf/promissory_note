@@ -43,31 +43,6 @@ class TestContatoViewSet(APITestCase):
 
         self.assertEqual(HTTP_201_CREATED, response.status_code)
 
-    def test_contato_view_set_com_endereco(self):
-        usuario = get_user_model().objects.create(username="flaviogf")
-        usuario.set_password("teste123!")
-        usuario.save()
-
-        request = {
-            "nome": "fernando",
-            "email": "fernando@email.com",
-            "telefone": "016999999999",
-            "cep": "11111111",
-            "rua": "rua",
-            "bairro": "bairro",
-            "numero": "11111",
-        }
-
-        client = APIClient()
-
-        client.force_authenticate(user=usuario)
-
-        url = reverse("contatos:api-v2-com-endereco")
-
-        response = client.post(url, request)
-
-        self.assertEqual(HTTP_201_CREATED, response.status_code)
-
     def test_contato_view_set_retrieve(self):
         usuario = get_user_model().objects.create(username="flaviogf")
         usuario.set_password("teste123!")
