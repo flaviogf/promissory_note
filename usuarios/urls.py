@@ -1,12 +1,12 @@
 from django.urls import path
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 
 from usuarios.views import LoginView, LogoutView, RegistarUsuarioView
 from usuarios.viewsets import UsuarioViewSet
 
 app_name = "usuarios"
 
-router = DefaultRouter()
+router = SimpleRouter()
 router.register(r"api/v2", UsuarioViewSet, base_name="api-v2")
 
 urlpatterns = [

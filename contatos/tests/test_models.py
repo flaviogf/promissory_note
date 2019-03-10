@@ -46,7 +46,7 @@ class TestEndereco(TestCase):
             contato=contato, cep="14400000", rua="rua", bairro="bairro", numero="12345"
         )
 
-        self.assertEqual("rua - bairro", endereco.__str__())
+        self.assertEqual("rua", endereco.__str__())
 
 
 class TestHistoricoContato(TestCase):

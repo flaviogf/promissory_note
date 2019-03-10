@@ -6,58 +6,44 @@ from rest_framework.test import APIClient, APITestCase
 from contatos.models import Contato
 
 
-class TestContatoAPIView(APITestCase):
-    def test_get(self):
+class TestContatoViewSet(APITestCase):
+    def test_contato_view_set_list(self):
         usuario = get_user_model().objects.create(username="flaviogf")
         usuario.set_password("teste123!")
         usuario.save()
-
-        contato = Contato.objects.create(
-            usuario=usuario,
-            nome="fernando",
-            email="fernando@email.com",
-            telefone="016999999999",
-        )
 
         client = APIClient()
 
         client.force_authenticate(user=usuario)
 
-        url = reverse(
-            "contatos:contatos_api_v1", kwargs={"contato_id": contato.contato_id}
-        )
+        url = reverse("contatos:api-v2-list")
 
         response = client.get(url)
 
         self.assertEqual(HTTP_200_OK, response.status_code)
 
-    def teste_delete(self):
+    def test_contato_view_set_create(self):
         usuario = get_user_model().objects.create(username="flaviogf")
         usuario.set_password("teste123!")
         usuario.save()
 
-        contato = Contato.objects.create(
-            usuario=usuario,
-            nome="fernando",
-            email="fernando@email.com",
-            telefone="016999999999",
-        )
+        request = {
+            "nome": "fernando",
+            "email": "fernando@email.com",
+            "telefone": "016999999999",
+        }
 
         client = APIClient()
 
         client.force_authenticate(user=usuario)
 
-        url = reverse(
-            "contatos:contatos_api_v1", kwargs={"contato_id": contato.contato_id}
-        )
+        url = reverse("contatos:api-v2-list")
 
-        response = client.delete(url)
+        response = client.post(url, request)
 
-        self.assertEqual(HTTP_204_NO_CONTENT, response.status_code)
+        self.assertEqual(HTTP_201_CREATED, response.status_code)
 
-
-class TestContatosAPIViewTest(APITestCase):
-    def test_post(self):
+    def test_contato_view_set_com_endereco(self):
         usuario = get_user_model().objects.create(username="flaviogf")
         usuario.set_password("teste123!")
         usuario.save()
@@ -76,23 +62,52 @@ class TestContatosAPIViewTest(APITestCase):
 
         client.force_authenticate(user=usuario)
 
-        url = reverse("contatos:contatos_api_v1")
+        url = reverse("contatos:api-v2-com-endereco")
 
         response = client.post(url, request)
 
         self.assertEqual(HTTP_201_CREATED, response.status_code)
 
-    def test_get(self):
+    def test_contato_view_set_retrieve(self):
         usuario = get_user_model().objects.create(username="flaviogf")
         usuario.set_password("teste123!")
         usuario.save()
+
+        contato = Contato.objects.create(
+            usuario=usuario,
+            nome="fernando",
+            email="fernando@email.com",
+            telefone="016999999999",
+        )
 
         client = APIClient()
 
         client.force_authenticate(user=usuario)
 
-        url = reverse("contatos:contatos_api_v1")
+        url = reverse("contatos:api-v2-detail", kwargs={"pk": contato.contato_id})
 
         response = client.get(url)
 
         self.assertEqual(HTTP_200_OK, response.status_code)
+
+    def test_contato_view_set_delete(self):
+        usuario = get_user_model().objects.create(username="flaviogf")
+        usuario.set_password("teste123!")
+        usuario.save()
+
+        contato = Contato.objects.create(
+            usuario=usuario,
+            nome="fernando",
+            email="fernando@email.com",
+            telefone="016999999999",
+        )
+
+        client = APIClient()
+
+        client.force_authenticate(user=usuario)
+
+        url = reverse("contatos:api-v2-detail", kwargs={"pk": contato.contato_id})
+
+        response = client.delete(url)
+
+        self.assertEqual(HTTP_204_NO_CONTENT, response.status_code)

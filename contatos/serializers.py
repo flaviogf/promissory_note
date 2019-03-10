@@ -7,7 +7,7 @@ from infra.mixins import ErrorArrayMixin
 class ContatoSerializer(ErrorArrayMixin, serializers.ModelSerializer):
     class Meta:
         model = Contato
-        exclude = ("usuario",)
+        fields = "__all__"
         extra_kwargs = {
             "nome": {
                 "error_messages": {
@@ -36,7 +36,7 @@ class ContatoSerializer(ErrorArrayMixin, serializers.ModelSerializer):
 class EnderecoSerializer(ErrorArrayMixin, serializers.ModelSerializer):
     class Meta:
         model = Endereco
-        exclude = ("contato",)
+        fields = "__all__"
         extra_kwargs = {
             "cep": {
                 "error_messages": {
@@ -60,6 +60,13 @@ class EnderecoSerializer(ErrorArrayMixin, serializers.ModelSerializer):
                 }
             },
             "numero": {
+                "error_messages": {
+                    "required": "numero invalido",
+                    "blank": "numero invalido",
+                    "null": "numero invalido",
+                }
+            },
+            "contato": {
                 "error_messages": {
                     "required": "numero invalido",
                     "blank": "numero invalido",
