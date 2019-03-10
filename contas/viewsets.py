@@ -7,7 +7,9 @@ from contas.serializers import ContaSerializer
 
 class ContaViewSet(ModelViewSet):
     serializer_class = ContaSerializer
-    queryset = Conta.objects.all()
 
     def get_permissions(self):
         return [IsAuthenticated()]
+
+    def get_queryset(self):
+        return Conta.objects.filter(contato__usuario=self.request.user)
