@@ -15,9 +15,27 @@ class UsuarioSerializer(serializers.ModelSerializer):
 
 
 class RegistraUsuarioSerializer(ErrorArrayMixin, serializers.Serializer):
-    username = serializers.CharField()
-    password1 = serializers.CharField()
-    password2 = serializers.CharField()
+    username = serializers.CharField(
+        error_messages={
+            "required": "username invalido",
+            "null": "username invalido",
+            "blank": "username invalido",
+        }
+    )
+    password1 = serializers.CharField(
+        error_messages={
+            "required": "password1 invalida",
+            "null": "password1 invalida",
+            "blank": "password1 invalida",
+        }
+    )
+    password2 = serializers.CharField(
+        error_messages={
+            "required": "password2 invalida",
+            "null": "password2 invalida",
+            "blank": "password2 invalida",
+        }
+    )
 
     def create(self, validated_data):
         usuario = get_user_model().objects.create(username=validated_data["username"])
@@ -58,16 +76,16 @@ class RegistraUsuarioSerializer(ErrorArrayMixin, serializers.Serializer):
 class LoginSerializer(ErrorArrayMixin, serializers.Serializer):
     username = serializers.CharField(
         error_messages={
-            "required": "nome de usuario invalido",
-            "blank": "nome de usuario invalido",
-            "null": "nome de usuario invalido",
+            "required": "username invalido",
+            "blank": "username invalido",
+            "null": "username invalido",
         }
     )
     password = serializers.CharField(
         error_messages={
-            "required": "senha invalida",
-            "blank": "senha invalida",
-            "null": "senha invalida",
+            "required": "password invalida",
+            "blank": "password invalida",
+            "null": "password invalida",
         }
     )
 

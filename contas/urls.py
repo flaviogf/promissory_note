@@ -7,7 +7,7 @@ from contas.viewsets import ContaViewSet
 app_name = "contas"
 
 router = SimpleRouter()
-router.register("api/v2/", ContaViewSet, base_name="api-v2")
+router.register("api/v2", ContaViewSet, base_name="api-v2")
 
 urlpatterns = [
     path(
