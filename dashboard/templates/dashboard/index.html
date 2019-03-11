@@ -9,7 +9,55 @@
 {% block conteudo %}
 <div class="container">
   <div class="row">
-    {% for it in totais %}
+    {% for it in totais_contas %}
+    <div class="col s4">
+      <div class="card-panel">
+        <h5 class="center-align" style="margin: 0;">{{ it.total }}</h5>
+        <p class="center-align" style="margin: 0;">{{ it.label }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">Atividades Contas</div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Data a receber</th>
+                <th>Data recebimento</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for it in historicos_contas %}
+              <tr>
+                <td>{{ it.data_recebimento_esperado }}</td>
+                {% if it.recebida %}
+                <td>{{ it.data_recebimento }}</td>
+                {% else %}
+                <td>Não recebida</td>
+                {% endif %}
+                <td>{{ it.valor }}</td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td class="center-align" colspan="3">Nenhuma atividade de contas encontrada :(</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    {% for it in totais_atividades %}
     <div class="col s4">
       <div class="card-panel">
         <h5 class="center-align" style="margin: 0;">{{ it.total }}</h5>
@@ -43,44 +91,6 @@
               {% empty %}
               <tr>
                 <td class="center-align" colspan="3">Nenhuma atividade de contatos encontrada :(</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="row">
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <div class="card-title">Atividades Contas</div>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Data a receber</th>
-                <th>Data recebimento</th>
-                <th>Valor</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for it in historicos_contas %}
-              <tr>
-                <td>{{ it.data_recebimento_esperado }}</td>
-                {% if it.recebida %}
-                <td>{{ it.data_recebimento }}</td>
-                {% else %}
-                <td>Não recebida</td>
-                {% endif %}
-                <td>{{ it.valor }}</td>
-              </tr>
-              {% empty %}
-              <tr>
-                <td class="center-align" colspan="3">Nenhuma atividade de contas encontrada :(</td>
               </tr>
               {% endfor %}
             </tbody>
