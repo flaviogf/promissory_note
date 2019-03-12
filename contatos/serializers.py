@@ -2,9 +2,12 @@ from rest_framework import serializers
 
 from contatos.models import Contato, Endereco
 from infra.mixins import ErrorArrayMixin
+from usuarios.serializers import UsuarioSerializer
 
 
 class ContatoSerializer(ErrorArrayMixin, serializers.ModelSerializer):
+    usuario = UsuarioSerializer()
+
     class Meta:
         model = Contato
         fields = "__all__"
@@ -36,7 +39,7 @@ class ContatoSerializer(ErrorArrayMixin, serializers.ModelSerializer):
 class EnderecoSerializer(ErrorArrayMixin, serializers.ModelSerializer):
     class Meta:
         model = Endereco
-        fields = "__all__"
+        exclude = ("contato",)
         extra_kwargs = {
             "contato": {
                 "error_messages": {
