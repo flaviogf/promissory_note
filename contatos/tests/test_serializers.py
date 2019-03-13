@@ -11,7 +11,6 @@ class ContatoSerializerTests(TestCase):
         self.nome1 = fake.name()
         self.email1 = fake.email()
         self.telefone1 = fake.phone_number()
-
         self.data1 = {
             'nome': self.nome1,
             'email': self.email1,
