@@ -1,5 +1,0 @@
-django==2.1.7
-django-filter==2.1.0
-django-widget-tweaks==1.4.3
-djangorestframework==3.9.1
-markdown==3.0.1
