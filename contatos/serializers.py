@@ -6,7 +6,7 @@ from usuarios.serializers import UsuarioSerializer
 
 
 class ContatoSerializer(ErrorArrayMixin, serializers.ModelSerializer):
-    usuario = UsuarioSerializer()
+    usuario = UsuarioSerializer(read_only=True)
 
     class Meta:
         model = Contato
