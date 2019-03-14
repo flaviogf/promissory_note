@@ -18,9 +18,11 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from contatos.viewsets import ContatoViewSet
+from enderecos.viewsets import EnderecoViewSet
 
 router = DefaultRouter()
 router.register('contatos', ContatoViewSet)
+router.register('enderecos', EnderecoViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

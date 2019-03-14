@@ -9,6 +9,11 @@ class Endereco(models.Model):
     rua = models.CharField(max_length=250)
     bairro = models.CharField(max_length=250)
     numero = models.CharField(max_length=9)
+    criado_em = models.DateTimeField(auto_now_add=True)
+    atualizado_em = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-criado_em', )
 
     def __str__(self):
         return f'{self.rua} - {self.numero} - {self.bairro}'
