@@ -3,7 +3,7 @@ from faker import Faker
 
 from contatos.models import Contato
 
-fake = Faker('pt_PT')
+fake = Faker('pt_BR')
 
 
 class ContatoTests(TestCase):

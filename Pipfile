@@ -10,6 +10,7 @@ faker = "*"
 factory-boy = "*"
 ipython = "*"
 ipdb = "*"
+coverage = "*"
 
 [packages]
 django = "==2.1.7"

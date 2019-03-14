@@ -3,7 +3,7 @@ from faker import Faker
 
 from contatos.serializers import ContatoSerializer
 
-fake = Faker('pt_PT')
+fake = Faker('pt_BR')
 
 
 class ContatoSerializerTests(TestCase):
