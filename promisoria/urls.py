@@ -19,12 +19,14 @@ from rest_framework.routers import DefaultRouter
 
 from contas.viewsets import ContaViewSet
 from contatos.viewsets import ContatoViewSet
+from core.viewsets import PromisoriaViewSet
 from enderecos.viewsets import EnderecoViewSet
 
 router = DefaultRouter()
 router.register('contatos', ContatoViewSet)
 router.register('enderecos', EnderecoViewSet)
 router.register('contas', ContaViewSet)
+router.register('promisorias', PromisoriaViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),

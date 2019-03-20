@@ -10,3 +10,6 @@ class Promisoria(Model):
     contato = models.ForeignKey(Contato, on_delete=models.CASCADE)
     endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE)
     contas = models.ManyToManyField(Conta)
+
+    class Meta:
+        ordering = ('criado_em', )
