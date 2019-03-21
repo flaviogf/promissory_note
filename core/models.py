@@ -16,4 +16,4 @@ class Promisoria(Model):
     recebida = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ('criado_em', )
+        ordering = ('-criado_em', )

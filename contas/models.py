@@ -14,4 +14,4 @@ class Conta(Model):
     recebida = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ('data_recebimento', )
+        ordering = ('-criado_em', )
