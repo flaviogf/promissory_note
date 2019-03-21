@@ -21,11 +21,3 @@ class ContaTests(TestCase):
         self.assertEqual(self.valor1, self.sut.valor)
         self.assertIsNone(self.sut.data_recebimento)
         self.assertFalse(self.sut.recebida)
-
-    def test_conta_str(self):
-        self.assertEqual("R$ 10000 (não recebido)", self.sut.__str__())
-
-    def test_conta_recebe(self):
-        self.sut.recebe()
-        self.assertEqual(date.today(), self.sut.data_recebimento)
-        self.assertTrue(self.sut.recebida)

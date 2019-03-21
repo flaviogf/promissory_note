@@ -12,6 +12,3 @@ class Contato(Model):
 
     class Meta:
         ordering = ('-criado_em', )
-
-    def __str__(self):
-        return self.nome

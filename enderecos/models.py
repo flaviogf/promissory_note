@@ -14,6 +14,3 @@ class Endereco(Model):
 
     class Meta:
         ordering = ('-criado_em', )
-
-    def __str__(self):
-        return f'{self.rua} - {self.numero} - {self.bairro}'

@@ -17,22 +17,3 @@ class Promisoria(Model):
 
     class Meta:
         ordering = ('criado_em', )
-
-    def __str__(self):
-        mensagem = '(recebida)' if self.recebida else '(não recebida)'
-        return f'contas {self.quantidade_de_contas} {mensagem}'
-
-    @property
-    def quantidade_de_contas(self):
-        return self.contas.count()
-
-    def adiciona_conta(self, conta):
-        self.contas.add(conta)
-
-    def baixa(self):
-        for it in self.contas.all():
-            it.recebe()
-
-        self.recebida = True
-        self.data_recebimento = date.today()
-        self.save()

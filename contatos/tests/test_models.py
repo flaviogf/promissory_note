@@ -20,6 +20,3 @@ class ContatoTests(TestCase):
         self.assertEqual(self.nome1, self.sut.nome)
         self.assertEqual(self.email1, self.sut.email)
         self.assertEqual(self.telefone1, self.sut.telefone)
-
-    def test_contato_str(self):
-        self.assertEqual(self.nome1, self.sut.__str__())

@@ -15,12 +15,3 @@ class Conta(Model):
 
     class Meta:
         ordering = ('data_recebimento', )
-
-    def __str__(self):
-        mensagem_status = '(não recebido)' if not self.recebida else '(recebido)'
-        return f'R$ {self.valor} {mensagem_status}'
-
-    def recebe(self):
-        self.recebida = True
-        self.data_recebimento = date.today()
-        self.save()

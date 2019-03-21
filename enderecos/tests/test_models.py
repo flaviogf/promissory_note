@@ -25,7 +25,3 @@ class EnderecoTests(TestCase):
         self.assertEqual(self.rua1, self.sut.rua)
         self.assertEqual(self.bairro1, self.sut.bairro)
         self.assertEqual(self.numero1, self.sut.numero)
-
-    def test_endereco_str_(self):
-        esperado = f'{self.rua1} - {self.numero1} - {self.bairro1}'
-        self.assertEqual(esperado, self.sut.__str__())
