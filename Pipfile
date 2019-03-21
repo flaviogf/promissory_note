@@ -19,4 +19,4 @@ markdown = "==3.0.1"
 django-filter = "==2.1.0"
 
 [requires]
-python_version = "3.7"
+python = "3"

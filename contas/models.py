@@ -10,7 +10,7 @@ from shared.models import Model
 class Conta(Model):
     descricao = models.TextField(max_length=500)
     valor = models.DecimalField(max_digits=7, decimal_places=2)
-    data_recebimento = models.DateField(default=date.today)
+    data_recebimento = models.DateField(blank=True, null=True)
     recebida = models.BooleanField(default=False)
 
     class Meta:
@@ -19,3 +19,8 @@ class Conta(Model):
     def __str__(self):
         mensagem_status = '(não recebido)' if not self.recebida else '(recebido)'
         return f'R$ {self.valor} {mensagem_status}'
+
+    def recebe(self):
+        self.recebida = True
+        self.data_recebimento = date.today()
+        self.save()

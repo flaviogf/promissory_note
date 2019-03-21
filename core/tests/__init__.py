@@ -31,4 +31,4 @@ class ContaFactory(factory.django.DjangoModelFactory):
     descricao = factory.Faker('sentence')
     valor = 1000.00
     data_recebimento = factory.Faker('future_datetime', end_date='+30d')
-    recebida = factory.Faker('pybool')
+    recebida = False
