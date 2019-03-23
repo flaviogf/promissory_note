@@ -5,4 +5,12 @@ jobs:
       - image: circleci/python:3.6
     steps:
       - checkout
-      - run: echo "Hello World"
+      - run:
+          name: 'instalar pipenv'
+          command: 'pip install pipenv'
+      - run:
+          name: 'instalar dependencias dev'
+          command: 'pipenv install --dev'
+      - run:
+          name: 'instalar dependencias'
+          command: 'pipenv install'
