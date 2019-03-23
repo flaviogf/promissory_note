@@ -5,6 +5,10 @@ jobs:
       - image: circleci/python:3.6
     steps:
       - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      - restore_cache:  
+          key: dependencias-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           name: 'instala pipenv'
           command: 'sudo pip install pipenv'
@@ -14,6 +18,12 @@ jobs:
       - run:
           name: 'instala dependencias'
           command: 'pipenv install'
+      - save_cache:
+          key: dependencias-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.6/site-packages
   test:
     docker:
       - image: circleci/python:3.6
