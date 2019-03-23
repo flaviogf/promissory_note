@@ -17,3 +17,5 @@ jobs:
       - run:
           name: 'coverage'
           command: 'pipenv run coverage run -m unittest -v'
+      - store_test_results:
+          path: tests
