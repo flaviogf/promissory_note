@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime
 
 from domain.entities import Beneficiario, Conta, Emitente, Promisoria
-from domain.tests import BeneficiarioFactory, ContaFactory, EmitenteFactory, PromisoriaFactory, fake
+from tests.domain import BeneficiarioFactory, ContaFactory, EmitenteFactory, PromisoriaFactory, fake
 
 
 class ContaTests(unittest.TestCase):

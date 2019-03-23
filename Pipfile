@@ -4,19 +4,16 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-coverage = "*"
-isort = "*"
 autopep8 = "*"
+coverage = "*"
 faker = "*"
-ipdb = "*"
 factory-boy = "*"
+ipdb = "*"
+ipython = "*"
+isort = "*"
+behave = "*"
 
 [packages]
-ipython = "*"
-django = "*"
-djangorestframework = "*"
-markdown = "*"
-django-filter = "*"
 
 [requires]
 python_version = "3"
