@@ -13,6 +13,10 @@ factory-boy = "*"
 
 [packages]
 ipython = "*"
+django = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3"

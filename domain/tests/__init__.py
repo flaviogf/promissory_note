@@ -1,7 +1,7 @@
 import factory
 from faker import Faker
 
-from domain.entities import Beneficiario, Conta, Emitente
+from domain.entities import Beneficiario, Conta, Emitente, Promisoria
 
 fake = Faker('pt_BR')
 
@@ -30,3 +30,10 @@ class ContaFactory(factory.Factory):
 
     descricao = factory.Faker('sentence')
     valor = factory.Faker('pyfloat')
+
+
+class PromisoriaFactory(factory.Factory):
+    class Meta:
+        model = Promisoria
+
+    emitente = EmitenteFactory.build()

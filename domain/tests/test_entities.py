@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime
 
 from domain.entities import Beneficiario, Conta, Emitente, Promisoria
-from domain.tests import BeneficiarioFactory, ContaFactory, EmitenteFactory, fake
+from domain.tests import BeneficiarioFactory, ContaFactory, EmitenteFactory, PromisoriaFactory, fake
 
 
 class ContaTests(unittest.TestCase):
@@ -38,14 +38,13 @@ class PromisoriaTests(unittest.TestCase):
         self.beneficiario = BeneficiarioFactory.build()
         self.conta = ContaFactory.build()
         self.conta2 = ContaFactory.build()
-        self.sut = Promisoria(emitente=self.emitente,
-                              beneficiario=self.beneficiario)
+        self.sut = Promisoria(emitente=self.emitente)
 
     def test_init(self):
         self.assertIsInstance(self.sut, Promisoria)
         self.assertIsInstance(self.sut.id, uuid.UUID)
         self.assertEqual(self.emitente, self.sut.emitente)
-        self.assertEqual(self.beneficiario, self.sut.beneficiario)
+        self.assertEqual(None, self.sut.beneficiario)
 
     def test_adiciona_conta(self):
         self.sut.adiciona_conta(self.conta)
@@ -63,10 +62,14 @@ class PromisoriaTests(unittest.TestCase):
 
     def test_recebe(self):
         self.sut += self.conta
-        self.sut.recebe()
+        self.sut.recebe(self.beneficiario)
         for it in self.sut.contas:
             with self.subTest():
                 self.assertTrue(it.recebida)
+
+        self.assertTrue(self.sut.recebida)
+        self.assertIsInstance(self.sut.data_recebimento, datetime)
+        self.assertEqual(self.beneficiario, self.sut.beneficiario)
 
 
 class EmitenteTests(unittest.TestCase):
@@ -85,12 +88,20 @@ class EmitenteTests(unittest.TestCase):
         self.assertEqual(self.endereco, self.sut.endereco)
         self.assertEqual(self.telefone, self.sut.telefone)
 
+    def test_emite_promisoria(self):
+        promisoria = self.sut.emite_promisoria()
+        self.assertIsInstance(promisoria, Promisoria)
+        self.assertEqual(self.sut, promisoria.emitente)
+
 
 class BeneficiarioTests(unittest.TestCase):
     def setUp(self):
         self.nome = fake.name()
         self.endereco = fake.street_address()
         self.telefone = fake.phone_number()
+        self.promisoria = PromisoriaFactory.build()
+        self.conta = ContaFactory.build()
+        self.promisoria += self.conta
         self.sut = Beneficiario(nome=self.nome,
                                 endereco=self.endereco,
                                 telefone=self.telefone)
@@ -101,3 +112,11 @@ class BeneficiarioTests(unittest.TestCase):
         self.assertEqual(self.nome, self.sut.nome)
         self.assertEqual(self.endereco, self.sut.endereco)
         self.assertEqual(self.telefone, self.sut.telefone)
+        self.assertEqual(0, len(self.sut.promisorias_recebidas))
+
+    def test_recebe(self):
+        self.sut.recebe(self.promisoria)
+        self.assertEqual(1, len(self.sut.promisorias_recebidas))
+        for it in self.sut.promisorias_recebidas:
+            with self.subTest():
+                self.assertTrue(it.recebida)

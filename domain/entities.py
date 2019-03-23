@@ -36,11 +36,13 @@ class Conta(Entity):
 
 
 class Promisoria(Entity):
-    def __init__(self, emitente: 'Emitente', beneficiario: 'Beneficiario'):
+    def __init__(self, emitente: 'Emitente'):
         super().__init__()
         self._emitente = emitente
-        self._beneficiario = beneficiario
+        self._beneficiario = None
         self._contas = []
+        self._data_recebimento = None
+        self._recebida = False
 
     def __iadd__(self, conta):
         self.adiciona_conta(conta)
@@ -62,12 +64,24 @@ class Promisoria(Entity):
     def total(self):
         return sum([it.valor for it in self.contas])
 
+    @property
+    def data_recebimento(self):
+        return self._data_recebimento
+
+    @property
+    def recebida(self):
+        return self._recebida
+
     def adiciona_conta(self, conta: 'Conta'):
         self._contas.append(conta)
 
-    def recebe(self):
+    def recebe(self, beneficiario: 'Beneficiario'):
         for it in self.contas:
             it.recebe()
+
+        self._beneficiario = beneficiario
+        self._data_recebimento = datetime.now()
+        self._recebida = True
 
 
 class Pessoa(Entity):
@@ -91,8 +105,22 @@ class Pessoa(Entity):
 
 
 class Emitente(Pessoa):
-    ...
+    def emite_promisoria(self):
+        return Promisoria(emitente=self)
 
 
 class Beneficiario(Pessoa):
-    ...
+    def __init__(self, nome: str, endereco: str, telefone: str):
+        super().__init__(nome, endereco, telefone)
+        self._promissorias_recebidas = []
+
+    @property
+    def promisorias_recebidas(self):
+        return [*self._promissorias_recebidas]
+
+    def recebe(self, promisoria):
+        promisoria.recebe(self)
+        self._adiciona_promisoria(promisoria)
+
+    def _adiciona_promisoria(self, promisoria):
+        self._promissorias_recebidas.append(promisoria)

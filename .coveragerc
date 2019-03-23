@@ -3,3 +3,8 @@ omit =
   */tests/*
   */.local/*
 
+[paths]
+source =
+  */domain/*
+  */shared/*
+  */api/*
