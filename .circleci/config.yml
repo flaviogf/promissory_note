@@ -21,7 +21,7 @@ jobs:
       - checkout
       - run:
           name: 'coverage'
-          command: 'pipenv run python run -m unittest -v'
+          command: 'pipenv run python -m unittest -v'
 
 workflows:
   version: 2
