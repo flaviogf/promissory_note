@@ -14,9 +14,6 @@ jobs:
       - run:
           name: 'instala dependencias'
           command: 'pipenv install'
-      - run:
-          name: 'ativa pipenv'
-          command: 'pipenv shell'
   test:
     docker:
       - image: circleci/python:3.6
@@ -24,7 +21,7 @@ jobs:
       - checkout
       - run:
           name: 'coverage'
-          command: 'coverage run -m unittest -v'
+          command: 'pipenv run coverage run -m unittest -v'
 
 workflows:
   version: 2
