@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: 'instala pipenv'
-          command: 'pip install pipenv'
+          command: 'sudo pip install pipenv'
       - run:
           name: 'instala dependencias dev'
           command: 'pipenv install --dev'
@@ -21,7 +21,7 @@ jobs:
       - checkout
       - run:
           name: 'coverage'
-          command: 'pipenv run coverage run -m unittest -v'
+          command: 'pipenv run python run -m unittest -v'
 
 workflows:
   version: 2
