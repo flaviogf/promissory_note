@@ -5,13 +5,14 @@ verify_ssl = true
 
 [dev-packages]
 autopep8 = "*"
+behave = "*"
 coverage = "*"
 faker = "*"
 factory-boy = "*"
 ipdb = "*"
 ipython = "*"
 isort = "*"
-behave = "*"
+pylint = "*"
 
 [packages]
 
