@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    db:
+        image: postgres:9.6
+        volumes:
+            - data:/var/lib/postgresql/data
+            - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    api:
+        build: .
+        command: bash /scripts/start.sh
+        environment:
+            - DJANGO_SETTINGS_MODULE=api.settings_prod
+        volumes:
+            - ./scripts/start.sh:/scripts/start.sh
+        ports:
+            - 8000:8000
+        depends_on:
+            - db
+
+volumes:
+    data:
