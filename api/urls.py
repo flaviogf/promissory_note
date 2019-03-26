@@ -20,8 +20,7 @@ from rest_framework.routers import DefaultRouter
 from api.emitentes.viewsets import EmitenteViewSet
 
 router = DefaultRouter()
-router.register('emitentes', EmitenteViewSet)
-
+router.register('emitentes', EmitenteViewSet, basename='emitente')
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),

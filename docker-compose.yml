@@ -6,7 +6,7 @@ services:
         volumes:
             - data:/var/lib/postgresql/data
     api:
-        build: .
+        image: flaviogf/promisoria:latest
         ports:
             - 8000:8000
         depends_on:

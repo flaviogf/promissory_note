@@ -3,20 +3,20 @@ import uuid
 
 from django.test import TestCase
 
-from api.emitentes.models import EmitenteData
+from api.emitentes.models import EmitenteModel
 from api.emitentes.tests import fake
 
 
-class EmitenteDataTests(TestCase):
+class EmitenteModelTests(TestCase):
     def setUp(self):
         self.nome = fake.name()
         self.endereco = fake.address()
         self.telefone = fake.phone_number()
-        self.sut = EmitenteData.objects.create(nome=self.nome,
-                                               endereco=self.endereco,
-                                               telefone=self.telefone)
+        self.sut = EmitenteModel.objects.create(nome=self.nome,
+                                                endereco=self.endereco,
+                                                telefone=self.telefone)
 
-    def test_init(self):
+    def test_create(self):
         self.assertIsInstance(self.sut.id, uuid.UUID)
         self.assertEqual(self.nome, self.sut.nome)
         self.assertEqual(self.endereco, self.sut.endereco)
