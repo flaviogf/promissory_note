@@ -13,3 +13,6 @@ class EmitenteData(models.Model):
     telefone = models.CharField(max_length=25)
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'emitente'
