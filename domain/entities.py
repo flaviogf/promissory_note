@@ -44,6 +44,18 @@ class Conta(Entity):
         self._recebida = True
         self._data_recebimento = datetime.now()
 
+    class Factory:
+        @staticmethod
+        def cria(id: 'uuid.UUID',
+                 descricao: str,
+                 valor: float,
+                 data_recebimento: 'datetime',
+                 recebida: bool):
+            conta = Conta(descricao=descricao, valor=valor)
+            conta.id = id
+            conta._data_recebimento = data_recebimento
+            conta._recebida = recebida
+            return conta
 
 class Promisoria(Entity):
     """classe que representa uma promisória"""

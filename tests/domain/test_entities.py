@@ -9,8 +9,11 @@ from domain.entities import Beneficiario, Conta, Emitente, Promisoria
 
 class ContaTests(unittest.TestCase):
     def setUp(self):
+        self.id = uuid.uuid4()
         self.descricao = fake.sentence()
         self.valor = fake.pyfloat()
+        self.data_recebimento = datetime.now()
+        self.recebida = fake.pybool()
         self.conta = ContaFactory.build()
         self.sut = Conta(descricao=self.descricao, valor=self.valor)
 
@@ -31,6 +34,20 @@ class ContaTests(unittest.TestCase):
         total_conta = self.sut + self.conta
         total_valor = self.sut.valor + self.conta.valor
         self.assertEqual(total_valor, total_conta)
+
+    def test_factory_cria(self):
+        conta = Conta.Factory.cria(id=self.id,
+                                   descricao=self.descricao,
+                                   valor=self.valor,
+                                   data_recebimento=self.data_recebimento,
+                                   recebida=self.recebida)
+
+        self.assertEqual(self.id, conta.id)
+        self.assertEqual(self.descricao, conta.descricao)
+        self.assertEqual(self.valor, conta.valor)
+        self.assertEqual(self.data_recebimento, conta.data_recebimento)
+        self.assertEqual(self.recebida, conta.recebida)
+
 
 
 class PromisoriaTests(unittest.TestCase):
