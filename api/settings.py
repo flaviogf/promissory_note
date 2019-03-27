@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.core',
     'api.emitentes',
+    'api.beneficiarios',
 ]
 
 MIDDLEWARE = [

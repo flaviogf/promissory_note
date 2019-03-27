@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
+from api.beneficiarios.viewsets import BeneficiarioViewSet
 from api.emitentes.viewsets import EmitenteViewSet
 
 router = DefaultRouter()
-router.register('emitentes', EmitenteViewSet, basename='emitente')
+router.register('api/v1/emitentes', EmitenteViewSet, basename='emitente')
+router.register('api/v1/beneficiarios', BeneficiarioViewSet, basename='beneficiario')
 
 urlpatterns = [
-    path('api/v1/', include(router.urls)),
+    path('', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
