@@ -25,7 +25,7 @@ class BeneficiarioRepository(Repository):
 class ContaRepository(Repository):
     """interface para o repositorio de contas"""
 
-    def lista_por_ids(self, ids: List['UUID']) -> List['Conta']:
+    def lista_por_id(self, ids: List['UUID']) -> List['Conta']:
         """lista contas por ids"""
         raise NotImplementedError()
 

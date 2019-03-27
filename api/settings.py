@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'api.core',
     'api.emitentes',
     'api.beneficiarios',
+    'api.contas',
+    'api.promisorias',
 ]
 
 MIDDLEWARE = [

@@ -2,8 +2,8 @@
 from shared.commands import Command, CommandResult
 
 
-class CriarPromisoriaCommand(Command):
-    """classe que representa um comando para a criação de uma promisória"""
+class EmitirPromisoriaCommand(Command):
+    """classe que representa um comando para a emição de uma promisória"""
     ...
 
     def __init__(self):
@@ -12,6 +12,6 @@ class CriarPromisoriaCommand(Command):
         self.id_contas = []
 
 
-class CriarPromisoriaCommandResult(CommandResult):
-    """classe que representa o resultado do comando de criar promisória"""
+class EmitirPromisoriaCommandResult(CommandResult):
+    """classe que representa o resultado do comando de emição de uma promisória"""
     ...

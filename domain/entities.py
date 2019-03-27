@@ -136,6 +136,13 @@ class Emitente(Pessoa):
         """emite um promisória"""
         return Promisoria(emitente=self)
 
+    class Factory:
+        @staticmethod
+        def cria(id: 'uuid.UUID', nome: str, endereco: str, telefone: str):
+            emitente = Emitente(nome, endereco, telefone)
+            emitente.id = id
+            return emitente
+
 
 class Beneficiario(Pessoa):
     """classe que representa um beneficiario"""
@@ -156,3 +163,10 @@ class Beneficiario(Pessoa):
 
     def _adiciona_promisoria(self, promisoria: 'Promisoria'):
         self._promissorias_recebidas.append(promisoria)
+
+    class Factory:
+        @staticmethod
+        def cria(id: 'uuid.UUID', nome: str, endereco: str, telefone: str):
+            beneficiario = Beneficiario(nome, endereco, telefone)
+            beneficiario.id = id
+            return beneficiario

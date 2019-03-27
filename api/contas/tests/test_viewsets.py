@@ -3,14 +3,14 @@ from django.urls import reverse
 from rest_framework.status import HTTP_200_OK
 from rest_framework.test import APIRequestFactory
 
-from api.beneficiarios.viewsets import BeneficiarioViewSet
+from api.contas.viewsets import ContaViewSet
 
 
-class BeneficiarioViewSetTests(TestCase):
+class ContaViewSetTests(TestCase):
     def setUp(self):
         self.request_factory = APIRequestFactory()
-        self.url = reverse('beneficiario-list')
-        self.sut = BeneficiarioViewSet
+        self.url = reverse('conta-list')
+        self.sut = ContaViewSet
 
     def test_list(self):
         view = self.sut.as_view({'get': 'list'})

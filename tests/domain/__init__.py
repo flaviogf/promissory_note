@@ -53,7 +53,7 @@ class BeneficiarioRepositoryMock(BeneficiarioRepository):
 
 
 class ContaRepositoryMock(ContaRepository):
-    def lista_por_ids(self, ids: List['UUID']) -> List['UUID']:
+    def lista_por_id(self, ids: List['UUID']) -> List['UUID']:
         return ContaFactory.build_batch(10)
 
 

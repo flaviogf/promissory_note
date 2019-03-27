@@ -18,11 +18,19 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from api.beneficiarios.viewsets import BeneficiarioViewSet
+from api.contas.viewsets import ContaViewSet
 from api.emitentes.viewsets import EmitenteViewSet
 
 router = DefaultRouter()
-router.register('api/v1/emitentes', EmitenteViewSet, basename='emitente')
-router.register('api/v1/beneficiarios', BeneficiarioViewSet, basename='beneficiario')
+router.register('api/v1/emitentes',
+                EmitenteViewSet,
+                basename='emitente')
+router.register('api/v1/beneficiarios',
+                BeneficiarioViewSet,
+                basename='beneficiario')
+router.register('api/v1/contas',
+                ContaViewSet,
+                basename='conta')
 
 urlpatterns = [
     path('', include(router.urls)),

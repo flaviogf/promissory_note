@@ -1,11 +1,11 @@
 """modulo dos handlers do dominio"""
 
 
-from domain.commands import CriarPromisoriaCommandResult
+from domain.commands import EmitirPromisoriaCommandResult
 from shared.handlers import Handler
 
 
-class CriarPromisoriaHandler(Handler):
+class EmitirPromisoriaHandler(Handler):
     """classe responsavel pelo fluxo de criação de uma promisória"""
 
     def __init__(self,
@@ -25,7 +25,7 @@ class CriarPromisoriaHandler(Handler):
         beneficiario = self.beneficiario_repository.busca_por_id(
             command.id_beneficario)
 
-        contas = self.conta_repository.lista_por_ids(command.id_contas)
+        contas = self.conta_repository.lista_por_id(command.id_contas)
 
         promisoria = emitente.emite_promisoria()
 
@@ -34,4 +34,4 @@ class CriarPromisoriaHandler(Handler):
 
         self.promisoria_repository.insere(promisoria)
 
-        return CriarPromisoriaCommandResult(mensagem='promisória criado com sucesso')
+        return EmitirPromisoriaCommandResult(mensagem='promisória criado com sucesso')

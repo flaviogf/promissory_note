@@ -2,8 +2,9 @@ import unittest
 import uuid
 from datetime import datetime
 
-from domain.entities import Beneficiario, Conta, Emitente, Promisoria
 from tests.domain import BeneficiarioFactory, ContaFactory, EmitenteFactory, PromisoriaFactory, fake
+
+from domain.entities import Beneficiario, Conta, Emitente, Promisoria
 
 
 class ContaTests(unittest.TestCase):
@@ -74,6 +75,7 @@ class PromisoriaTests(unittest.TestCase):
 
 class EmitenteTests(unittest.TestCase):
     def setUp(self):
+        self.id = uuid.uuid4()
         self.nome = fake.name()
         self.endereco = fake.street_address()
         self.telefone = fake.phone_number()
@@ -92,6 +94,18 @@ class EmitenteTests(unittest.TestCase):
         promisoria = self.sut.emite_promisoria()
         self.assertIsInstance(promisoria, Promisoria)
         self.assertEqual(self.sut, promisoria.emitente)
+
+    def test_factory_cria(self):
+        emitente = Emitente.Factory.cria(id=self.id,
+                                         nome=self.nome,
+                                         endereco=self.endereco,
+                                         telefone=self.telefone)
+
+        self.assertIsInstance(emitente, Emitente)
+        self.assertEqual(self.id, emitente.id)
+        self.assertEqual(self.nome, emitente.nome)
+        self.assertEqual(self.endereco, emitente.endereco)
+        self.assertEqual(self.telefone, emitente.telefone)
 
 
 class BeneficiarioTests(unittest.TestCase):
@@ -120,3 +134,15 @@ class BeneficiarioTests(unittest.TestCase):
         for it in self.sut.promisorias_recebidas:
             with self.subTest():
                 self.assertTrue(it.recebida)
+
+    def test_factory_cria(self):
+        beneficiario = Beneficiario.Factory.cria(id=self.id,
+                                                 nome=self.nome,
+                                                 endereco=self.endereco,
+                                                 telefone=self.telefone)
+
+        self.assertIsInstance(beneficiario, Beneficiario)
+        self.assertEqual(self.id, beneficiario.id)
+        self.assertEqual(self.nome, beneficiario.nome)
+        self.assertEqual(self.endereco, beneficiario.endereco)
+        self.assertEqual(self.telefone, beneficiario.telefone)

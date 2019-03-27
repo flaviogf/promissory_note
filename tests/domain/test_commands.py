@@ -1,11 +1,11 @@
 import unittest
 
-from domain.commands import CriarPromisoriaCommand
+from domain.commands import EmitirPromisoriaCommand
 
 
-class CriarPromisoriaCommandTests(unittest.TestCase):
+class EmitirPromisoriaCommandTests(unittest.TestCase):
     def setUp(self):
-        self.sut = CriarPromisoriaCommand()
+        self.sut = EmitirPromisoriaCommand()
 
     def test_init(self):
         self.assertIsNone(self.sut.id_emitente)
