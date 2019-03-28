@@ -20,6 +20,7 @@ from rest_framework.routers import DefaultRouter
 from api.beneficiarios.viewsets import BeneficiarioViewSet
 from api.contas.viewsets import ContaViewSet
 from api.emitentes.viewsets import EmitenteViewSet
+from api.promisorias.viewsets import PromisoriaViewSet
 
 router = DefaultRouter()
 router.register('api/v1/emitentes',
@@ -31,6 +32,9 @@ router.register('api/v1/beneficiarios',
 router.register('api/v1/contas',
                 ContaViewSet,
                 basename='conta')
+router.register('api/v1/promisorias',
+                PromisoriaViewSet,
+                basename='promisoria')
 
 urlpatterns = [
     path('', include(router.urls)),

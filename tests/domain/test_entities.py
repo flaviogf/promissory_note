@@ -124,6 +124,17 @@ class EmitenteTests(unittest.TestCase):
         self.assertEqual(self.endereco, emitente.endereco)
         self.assertEqual(self.telefone, emitente.telefone)
 
+    def test_dict(self):
+        dicionario_esperado = {
+            'id': self.sut.id,
+            'nome': self.sut.nome,
+            'endereco': self.sut.endereco,
+            'telefone': self.sut.telefone,
+        }
+
+        self.assertDictEqual(dicionario_esperado, self.sut.dict())
+
+
 
 class BeneficiarioTests(unittest.TestCase):
     def setUp(self):
@@ -163,3 +174,13 @@ class BeneficiarioTests(unittest.TestCase):
         self.assertEqual(self.nome, beneficiario.nome)
         self.assertEqual(self.endereco, beneficiario.endereco)
         self.assertEqual(self.telefone, beneficiario.telefone)
+
+    def test_dict(self):
+        dicionario_esperado = {
+            'id': self.sut.id,
+            'nome': self.sut.nome,
+            'endereco': self.sut.endereco,
+            'telefone': self.sut.telefone,
+        }
+
+        self.assertDictEqual(dicionario_esperado, self.sut.dict())

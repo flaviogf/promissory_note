@@ -12,3 +12,4 @@ class EmitenteModel(Model):
 
     class Meta:
         db_table = 'emitente'
+        ordering = ('criado_em',)

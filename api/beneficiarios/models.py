@@ -10,3 +10,4 @@ class BeneficiarioModel(Model):
 
     class Meta:
         db_table = 'beneficiario'
+        ordering = ('criado_em',)

@@ -11,3 +11,4 @@ class ContaModel(Model):
 
     class Meta:
         db_table = 'conta'
+        ordering = ('criado_em',)

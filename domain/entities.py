@@ -125,6 +125,14 @@ class Pessoa(Entity):
         self._endereco = endereco
         self._telefone = telefone
 
+    def dict(self):
+        return {
+            'id': self.id,
+            'nome': self.nome,
+            'endereco': self.endereco,
+            'telefone': self.telefone
+        }
+
     @property
     def nome(self) -> str:
         """retorna o nome da pessoa"""
