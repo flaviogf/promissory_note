@@ -18,7 +18,7 @@ class EmitirPromisoriaHandler(Handler):
         self.conta_repository = conta_repository
         self.promisoria_repository = promisoria_repository
 
-    def handle(self, command: 'CriarPromisoriaCommand') -> 'CriarPromisoriaCommandResult':
+    def handle(self, command: 'EmitirPromisoriaCommand') -> 'EmitirPromisoriaCommandResult':
         """realiza o fluxo de criação de uma promisória"""
         emitente = self.emitente_repository.busca_por_id(command.id_emitente)
 

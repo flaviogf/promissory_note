@@ -57,6 +57,7 @@ class Conta(Entity):
             conta._recebida = recebida
             return conta
 
+
 class Promisoria(Entity):
     """classe que representa uma promisória"""
 
@@ -71,6 +72,15 @@ class Promisoria(Entity):
     def __iadd__(self, conta: 'Conta'):
         self.adiciona_conta(conta)
         return self
+
+    def dict(self):
+        return {
+            'emitente': self.emitente.id,
+            'beneficiario': self.beneficiario.id,
+            'contas': [it.id for it in self.contas],
+            'data_recebimento': self.data_recebimento,
+            'recebida': self.recebida
+        }
 
     @property
     def emitente(self) -> 'Emitente':

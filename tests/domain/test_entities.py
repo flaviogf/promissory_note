@@ -49,7 +49,6 @@ class ContaTests(unittest.TestCase):
         self.assertEqual(self.recebida, conta.recebida)
 
 
-
 class PromisoriaTests(unittest.TestCase):
     def setUp(self):
         self.emitente = EmitenteFactory.build()
@@ -88,6 +87,17 @@ class PromisoriaTests(unittest.TestCase):
         self.assertTrue(self.sut.recebida)
         self.assertIsInstance(self.sut.data_recebimento, datetime)
         self.assertEqual(self.beneficiario, self.sut.beneficiario)
+
+    def test_dict(self):
+        self.sut.recebe(self.beneficiario)
+        dicionario_esperado = {
+            'emitente': self.sut.emitente.id,
+            'beneficiario': self.sut.beneficiario.id,
+            'contas': [it.id for it in self.sut.contas],
+            'data_recebimento': self.sut.data_recebimento,
+            'recebida': self.sut.recebida,
+        }
+        self.assertDictEqual(dicionario_esperado, self.sut.dict())
 
 
 class EmitenteTests(unittest.TestCase):
@@ -133,7 +143,6 @@ class EmitenteTests(unittest.TestCase):
         }
 
         self.assertDictEqual(dicionario_esperado, self.sut.dict())
-
 
 
 class BeneficiarioTests(unittest.TestCase):
