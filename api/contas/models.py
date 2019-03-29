@@ -9,6 +9,9 @@ class ContaModel(Model):
     data_recebimento = models.DateTimeField(null=True, blank=True)
     recebida = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f'{self.valor} {self.descricao[:10]}'
+
     class Meta:
         db_table = 'conta'
         ordering = ('criado_em',)

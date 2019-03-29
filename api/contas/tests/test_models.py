@@ -19,3 +19,7 @@ class ContaModelTests(TestCase):
         self.assertEqual(self.valor, self.sut.valor)
         self.assertIsNone(self.sut.data_recebimento)
         self.assertFalse(self.sut.recebida)
+
+    def test_str(self):
+        self.assertEqual(
+            f'{self.valor} {self.descricao[:10]}', self.sut.__str__())

@@ -8,7 +8,7 @@ from rest_framework.viewsets import ModelViewSet
 from api.promisorias.models import PromisoriaModel
 from api.promisorias.serializers import PromisoriaSerializer
 from domain.commands import EmitirPromisoriaCommand
-from ioc import get_emitir_promisoria_handler
+from infra.ioc import get_emitir_promisoria_handler
 
 
 class PromisoriaViewSet(ModelViewSet):
@@ -22,10 +22,20 @@ class PromisoriaViewSet(ModelViewSet):
     def emite_promisoria(self, request):
         handler = get_emitir_promisoria_handler()
         command = EmitirPromisoriaCommand()
-        command.id_emitente = uuid.UUID(request.data.get('emitente'))
-        command.id_beneficario = uuid.UUID(request.data.get('beneficiario'))
-        contas = request.data.get('contas')
-        command.id_contas = [uuid.UUID(contas)] if type(contas) == str \
-        else [uuid.UUID(it) for it in contas]
+        command.id_emitente = self._get_id_emitente(
+            request.data.get('emitente'))
+        command.id_beneficario = self._get_id_beneficiario(
+            request.data.get('beneficiario'))
+        command.id_contas = self._get_id_contas(
+            request.data.get('contas'))
         result = handler.handle(command)
         return Response(result.mensagem, status=HTTP_200_OK)
+
+    def _get_id_emitente(self, emitente):
+        return uuid.UUID(emitente)
+
+    def _get_id_beneficiario(self, beneficiario):
+        return uuid.UUID(beneficiario)
+
+    def _get_id_contas(self, contas):
+        return [uuid.UUID(contas)] if isinstance(contas, str) else [uuid.UUID(it) for it in contas]

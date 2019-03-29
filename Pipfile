@@ -24,6 +24,7 @@ psycopg2 = "==2.7.7"
 dj-static = "==0.0.6"
 object-mapper = "==1.0.6"
 psycopg2-binary = "==2.7.7"
+pika = "==1.0.0"
 
 [requires]
 python_version = "3"

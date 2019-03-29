@@ -17,3 +17,6 @@ class BeneficiarioModelTests(TestCase):
         self.assertEqual(self.nome, self.sut.nome)
         self.assertEqual(self.endereco, self.sut.endereco)
         self.assertEqual(self.telefone, self.sut.telefone)
+
+    def test_str(self):
+        self.assertEqual(self.nome, self.sut.__str__())
