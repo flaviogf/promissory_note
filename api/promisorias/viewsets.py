@@ -25,6 +25,7 @@ class PromisoriaViewSet(ModelViewSet):
         command.id_emitente = uuid.UUID(request.data.get('emitente'))
         command.id_beneficario = uuid.UUID(request.data.get('beneficiario'))
         contas = request.data.get('contas')
-        command.id_contas = [uuid.UUID(contas)] if type(contas) == str else [uuid.UUID(it) for it in contas]
+        command.id_contas = [uuid.UUID(contas)] if type(contas) == str \
+        else [uuid.UUID(it) for it in contas]
         result = handler.handle(command)
         return Response(result.mensagem, status=HTTP_200_OK)
