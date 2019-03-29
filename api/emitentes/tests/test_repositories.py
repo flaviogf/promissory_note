@@ -1,3 +1,4 @@
+"""modulo de testes dos repositorios do app emitentes"""
 from django.test import TestCase
 
 from api.emitentes.repositories import DjangoEmitenteRepository
@@ -6,12 +7,14 @@ from domain.entities import Emitente
 
 
 class DjangoEmitenteRepositoryTests(TestCase):
+    """classe responsavel pelos testes da classe DjangoEmitenteRepository"""
     def setUp(self):
         self.emitente1 = EmitenteModelFactory.create()
         self.emitente2 = EmitenteModelFactory.create()
         self.sut = DjangoEmitenteRepository()
 
     def test_busca_por_id(self):
+        """testa o metodo busca_por_id"""
         id = self.emitente1.id
         emitente = self.sut.busca_por_id(id)
         self.assertIsInstance(emitente, Emitente)
