@@ -9,5 +9,4 @@ class EmitirPromisoriaCommandTests(unittest.TestCase):
 
     def test_init(self):
         self.assertIsNone(self.sut.id_emitente)
-        self.assertIsNone(self.sut.id_beneficario)
         self.assertEqual(0, len(self.sut.id_contas))

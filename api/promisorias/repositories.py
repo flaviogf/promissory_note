@@ -9,11 +9,8 @@ class DjangoPromisoriaRepository(PromisoriaRepository):
     def insere(self, promisoria):
         id_emitente = promisoria.emitente.id
         emitente = EmitenteModel.objects.get(id=id_emitente)
-        id_beneficiario = promisoria.beneficiario.id
-        beneficiario = BeneficiarioModel.objects.get(id=id_beneficiario)
         id_contas = [it.id for it in promisoria.contas]
         contas = ContaModel.objects.filter(id__in=id_contas)
         promisoria = PromisoriaModel.objects.create(id=promisoria.id,
-                                                    emitente=emitente,
-                                                    beneficiario=beneficiario)
+                                                    emitente=emitente)
         promisoria.contas.set(contas)

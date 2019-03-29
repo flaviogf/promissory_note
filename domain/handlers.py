@@ -22,9 +22,6 @@ class EmitirPromisoriaHandler(Handler):
         """realiza o fluxo de criação de uma promisória"""
         emitente = self.emitente_repository.busca_por_id(command.id_emitente)
 
-        beneficiario = self.beneficiario_repository.busca_por_id(
-            command.id_beneficario)
-
         contas = self.conta_repository.lista_por_id(command.id_contas)
 
         promisoria = emitente.emite_promisoria()
@@ -34,4 +31,4 @@ class EmitirPromisoriaHandler(Handler):
 
         self.promisoria_repository.insere(promisoria)
 
-        return EmitirPromisoriaCommandResult(mensagem='promisória criado com sucesso')
+        return EmitirPromisoriaCommandResult(mensagem='promisória criada com sucesso')

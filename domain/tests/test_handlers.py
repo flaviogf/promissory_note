@@ -3,7 +3,7 @@ import uuid
 
 from domain.commands import EmitirPromisoriaCommand, EmitirPromisoriaCommandResult
 from domain.handlers import EmitirPromisoriaHandler
-from tests.domain import (BeneficiarioRepositoryMock, ContaRepositoryMock, EmitenteRepositoryMock,
+from domain.tests import (BeneficiarioRepositoryMock, ContaRepositoryMock, EmitenteRepositoryMock,
                           PromisoriaRepositoryMock)
 
 

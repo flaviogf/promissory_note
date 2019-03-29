@@ -23,6 +23,6 @@ def get_promisoria_repository():
 
 def get_emitir_promisoria_handler():
     return EmitirPromisoriaHandler(emitente_repository=get_emitente_repository(),
-                                   beneficiario_repository=get_emitente_repository(),
+                                   beneficiario_repository=get_beneficiario_repository(),
                                    conta_repository=get_conta_repository(),
                                    promisoria_repository=get_promisoria_repository())
