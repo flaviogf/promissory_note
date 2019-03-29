@@ -1,5 +1,3 @@
-"""modulo das entidades do dominio"""
-
 from datetime import datetime
 from typing import List
 
@@ -7,8 +5,6 @@ from shared.entities import Entity
 
 
 class Conta(Entity):
-    """classe que representa uma conta"""
-
     def __init__(self, descricao: str, valor: float):
         super().__init__()
         self._descricao = descricao
@@ -21,26 +17,21 @@ class Conta(Entity):
 
     @property
     def descricao(self) -> str:
-        """retorna a descrição da conta"""
         return self._descricao
 
     @property
     def valor(self) -> float:
-        """retorna o valor da conta"""
         return self._valor
 
     @property
     def data_recebimento(self) -> datetime:
-        """retorna a data de recebimento da conta"""
         return self._data_recebimento
 
     @property
     def recebida(self) -> bool:
-        """retorna a status da conta"""
         return self._recebida
 
     def recebe(self):
-        """realiza o recebimento da conta"""
         self._recebida = True
         self._data_recebimento = datetime.now()
 
@@ -59,8 +50,6 @@ class Conta(Entity):
 
 
 class Promisoria(Entity):
-    """classe que representa uma promisória"""
-
     def __init__(self, emitente: 'Emitente'):
         super().__init__()
         self._emitente = emitente
@@ -84,40 +73,32 @@ class Promisoria(Entity):
 
     @property
     def emitente(self) -> 'Emitente':
-        """retorna o emitente da promisória"""
         return self._emitente
 
     @property
     def beneficiario(self) -> 'Beneficiario':
-        """retorna o benefiario da promisória"""
         return self._beneficiario
 
     @property
     def contas(self) -> List['Conta']:
-        """retorna a lista de contas da promisória"""
         return [*self._contas]
 
     @property
     def total(self) -> float:
-        """retorna o total das contas da promisória"""
         return sum([it.valor for it in self.contas])
 
     @property
     def data_recebimento(self) -> datetime:
-        """retorna a data de recebimento da promisória"""
         return self._data_recebimento
 
     @property
     def recebida(self) -> bool:
-        """retorna o status da promisória"""
         return self._recebida
 
     def adiciona_conta(self, conta: 'Conta'):
-        """adiciona uma conta a lista de contas da promisória"""
         self._contas.append(conta)
 
     def recebe(self, beneficiario: 'Beneficiario'):
-        """realiza o recebimento de todas as contas da promisória"""
         for it in self.contas:
             it.recebe()
 
@@ -127,8 +108,6 @@ class Promisoria(Entity):
 
 
 class Pessoa(Entity):
-    """classe base para a representação de uma pessoa"""
-
     def __init__(self, nome: str, endereco: str, telefone: str):
         super().__init__()
         self._nome = nome
@@ -145,25 +124,19 @@ class Pessoa(Entity):
 
     @property
     def nome(self) -> str:
-        """retorna o nome da pessoa"""
         return self._nome
 
     @property
     def endereco(self) -> str:
-        """retorna o endereço da pessoa"""
         return self._endereco
 
     @property
     def telefone(self) -> str:
-        """retorna o telefone da pessoa"""
         return self._telefone
 
 
 class Emitente(Pessoa):
-    """classe que representa um emitente"""
-
     def emite_promisoria(self) -> 'Promisoria':
-        """emite um promisória"""
         return Promisoria(emitente=self)
 
     class Factory:
@@ -175,19 +148,15 @@ class Emitente(Pessoa):
 
 
 class Beneficiario(Pessoa):
-    """classe que representa um beneficiario"""
-
     def __init__(self, nome: str, endereco: str, telefone: str):
         super().__init__(nome, endereco, telefone)
         self._promissorias_recebidas = []
 
     @property
     def promisorias_recebidas(self) -> List['Promisoria']:
-        """retorna a lista de promisória recebidas pelo benefiario"""
         return [*self._promissorias_recebidas]
 
     def recebe(self, promisoria: 'Promisoria'):
-        """recebe um promisoria"""
         promisoria.recebe(self)
         self._adiciona_promisoria(promisoria)
 
