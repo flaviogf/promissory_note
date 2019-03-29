@@ -25,7 +25,7 @@ class PromisoriaViewSetTests(TestCase):
         response = view(request)
         self.assertEqual(HTTP_200_OK, response.status_code)
 
-    def test_emite_promisoria(self):
+    def test_emite_promisoria_formato_json(self):
         view = self.sut.as_view({'post': 'emite_promisoria'})
         data = {
             'emitente': self.emitente.id,
@@ -33,6 +33,18 @@ class PromisoriaViewSetTests(TestCase):
             'contas': [self.conta.id]
         }
         request = self.request_factory.post(self.url_emite_promisoria, data, format='json')
+        response = view(request)
+        self.assertEqual(HTTP_200_OK, response.status_code)
+        self.assertEqual('promisória criada com sucesso', response.data)
+
+    def test_emite_promisoria_formato_multipart(self):
+        view = self.sut.as_view({'post': 'emite_promisoria'})
+        data = {
+            'emitente': self.emitente.id,
+            'beneficiario': self.beneficiario.id,
+            'contas': [self.conta.id]
+        }
+        request = self.request_factory.post(self.url_emite_promisoria, data, format='multipart')
         response = view(request)
         self.assertEqual(HTTP_200_OK, response.status_code)
         self.assertEqual('promisória criada com sucesso', response.data)

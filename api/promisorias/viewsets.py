@@ -22,8 +22,9 @@ class PromisoriaViewSet(ModelViewSet):
     def emite_promisoria(self, request):
         handler = get_emitir_promisoria_handler()
         command = EmitirPromisoriaCommand()
-        command.id_emitente = uuid.UUID(request.data['emitente'])
-        command.id_beneficario = uuid.UUID(request.data['beneficiario'])
-        command.id_contas = [uuid.UUID(it) for it in request.data['contas']]
+        command.id_emitente = uuid.UUID(request.data.get('emitente'))
+        command.id_beneficario = uuid.UUID(request.data.get('beneficiario'))
+        contas = request.data.get('contas')
+        command.id_contas = [uuid.UUID(contas)] if type(contas) == str else [uuid.UUID(it) for it in contas]
         result = handler.handle(command)
         return Response(result.mensagem, status=HTTP_200_OK)
