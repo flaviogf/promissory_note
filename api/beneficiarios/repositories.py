@@ -1,9 +1,11 @@
+"""modulo de repositorios do app beneficiarios"""
 from api.beneficiarios.models import BeneficiarioModel
 from domain.entities import Beneficiario
 from domain.repositories import BeneficiarioRepository
 
 
 class DjangoBeneficiarioRepository(BeneficiarioRepository):
+    """classe responsavel por buscar informacoes dos beneficiarios"""
     def busca_por_id(self, id):
         beneficiario_model = BeneficiarioModel.objects.get(id=id)
 
