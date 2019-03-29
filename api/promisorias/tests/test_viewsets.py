@@ -1,3 +1,4 @@
+"""modulo de testes do viewsets do app promisorias"""
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework.status import HTTP_200_OK
@@ -10,6 +11,7 @@ from api.promisorias.viewsets import PromisoriaViewSet
 
 
 class PromisoriaViewSetTests(TestCase):
+    """classe responsavel pelos testes da classe PromisoriaViewSet"""
     def setUp(self):
         self.beneficiario = BeneficiarioModelFactory.create()
         self.emitente = EmitenteModelFactory.create()
@@ -20,12 +22,14 @@ class PromisoriaViewSetTests(TestCase):
         self.sut = PromisoriaViewSet
 
     def test_list(self):
+        """testa o metodo list"""
         view = self.sut.as_view({'get': 'list'})
         request = self.request_factory.get(self.url)
         response = view(request)
         self.assertEqual(HTTP_200_OK, response.status_code)
 
     def test_emite_promisoria(self):
+        """testa o metodo emite_promisoria"""
         view = self.sut.as_view({'post': 'emite_promisoria'})
         data = {
             'emitente': self.emitente.id,

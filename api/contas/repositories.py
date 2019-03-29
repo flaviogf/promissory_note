@@ -7,6 +7,7 @@ from domain.repositories import ContaRepository
 class DjangoContaRepository(ContaRepository):
     """classe responsavel por buscar informacoes das contas"""
     def lista_por_id(self, ids):
+        """lista contas por id"""
         contas_model = ContaModel.objects.filter(id__in=ids)
         contas = (Conta.Factory.cria(id=it.id,
                                      descricao=it.descricao,

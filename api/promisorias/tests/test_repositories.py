@@ -1,3 +1,4 @@
+"""modulo de testes dos repositorios do app promisorias"""
 from django.test import TestCase
 
 from api.beneficiarios.tests import BeneficiarioModelFactory
@@ -9,6 +10,7 @@ from domain.entities import Beneficiario, Conta, Emitente
 
 
 class DjangoPromisoriaRepositoryTest(TestCase):
+    """classe responsavel pelos testes da classe DjangoPromisoriaRepository"""
     def setUp(self):
         emitente_model = EmitenteModelFactory.create()
         beneficiario_model = BeneficiarioModelFactory.create()
@@ -36,6 +38,7 @@ class DjangoPromisoriaRepositoryTest(TestCase):
         self.sut = DjangoPromisoriaRepository()
 
     def test_insere(self):
+        """testa o metodo insere"""
         self.sut.insere(self.promisoria)
         promisoria_inserida = PromisoriaModel.objects.reverse()[0]
         self.assertEqual(1, PromisoriaModel.objects.count())

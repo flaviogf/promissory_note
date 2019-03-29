@@ -1,4 +1,4 @@
-"""modulo dos handler do shared"""
+"""modulo dos handlers do shared"""
 
 
 class Handler:
