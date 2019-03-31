@@ -7,9 +7,9 @@ Funcionalidade: solicitar promissoria
 
     Cenario: realizar a solicitacao
     Dado um numero
-    E um data de vencimento
+    E uma data de vencimento
     E um valor
     E um beneficiario
     E um emitente
-    Quando solicitar uma promisoria
-    Entao o evento de promisoria solicitada deve ser acionado
+    Quando solicitado uma promissoria
+    Entao uma promissoria deve ser emitida

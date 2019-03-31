@@ -1,12 +1,11 @@
 # language: pt
 
-Funcionalidade: receber promisoria
+Funcionalidade: receber promissoria
     como um usuario
-    eu quero ser capaz de receber uma promisoria
+    eu quero ser capaz de receber uma promissoria
     para que eu saiba o valor das minhas contas recebidas
 
     Cenario: realizar o recebimento
-    Dado uma promisoria
+    Dado uma promissoria
     Quando solicitado seu recebimento
-    Entao a promisoria deve ser marcada como recebida
-    E um evento de promisoria recebida deve ser acionado
+    Entao a promissoria deve ser recebida

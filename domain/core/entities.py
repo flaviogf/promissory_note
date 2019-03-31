@@ -4,7 +4,12 @@ from domain.shared.entities import Entity
 
 
 class Promissoria(Entity):
-    def __init__(self, numero, data_vencimento, valor, beneficiario, emitente):
+    def __init__(self,
+                 numero: 'str',
+                 data_vencimento: 'datetime',
+                 valor: 'float',
+                 beneficiario: 'Beneficiario',
+                 emitente: 'Emitente'):
         super().__init__()
         self.numero = numero
         self.data_vencimento = data_vencimento
@@ -15,10 +20,30 @@ class Promissoria(Entity):
         self.recebida = False
 
 
-class Emitente(Entity):
-    def __init__(self, nome, documento, endereco, email):
+class Pessoa(Entity):
+    def __init__(self, nome: 'str', documento: 'str', email: 'str'):
         super().__init__()
         self.nome = nome
         self.documento = documento
-        self.endereco = endereco
         self.email = email
+
+
+class Emitente(Pessoa):
+    def __init__(self, nome: 'str', documento: 'str', email: 'str', endereco: 'str'):
+        super().__init__(nome, documento, email)
+        self.endereco = endereco
+
+    def emite_promissoria(self,
+                          numero: 'str',
+                          data_vencimento: 'datetime',
+                          valor: 'float',
+                          beneficiario: 'Beneficiario') -> 'Promissoria':
+        return Promissoria(numero=numero,
+                           data_vencimento=data_vencimento,
+                           valor=valor,
+                           beneficiario=beneficiario,
+                           emitente=self)
+
+
+class Beneficiario(Pessoa):
+    ...
