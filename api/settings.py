@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.shared',
     'api.emitentes',
-    'api.beneficiarios'
+    'api.beneficiarios',
+    'api.promissorias',
 ]
 
 MIDDLEWARE = [

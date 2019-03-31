@@ -19,10 +19,12 @@ from rest_framework.routers import DefaultRouter
 
 from api.beneficiarios.viewsets import BeneficiarioViewSet
 from api.emitentes.viewsets import EmitenteViewSet
+from api.promissorias.viewsets import PromissoriaViewSet
 
 router = DefaultRouter()
 
 router.register('emitentes', EmitenteViewSet, basename='emitentes')
 router.register('beneficiarios', BeneficiarioViewSet, basename='beneficiarios')
+router.register('promissorias', PromissoriaViewSet, basename='promissorias')
 
 urlpatterns = [path('admin/', admin.site.urls)] + router.urls

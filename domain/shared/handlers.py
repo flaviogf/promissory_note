@@ -1,2 +1,5 @@
-class Handler:
+from abc import ABC
+
+
+class Handler(ABC):
     ...
