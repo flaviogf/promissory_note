@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 
-from api.emitente.models import Emitente
-from api.emitente.serializers import EmitenteSerializer
+from api.emitentes.models import Emitente
+from api.emitentes.serializers import EmitenteSerializer
 
 
 class EmitenteViewSet(ModelViewSet):

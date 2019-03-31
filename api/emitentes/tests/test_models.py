@@ -3,7 +3,7 @@ import uuid
 from django.test import TestCase
 from django.utils import timezone
 
-from api.emitente.models import Emitente
+from api.emitentes.models import Emitente
 
 
 class EmitenteTests(TestCase):

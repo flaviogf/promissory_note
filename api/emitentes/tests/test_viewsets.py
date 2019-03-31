@@ -3,13 +3,13 @@ from django.urls import reverse
 from rest_framework.status import HTTP_200_OK
 from rest_framework.test import APIRequestFactory
 
-from api.emitente.viewsets import EmitenteViewSet
+from api.emitentes.viewsets import EmitenteViewSet
 
 
 class EmitenteViewSetTests(TestCase):
     def setUp(self):
         self.request_factory = APIRequestFactory()
-        self.url = reverse('emitente-list')
+        self.url = reverse('emitentes-list')
 
         self.sut = EmitenteViewSet
 

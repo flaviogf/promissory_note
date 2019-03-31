@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from api.emitente.models import Emitente
+from api.emitentes.models import Emitente
 
 
 class EmitenteSerializer(ModelSerializer):

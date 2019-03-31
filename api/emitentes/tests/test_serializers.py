@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from api.emitente.serializers import EmitenteSerializer
+from api.emitentes.serializers import EmitenteSerializer
 
 
 class EmitenteSerializerTests(TestCase):
