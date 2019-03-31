@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 behave = "*"
 coverage = "*"
+ipython = "*"
 
 [packages]
 django = "==2.1.7"
