@@ -58,8 +58,8 @@ class EmitenteTests(unittest.TestCase):
         self.assertIsInstance(self.sut.id, uuid.UUID)
         self.assertEqual(self.nome, self.sut.nome)
         self.assertEqual(self.documento, self.sut.documento)
-        self.assertEqual(self.endereco, self.sut.endereco)
         self.assertEqual(self.email, self.sut.email)
+        self.assertEqual(self.endereco, self.sut.endereco)
 
     def test_emite_promissoria(self):
         promissoria = self.sut.emite_promissoria(numero=self.numero,
@@ -77,6 +77,20 @@ class EmitenteTests(unittest.TestCase):
         self.assertIsInstance(promissoria.data_emissao, datetime)
         self.assertFalse(promissoria.recebida)
 
+    def test_factory_cria(self):
+        emitente = Emitente.Factory.cria(id=uuid.uuid4(),
+                                         nome=self.nome,
+                                         documento=self.documento,
+                                         email=self.email,
+                                         endereco=self.endereco)
+
+        self.assertIsInstance(emitente, Emitente)
+        self.assertIsInstance(emitente.id, uuid.UUID)
+        self.assertEqual(self.nome, emitente.nome)
+        self.assertEqual(self.documento, emitente.documento)
+        self.assertEqual(self.email, emitente.email)
+        self.assertEqual(self.endereco, self.sut.endereco)
+
 
 class BenficiarioTests(unittest.TestCase):
     def setUp(self):
@@ -93,3 +107,15 @@ class BenficiarioTests(unittest.TestCase):
         self.assertEqual(self.nome, self.sut.nome)
         self.assertEqual(self.documento, self.sut.documento)
         self.assertEqual(self.email, self.sut.email)
+
+    def test_factory_cria(self):
+        beneficiario = Beneficiario.Factory.cria(id=uuid.uuid4(),
+                                                 nome=self.nome,
+                                                 documento=self.documento,
+                                                 email=self.email)
+
+        self.assertIsInstance(beneficiario, Beneficiario)
+        self.assertIsInstance(beneficiario.id, uuid.UUID)
+        self.assertEqual(self.nome, beneficiario.nome)
+        self.assertEqual(self.documento, beneficiario.documento)
+        self.assertEqual(self.email, beneficiario.email)

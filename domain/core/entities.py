@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 
 from domain.shared.entities import Entity
@@ -44,6 +45,18 @@ class Emitente(Pessoa):
                            beneficiario=beneficiario,
                            emitente=self)
 
+    class Factory:
+        @staticmethod
+        def cria(id: 'uuid.UUID', nome: 'str', documento: 'str', email: 'str', endereco: 'str'):
+            beneficiario = Emitente(nome, documento, email, endereco)
+            beneficiario.id = id
+            return beneficiario
+
 
 class Beneficiario(Pessoa):
-    ...
+    class Factory:
+        @staticmethod
+        def cria(id: 'uuid.UUID', nome: 'str', documento: 'str', email: 'str'):
+            beneficiario = Beneficiario(nome, documento, email)
+            beneficiario.id = id
+            return beneficiario
