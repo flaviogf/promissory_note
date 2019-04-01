@@ -1,11 +1,11 @@
-import uuid
-
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.test import APIRequestFactory
 
+from api.beneficiarios.models import Beneficiario
+from api.emitentes.models import Emitente
 from api.promissorias.viewsets import PromissoriaViewSet
 
 
@@ -16,14 +16,22 @@ class SolicitarPromissoriaViewSetTests(TestCase):
         self.numero = '1'
         self.data_vencimento = timezone.now()
         self.valor = 50
-        self.id_beneficiario = uuid.uuid4()
-        self.id_emitente = uuid.uuid4()
+
+        self.beneficiario = Beneficiario.objects.create(nome='Bruce',
+                                                        documento='123',
+                                                        email='batman@email.com')
+
+        self.emitente = Emitente.objects.create(nome='Bruce',
+                                                documento='123',
+                                                email='batman@email.com',
+                                                endereco='gotham')
+
         self.data = {
             'numero': self.numero,
             'data_vencimento': self.data_vencimento,
             'valor': self.valor,
-            'id_beneficiario': self.id_beneficiario,
-            'id_emitente': self.id_emitente,
+            'id_beneficiario': self.beneficiario.id,
+            'id_emitente': self.emitente.id,
         }
         self.sut = PromissoriaViewSet
 

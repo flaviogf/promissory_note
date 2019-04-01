@@ -1,16 +1,16 @@
 from django.test import TestCase
 
-from api.emitentes import models
+from api.emitentes.models import Emitente as EmitenteData
 from api.emitentes.repositories import DjangoEmitenteRepository
 from domain.core.entities import Emitente
 
 
 class DjangoEmitenteRepositoryTests(TestCase):
     def setUp(self):
-        self.emitente = models.Emitente.objects.create(nome='Bruce',
-                                                       documento='123',
-                                                       email='batman@email.com',
-                                                       endereco='gotham')
+        self.emitente = EmitenteData.objects.create(nome='Bruce',
+                                                    documento='123',
+                                                    email='batman@email.com',
+                                                    endereco='gotham')
 
         self.sut = DjangoEmitenteRepository()
 
