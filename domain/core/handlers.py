@@ -52,5 +52,5 @@ class PromissoriaEmitidaHandler(Handler):
         self.email_service = email_service
 
     def send(self, event: 'PromissoriaEmitidaEvent'):
-        self.email_service.envia(event.email_beneficiario, 'Uma promissoria foi emitida em seu nome como beneficiario')
-        self.email_service.envia(event.email_emitente, 'Uma promissoria foi emitida em seu nome como emitente')
+        self.email_service.envia(event.email_beneficiario, 'Uma promissoria foi emitida para você')
+        self.email_service.envia(event.email_emitente, 'Uma promissoria foi emitida em seu nome')

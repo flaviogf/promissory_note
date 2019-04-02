@@ -46,10 +46,12 @@ def step_impl(context):
 def step_impl(context):
     with mock.patch('domain.core.repositories.EmitenteRepository') as emitente_repository, \
         mock.patch('domain.core.repositories.BeneficiarioRepository') as beneficiario_repository, \
-        mock.patch('domain.core.repositories.PromissoriaRepository') as promissoria_repository:
+        mock.patch('domain.core.repositories.PromissoriaRepository') as promissoria_repository, \
+        mock.patch('domain.core.handlers.PromissoriaEmitidaHandler') as promissoria_emitida_handler:
         handler = SolicitarPromissoriaHandler(emitente_repository=emitente_repository,
                                               beneficiario_repository=beneficiario_repository,
-                                              promissoria_repository=promissoria_repository)
+                                              promissoria_repository=promissoria_repository,
+                                              promissoria_emitida_handler=promissoria_emitida_handler)
         handler.handle(context.command)
 
         emitente_repository.busca_por_id.assert_called_with(context.command.id_emitente)

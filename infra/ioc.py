@@ -1,3 +1,7 @@
+import os
+
+import pika
+
 from api.beneficiarios.repositories import DjangoBeneficiarioRepository
 from api.emitentes.repositories import DjangoEmitenteRepository
 from api.promissorias.repositories import DjangoPromissoriaRepository
@@ -27,7 +31,9 @@ def get_solicitar_promissoria_handler() -> 'SolicitarPromissoriaHandler':
 
 
 def get_email_service() -> 'EmailService':
-    return RabbitEmailService()
+    url_rabbit = os.getenv('URL_RABBIT', 'localhost')
+    return RabbitEmailService(
+        get_rabbit_connection=lambda: pika.BlockingConnection(pika.ConnectionParameters(url_rabbit)))
 
 
 def get_promissoria_emitida_handler() -> 'PromissoriaEmitidaHandler':

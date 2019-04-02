@@ -71,9 +71,9 @@ class PromissoriaEmitidaHandlerTests(unittest.TestCase):
         self.sut.send(self.event)
 
         email_beneficiario = mock.call(self.event.email_beneficiario,
-                                       'Uma promissoria foi emitida em seu nome como beneficiario')
+                                       'Uma promissoria foi emitida para você')
 
         email_emitente = mock.call(self.event.email_emitente,
-                                   'Uma promissoria foi emitida em seu nome como emitente')
+                                   'Uma promissoria foi emitida em seu nome')
 
         self.mock_email_service.envia.assert_has_calls([email_beneficiario, email_emitente])

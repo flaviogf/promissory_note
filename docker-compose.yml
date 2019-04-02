@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    db:
+        image: postgres:9.6
+        volumes:
+            - data:/var/lib/postgresql/data
+    api:
+        image: flaviogf/promissoria:latest
+        ports:
+            - 80:8000
+        environment:
+            - DJANGO_SETTINGS_MODULE=api.settings_prod
+            - URL_RABBIT=rabbit
+        command: |
+            pipenv run gunicorn api.wsgi -b 0.0.0.0
+    rabbit:
+        image: rabbitmq:3
+
+
+volumes:
+    data:

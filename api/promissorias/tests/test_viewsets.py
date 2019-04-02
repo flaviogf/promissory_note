@@ -1,3 +1,5 @@
+from unittest import mock
+
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -35,13 +37,15 @@ class SolicitarPromissoriaViewSetTests(TestCase):
         }
         self.sut = PromissoriaViewSet
 
-    def test_post_ok(self):
+    @mock.patch('pika.BlockingConnection')
+    def test_post_ok(self, rabbit_connection):
         view = self.sut.as_view({'post': 'create'})
         request = self.request_factory.post(self.url, data=self.data)
         response = view(request)
         self.assertEqual(HTTP_200_OK, response.status_code)
 
-    def test_post_bad_request(self):
+    @mock.patch('pika.BlockingConnection')
+    def test_post_bad_request(self, rabbit_connection):
         view = self.sut.as_view({'post': 'create'})
         request = self.request_factory.post(self.url, data={})
         response = view(request)
