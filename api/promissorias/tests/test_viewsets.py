@@ -37,15 +37,15 @@ class SolicitarPromissoriaViewSetTests(TestCase):
         }
         self.sut = PromissoriaViewSet
 
-    @mock.patch('pika.BlockingConnection')
-    def test_post_ok(self, rabbit_connection):
+    @mock.patch("infra.ioc.get_solicitar_promissoria_handler")
+    def test_post_ok(self, _):
         view = self.sut.as_view({'post': 'create'})
         request = self.request_factory.post(self.url, data=self.data)
         response = view(request)
         self.assertEqual(HTTP_200_OK, response.status_code)
 
-    @mock.patch('pika.BlockingConnection')
-    def test_post_bad_request(self, rabbit_connection):
+    @mock.patch("infra.ioc.get_solicitar_promissoria_handler")
+    def test_post_bad_request(self, _):
         view = self.sut.as_view({'post': 'create'})
         request = self.request_factory.post(self.url, data={})
         response = view(request)

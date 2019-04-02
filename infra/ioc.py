@@ -1,4 +1,5 @@
 import os
+from typing import Callable
 
 import pika
 
@@ -30,10 +31,15 @@ def get_solicitar_promissoria_handler() -> 'SolicitarPromissoriaHandler':
                                        promissoria_emitida_handler=get_promissoria_emitida_handler())
 
 
+def get_rabbit_connection() -> 'Callable':
+    def func():
+        return pika.BlockingConnection(pika.ConnectionParameters(os.getenv('URL_RABBIT', 'localhost')))
+
+    return func
+
+
 def get_email_service() -> 'EmailService':
-    url_rabbit = os.getenv('URL_RABBIT', 'localhost')
-    return RabbitEmailService(
-        get_rabbit_connection=lambda: pika.BlockingConnection(pika.ConnectionParameters(url_rabbit)))
+    return RabbitEmailService(get_rabbit_connection=get_rabbit_connection())
 
 
 def get_promissoria_emitida_handler() -> 'PromissoriaEmitidaHandler':
