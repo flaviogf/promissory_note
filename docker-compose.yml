@@ -22,7 +22,7 @@ services:
         environment:
             - URL_RABBIT=rabbit
         command: |
-            pipenv run python app.py
+            pipenv run python -u app.py
         depends_on:
           - rabbit
     rabbit:
