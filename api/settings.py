@@ -21,7 +21,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ')owq!_x*sks=f2it)i#_o$2z7(3$stg%%%u^b6c3)!88-8+9f$'
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -67,7 +66,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'api.wsgi.application'
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
