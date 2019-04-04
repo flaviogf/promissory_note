@@ -6,9 +6,9 @@ import pika
 from api.beneficiarios.repositories import DjangoBeneficiarioRepository
 from api.emitentes.repositories import DjangoEmitenteRepository
 from api.promissorias.repositories import DjangoPromissoriaRepository
-from domain.core.handlers import SolicitarPromissoriaHandler, PromissoriaEmitidaHandler
-from domain.core.repositories import BeneficiarioRepository, EmitenteRepository, PromissoriaRepository
-from domain.core.services import EmailService
+from domain.promissoria.handlers import SolicitarPromissoriaHandler, PromissoriaEmitidaHandler
+from domain.promissoria.repositories import BeneficiarioRepository, EmitenteRepository, PromissoriaRepository
+from domain.promissoria.services import EmailService
 from infra.services import RabbitEmailService
 
 

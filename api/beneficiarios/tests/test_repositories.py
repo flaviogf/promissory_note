@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from api.beneficiarios.models import Beneficiario as BeneficiarioData
 from api.beneficiarios.repositories import DjangoBeneficiarioRepository
-from domain.core.entities import Beneficiario
+from domain.promissoria.entities import Beneficiario
 
 
 class DjangoBeneficiarioRepositoryTests(TestCase):

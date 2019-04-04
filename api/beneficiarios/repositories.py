@@ -1,6 +1,6 @@
 from api.beneficiarios.models import Beneficiario as BeneficiarioData
-from domain.core.entities import Beneficiario
-from domain.core.repositories import BeneficiarioRepository
+from domain.promissoria.entities import Beneficiario
+from domain.promissoria.repositories import BeneficiarioRepository
 
 
 class DjangoBeneficiarioRepository(BeneficiarioRepository):

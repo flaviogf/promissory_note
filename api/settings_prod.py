@@ -7,7 +7,7 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'promissoria',
+        'NAME': 'emissor_de_promissoria',
         'USER': 'postgres',
         'PASSWORD': '',
         'HOST': 'db',

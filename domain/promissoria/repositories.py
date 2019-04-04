@@ -1,6 +1,6 @@
 from abc import ABC
 
-from domain.core.entities import Promissoria
+from domain.promissoria.entities import Promissoria
 from domain.shared.repositories import Repository
 
 

@@ -1,6 +1,6 @@
 from api.emitentes.models import Emitente as EmitenteData
-from domain.core.entities import Emitente
-from domain.core.repositories import EmitenteRepository
+from domain.promissoria.entities import Emitente
+from domain.promissoria.repositories import EmitenteRepository
 
 
 class DjangoEmitenteRepository(EmitenteRepository):

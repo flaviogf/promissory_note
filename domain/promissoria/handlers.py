@@ -1,7 +1,7 @@
-from domain.core.commands import SolicitarPromissoriaCommand
-from domain.core.events import PromissoriaEmitidaEvent
-from domain.core.repositories import EmitenteRepository, BeneficiarioRepository, PromissoriaRepository
-from domain.core.services import EmailService
+from domain.promissoria.commands import SolicitarPromissoriaCommand
+from domain.promissoria.events import PromissoriaEmitidaEvent
+from domain.promissoria.repositories import EmitenteRepository, BeneficiarioRepository, PromissoriaRepository
+from domain.promissoria.services import EmailService
 from domain.shared.handlers import Handler
 
 

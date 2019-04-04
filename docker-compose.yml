@@ -6,7 +6,7 @@ services:
         volumes:
             - data:/var/lib/postgresql/data
     api:
-        image: flaviogf/promissoria:latest
+        image: flaviogf/emissor_de_promissoria:latest
         ports:
             - 80:8000
         environment:
@@ -14,6 +14,17 @@ services:
             - URL_RABBIT=rabbit
         command: |
             pipenv run gunicorn api.wsgi -b 0.0.0.0
+        depends_on:
+          - rabbit
+          - db
+    email:
+        image: flaviogf/emissor_de_promissoria_email:latest
+        environment:
+            - URL_RABBIT=rabbit
+        command: |
+            pipenv run python app.py
+        depends_on:
+          - rabbit
     rabbit:
         image: rabbitmq:3
 

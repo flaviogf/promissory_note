@@ -1,8 +1,8 @@
 from api.beneficiarios.models import Beneficiario as BeneficiarioData
 from api.emitentes.models import Emitente as EmitenteData
 from api.promissorias.models import Promissoria as PromissoriaData
-from domain.core.entities import Promissoria
-from domain.core.repositories import PromissoriaRepository
+from domain.promissoria.entities import Promissoria
+from domain.promissoria.repositories import PromissoriaRepository
 
 
 class DjangoPromissoriaRepository(PromissoriaRepository):

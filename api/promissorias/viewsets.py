@@ -3,7 +3,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.viewsets import ViewSet
 
 from api.promissorias.serializers import SolicitarPromissoriaSerializer
-from domain.core.commands import SolicitarPromissoriaCommand
+from domain.promissoria.commands import SolicitarPromissoriaCommand
 from infra.ioc import get_solicitar_promissoria_handler
 
 

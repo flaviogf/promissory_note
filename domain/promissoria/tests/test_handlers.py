@@ -3,19 +3,19 @@ import uuid
 from datetime import datetime
 from unittest import mock
 
-from domain.core.commands import SolicitarPromissoriaCommand
-from domain.core.events import PromissoriaEmitidaEvent
-from domain.core.handlers import SolicitarPromissoriaHandler, PromissoriaEmitidaHandler
-from domain.core.repositories import EmitenteRepository, BeneficiarioRepository, PromissoriaRepository
-from domain.core.services import EmailService
+from domain.promissoria.commands import SolicitarPromissoriaCommand
+from domain.promissoria.events import PromissoriaEmitidaEvent
+from domain.promissoria.handlers import SolicitarPromissoriaHandler, PromissoriaEmitidaHandler
+from domain.promissoria.repositories import EmitenteRepository, BeneficiarioRepository, PromissoriaRepository
+from domain.promissoria.services import EmailService
 
 
 class SolicitarPromissoriaHandlerTests(unittest.TestCase):
 
-    @mock.patch('domain.core.repositories.EmitenteRepository')
-    @mock.patch('domain.core.repositories.BeneficiarioRepository')
-    @mock.patch('domain.core.repositories.PromissoriaRepository')
-    @mock.patch('domain.core.handlers.PromissoriaEmitidaHandler')
+    @mock.patch('domain.promissoria.repositories.EmitenteRepository')
+    @mock.patch('domain.promissoria.repositories.BeneficiarioRepository')
+    @mock.patch('domain.promissoria.repositories.PromissoriaRepository')
+    @mock.patch('domain.promissoria.handlers.PromissoriaEmitidaHandler')
     def setUp(self,
               mock_emitente_repository: 'EmitenteRepository',
               mock_beneficiario_repository: 'BeneficiarioRepository',
@@ -48,7 +48,7 @@ class SolicitarPromissoriaHandlerTests(unittest.TestCase):
 
 class PromissoriaEmitidaHandlerTests(unittest.TestCase):
 
-    @mock.patch('domain.core.services.EmailService')
+    @mock.patch('domain.promissoria.services.EmailService')
     def setUp(self, mock_email_service: 'EmailService'):
         self.mock_email_service = mock_email_service
 

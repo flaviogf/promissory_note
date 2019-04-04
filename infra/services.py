@@ -2,7 +2,7 @@ from json import dumps
 
 from pika.exceptions import AMQPConnectionError
 
-from domain.core.services import EmailService
+from domain.promissoria.services import EmailService
 
 
 class RabbitEmailService(EmailService):

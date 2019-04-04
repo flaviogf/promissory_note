@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from api.emitentes.models import Emitente as EmitenteData
 from api.emitentes.repositories import DjangoEmitenteRepository
-from domain.core.entities import Emitente
+from domain.promissoria.entities import Emitente
 
 
 class DjangoEmitenteRepositoryTests(TestCase):

@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 
-from domain.core.events import PromissoriaEmitidaEvent
+from domain.promissoria.events import PromissoriaEmitidaEvent
 
 
 class PromissoriaEmitidaEventTests(unittest.TestCase):

@@ -2,7 +2,7 @@ import unittest
 import uuid
 from datetime import datetime
 
-from domain.core.entities import Promissoria, Emitente, Beneficiario
+from domain.promissoria.entities import Promissoria, Emitente, Beneficiario
 
 
 class PromissoriaTests(unittest.TestCase):

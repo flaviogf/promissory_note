@@ -6,7 +6,7 @@ from api.beneficiarios.models import Beneficiario as BeneficiarioData
 from api.emitentes.models import Emitente as EmitenteData
 from api.promissorias.models import Promissoria as PromissoriaData
 from api.promissorias.repositories import DjangoPromissoriaRepository
-from domain.core.entities import Beneficiario, Emitente, Promissoria
+from domain.promissoria.entities import Beneficiario, Emitente, Promissoria
 
 
 class DjangoPromissoriaRepositoryTests(TestCase):

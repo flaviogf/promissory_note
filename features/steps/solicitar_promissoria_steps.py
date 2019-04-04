@@ -4,8 +4,8 @@ from unittest import mock
 
 from behave import given, when, then
 
-from domain.core.commands import SolicitarPromissoriaCommand
-from domain.core.handlers import SolicitarPromissoriaHandler
+from domain.promissoria.commands import SolicitarPromissoriaCommand
+from domain.promissoria.handlers import SolicitarPromissoriaHandler
 
 
 @given('um numero')

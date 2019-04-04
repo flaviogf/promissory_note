@@ -2,7 +2,7 @@ import unittest
 import uuid
 from datetime import datetime
 
-from domain.core.commands import SolicitarPromissoriaCommand
+from domain.promissoria.commands import SolicitarPromissoriaCommand
 
 
 class SolicitarPromissoriaCommandTests(unittest.TestCase):
