@@ -15,13 +15,13 @@ class Emitente(Entity):
                                                               endereco=endereco))
 
     @property
-    def nome(self):
+    def nome(self) -> 'str':
         return self._nome
 
     @property
-    def cpf(self):
+    def cpf(self) -> 'str':
         return self._cpf
 
     @property
-    def endereco(self):
+    def endereco(self) -> 'str':
         return self._endereco

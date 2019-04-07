@@ -1,5 +1,6 @@
 import unittest
 import uuid
+from datetime import datetime
 from json import dumps
 from unittest.mock import Mock
 
@@ -33,11 +34,12 @@ class EventPublisherTests(unittest.TestCase):
 class StoredEventTests(unittest.TestCase):
     def setUp(self) -> 'None':
         self.evento = {'nome': 'flavio'}
-        self.data = dumps(self.evento)
+        self.json = dumps(self.evento)
 
-        self.sut = StoredEvent(type(self.evento), self.data)
+        self.sut = StoredEvent(str(type(self.evento)), self.json)
 
     def test_init(self) -> 'None':
         self.assertIsInstance(self.sut.id, uuid.UUID)
-        self.assertEqual(type(self.evento), self.sut.type)
-        self.assertEqual(self.data, self.sut.data)
+        self.assertIsInstance(self.sut.type, str)
+        self.assertEqual(self.json, self.sut.json)
+        self.assertIsInstance(self.sut.data, datetime)

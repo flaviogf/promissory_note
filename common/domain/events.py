@@ -1,11 +1,7 @@
 import uuid
 from abc import ABC
-from typing import List, Callable
-
-
-class Event(ABC):
-    def __init__(self):
-        self.id = uuid.uuid4()
+from datetime import datetime
+from typing import List, Callable, Optional
 
 
 class EventPublisher:
@@ -34,8 +30,19 @@ class EventPublisher:
         self._subscribers = []
 
 
-class StoredEvent:
-    def __init__(self, atype: 'type', data: 'str'):
+class Event(ABC):
+    def __init__(self):
         self.id = uuid.uuid4()
-        self.type = atype
-        self.data = data
+
+
+class EventStore(ABC):
+    def salva(self, event: 'Event') -> 'None':
+        raise NotImplementedError()
+
+
+class StoredEvent:
+    def __init__(self, _type: 'str', json: 'str', data: 'Optional[datetime]' = None):
+        self.id = uuid.uuid4()
+        self.type = _type
+        self.json = json
+        self.data = data or datetime.now()
