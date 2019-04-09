@@ -1,7 +1,7 @@
 from common.application.decorators import event_store, event_publisher
 from common.application.handlers import Handler
 
-from promissoria.application.commands import CadastrarEmitenteCommand
+from promissoria.application.commands import CadastrarEmitenteCommand, CadastrarBeneficiarioCommand
 from promissoria.domain.entities import Emitente
 from promissoria.domain.repositories import EmitenteRepository
 
@@ -18,3 +18,11 @@ class CadastrarEmitente(Handler):
                             endereco=command.endereco)
 
         self.emitente_repository.salva(emitente)
+
+
+class CadastrarBeneficiarioHandler(Handler):
+
+    @event_publisher
+    @event_store
+    def handle(self, command: 'CadastrarBeneficiarioCommand') -> 'None':
+        pass

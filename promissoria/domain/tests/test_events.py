@@ -27,7 +27,7 @@ class BeneficiarioCadastradoTests(unittest.TestCase):
         self.sut = BeneficiarioCadastrado(nome=self.nome,
                                           cpf=self.cpf)
 
-    def test_init(self):
+    def test_init(self) -> 'None':
         self.assertIsInstance(self.sut.id, uuid.UUID)
         self.assertEqual(self.nome, self.sut.nome)
         self.assertEqual(self.cpf, self.sut.cpf)

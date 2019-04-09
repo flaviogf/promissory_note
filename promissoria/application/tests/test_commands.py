@@ -16,3 +16,7 @@ class CadastrarEmitenteCommandTests(unittest.TestCase):
         self.assertEqual(self.nome, self.sut.nome)
         self.assertEqual(self.cpf, self.sut.cpf)
         self.assertEqual(self.endereco, self.sut.endereco)
+
+
+class CadastrarBeneficiarioCommandTests(unittest.TestCase):
+    pass

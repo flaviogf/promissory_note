@@ -20,3 +20,7 @@ class CadastrarEmitenteTests(unittest.TestCase):
     def test_handle(self) -> 'None':
         self.sut.handle(self.command)
         self.emitente_repository.salva.assert_called_once()
+
+
+class CadastarBeneficiarioTests(unittest.TestCase):
+    pass
