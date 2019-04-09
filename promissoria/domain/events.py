@@ -7,3 +7,10 @@ class EmitenteCadastrado(Event):
         self.nome = nome
         self.cpf = cpf
         self.endereco = endereco
+
+
+class BeneficiarioCadastrado(Event):
+    def __init__(self, nome, cpf):
+        super().__init__()
+        self.nome = nome
+        self.cpf = cpf
