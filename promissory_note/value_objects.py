@@ -12,3 +12,17 @@ class Name(Notifiable):
                                                                     field='name',
                                                                     message='invalid name')
         self.add_notifications(contract)
+
+
+class Cpf(Notifiable):
+    def __init__(self, cpf):
+        super().__init__()
+
+        self._cpf = cpf
+
+        contract = Contract().requires().has_len(value=cpf,
+                                                 length=11,
+                                                 field='cpf',
+                                                 message='invalid cpf')
+
+        self.add_notifications(contract)
