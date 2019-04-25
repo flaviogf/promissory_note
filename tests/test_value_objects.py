@@ -1,6 +1,6 @@
 import unittest
 
-from promissory_note.value_objects import Name, Cpf
+from promissory_note.value_objects import Name, Cpf, Email
 
 
 class NameTests(unittest.TestCase):
@@ -37,3 +37,15 @@ class CpfTests(unittest.TestCase):
         cpf = Cpf('1111111111')
 
         self.assertFalse(cpf.is_valid)
+
+
+class EmailTests(unittest.TestCase):
+    def test_should_is_valid_true_when_email_is_valid(self):
+        email = Email('steve@marvel.com')
+
+        self.assertTrue(email.is_valid)
+
+    def test_should_is_valid_false_when_email_is_invalid(self):
+        email = Email('anything')
+
+        self.assertFalse(email.is_valid)
