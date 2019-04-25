@@ -1,6 +1,7 @@
 import unittest
+from datetime import date
 
-from promissory_note.entities import Beneficiary, Emitter
+from promissory_note.entities import Beneficiary, Emitter, PromissoryNote
 from promissory_note.value_objects import Name, Email, Cpf
 
 
@@ -93,7 +94,7 @@ class EmitterTests(unittest.TestCase):
     def test_should_is_valid_false_when_address_is_invalid(self):
         name = Name('Steve')
         cpf = Cpf('11111111199')
-        address = 'New'
+        address = ''
         email = Email('captain@marvel.com.br')
 
         emitter = Emitter(name=name,
@@ -106,7 +107,7 @@ class EmitterTests(unittest.TestCase):
     def test_should_notifications_must_contain_invalid_address_message_when_address_is_invalid(self):
         name = Name('Steve')
         cpf = Cpf('11111111199')
-        address = 'New'
+        address = ''
         email = Email('captain@marvel.com.br')
 
         emitter = Emitter(name=name,
@@ -130,3 +131,35 @@ class EmitterTests(unittest.TestCase):
                           email=email)
 
         self.assertFalse(emitter.is_valid)
+
+
+class PromissoryNoteTests(unittest.TestCase):
+    def test_should_is_valid_true_when_all_properties_are_valid(self):
+        number = 100
+        due_date = date.today()
+        value = 100.99
+        currency = 'real'
+        city_payment = 'New York'
+        state_payment = 'New York'
+        issuance_date = date.today()
+
+        beneficiary = Beneficiary(name=Name('Steve'),
+                                  cpf=Cpf('11111111199'),
+                                  email=Email('captain@marvel.com'))
+
+        emitter = Emitter(name=Name('Tony Stark'),
+                          cpf=Cpf('11111111188'),
+                          address='New York',
+                          email=Email('iron_man@marvel.com.br'))
+
+        promissory_note = PromissoryNote(number=number,
+                                         due_date=due_date,
+                                         value=value,
+                                         currency=currency,
+                                         city_payment=city_payment,
+                                         state_payment=state_payment,
+                                         issuance_date=issuance_date,
+                                         beneficiary=beneficiary,
+                                         emitter=emitter)
+
+        self.assertTrue(promissory_note.is_valid)
