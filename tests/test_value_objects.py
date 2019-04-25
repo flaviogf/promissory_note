@@ -19,7 +19,7 @@ class NameTests(unittest.TestCase):
 
         self.assertFalse(name.is_valid)
 
-    def test_should_notification_has_message_invalid_name(self):
+    def test_should_notification_must_contain_invalid_name_message_when_name_is_invalid(self):
         name = Name('')
 
         notification = name.notifications[0]
@@ -38,7 +38,7 @@ class CpfTests(unittest.TestCase):
 
         self.assertFalse(cpf.is_valid)
 
-    def test_should_notification_has_message_invalid_cpf(self):
+    def test_should_notification_must_contain_invalid_cpf_message_when_cpf_is_invalid(self):
         cpf = Cpf('1111111111')
 
         notification = cpf.notifications[0]
@@ -57,7 +57,7 @@ class EmailTests(unittest.TestCase):
 
         self.assertFalse(email.is_valid)
 
-    def test_should_notification_has_message_invalid_email(self):
+    def test_should_notification_must_contain_invalid_email_message_when_email_is_invalid(self):
         email = Email('anything')
 
         notification = email.notifications[0]
