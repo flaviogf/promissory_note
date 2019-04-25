@@ -1,6 +1,6 @@
 import unittest
 
-from promissory_note.domain.value_objects import Name
+from promissory_note.value_objects import Name, Cpf
 
 
 class NameTests(unittest.TestCase):
@@ -25,3 +25,15 @@ class NameTests(unittest.TestCase):
         notification = name.notifications[0]
 
         self.assertEqual('invalid name', notification.message)
+
+
+class CpfTests(unittest.TestCase):
+    def test_should_is_valid_true_when_length_cpf_is_equal_to_eleven(self):
+        cpf = Cpf('11111111111')
+
+        self.assertTrue(cpf.is_valid)
+
+    def test_should_is_valid_false_when_length_cpf_is_not_equal_to_eleven(self):
+        cpf = Cpf('1111111111')
+
+        self.assertFalse(cpf.is_valid)
