@@ -1,6 +1,6 @@
 import unittest
 
-from promissory_note.domain.value_objects import Name
+from promissory_note.value_objects import Name
 
 
 class NameTests(unittest.TestCase):
