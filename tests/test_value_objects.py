@@ -38,6 +38,13 @@ class CpfTests(unittest.TestCase):
 
         self.assertFalse(cpf.is_valid)
 
+    def test_should_notification_has_message_invalid_cpf(self):
+        cpf = Cpf('1111111111')
+
+        notification = cpf.notifications[0]
+
+        self.assertEqual('invalid cpf', notification.message)
+
 
 class EmailTests(unittest.TestCase):
     def test_should_is_valid_true_when_email_is_valid(self):
@@ -49,3 +56,10 @@ class EmailTests(unittest.TestCase):
         email = Email('anything')
 
         self.assertFalse(email.is_valid)
+
+    def test_should_notification_has_message_invalid_email(self):
+        email = Email('anything')
+
+        notification = email.notifications[0]
+
+        self.assertEqual('invalid email', notification.message)
