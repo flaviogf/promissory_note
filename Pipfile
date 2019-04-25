@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 pytest = "*"
 tox = "*"
+coverage = "*"
 
 [packages]
 pyflunt = "==1.0.0"

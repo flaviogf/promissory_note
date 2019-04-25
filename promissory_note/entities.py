@@ -56,10 +56,27 @@ class PromissoryNote(Notifiable):
                     .is_greater_than(value=number,
                                      comparer=0,
                                      field='number',
-                                     message='invalid number')
+                                     message='number should be greater than zero')
                     .is_greater_or_equals_than(value=due_date,
                                                comparer=date.today(),
                                                field='due date',
-                                               message='invalid due date'))
+                                               message='date should be greater or equals than today')
+                    .is_greater_than(value=value,
+                                     comparer=0,
+                                     field='value',
+                                     message='value should be greater than zero')
+                    .is_not_none_or_white_space(value=currency,
+                                                field='currency',
+                                                message='invalid currency')
+                    .is_not_none_or_white_space(value=city_payment,
+                                                field='city payment',
+                                                message='invalid city payment')
+                    .is_not_none_or_white_space(value=state_payment,
+                                                field='state payment',
+                                                message='invalid state payment')
+                    .is_greater_or_equals_than(value=issuance_date,
+                                               comparer=date.today(),
+                                               field='issuance date',
+                                               message='issuance date should be greater or equals than today'))
 
         self.add_notifications(contract, beneficiary, emitter)
