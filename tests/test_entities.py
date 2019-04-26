@@ -1,5 +1,6 @@
 import unittest
 from datetime import date, timedelta
+from unittest.mock import Mock
 
 from promissory_note.entities import Beneficiary, Emitter, PromissoryNote
 from promissory_note.value_objects import Name, Email, Cpf
@@ -134,7 +135,7 @@ class EmitterTests(unittest.TestCase):
 
 
 class PromissoryNoteTests(unittest.TestCase):
-    def test_should_is_valid_true_when_all_properties_are_valid(self):
+    def setUp(self):
         number = 100
         due_date = date.today()
         value = 100.99
@@ -152,17 +153,18 @@ class PromissoryNoteTests(unittest.TestCase):
                           address='New York',
                           email=Email('iron_man@marvel.com.br'))
 
-        promissory_note = PromissoryNote(number=number,
-                                         due_date=due_date,
-                                         value=value,
-                                         currency=currency,
-                                         city_payment=city_payment,
-                                         state_payment=state_payment,
-                                         issuance_date=issuance_date,
-                                         beneficiary=beneficiary,
-                                         emitter=emitter)
+        self._promissory_note = PromissoryNote(number=number,
+                                               due_date=due_date,
+                                               value=value,
+                                               currency=currency,
+                                               city_payment=city_payment,
+                                               state_payment=state_payment,
+                                               issuance_date=issuance_date,
+                                               beneficiary=beneficiary,
+                                               emitter=emitter)
 
-        self.assertTrue(promissory_note.is_valid)
+    def test_should_is_valid_true_when_all_properties_are_valid(self):
+        self.assertTrue(self._promissory_note.is_valid)
 
     def test_should_is_valid_false_when_number_is_invalid(self):
         number = 0
@@ -375,33 +377,33 @@ class PromissoryNoteTests(unittest.TestCase):
         self.assertFalse(promissory_note.is_valid)
 
     def test_should_add_subscriber_when_add_subscribers_is_called_with_a_callable(self):
-        number = 100
-        due_date = date.today()
-        value = 100.99
-        currency = 'real'
-        city_payment = 'New York'
-        state_payment = 'New York'
-        issuance_date = date.today()
+        email_service = Mock()
 
-        beneficiary = Beneficiary(name=Name('Steve'),
-                                  cpf=Cpf('11111111199'),
-                                  email=Email('captain@marvel.com'))
+        self._promissory_note.add_subscribers(email_service)
 
-        emitter = Emitter(name=Name('Tony Stark'),
-                          cpf=Cpf('11111111188'),
-                          address='New York',
-                          email=Email('iron_man@marvel.com.br'))
+        self.assertEqual(1, len(self._promissory_note.subscribers))
 
-        promissory_note = PromissoryNote(number=number,
-                                         due_date=due_date,
-                                         value=value,
-                                         currency=currency,
-                                         city_payment=city_payment,
-                                         state_payment=state_payment,
-                                         issuance_date=issuance_date,
-                                         beneficiary=beneficiary,
-                                         emitter=emitter)
+    def test_should_call_attach_when_add_subscribers_is_called_with_a_callable(self):
+        email_service = Mock()
 
-        promissory_note.add_subscribers(lambda: print('OK'))
+        self._promissory_note.add_subscribers(email_service)
 
-        self.assertEqual(1, len(promissory_note.subscribers))
+        email_service.attach.assert_called_with(self._promissory_note)
+
+    def test_should_call_subscribers_when_publish_is_called(self):
+        email_service = Mock()
+
+        self._promissory_note.add_subscribers(email_service)
+
+        self._promissory_note.publish()
+
+        email_service.assert_called_once()
+
+    def test_should_call_subscribers_when_issue_is_called(self):
+        email_service = Mock()
+
+        self._promissory_note.add_subscribers(email_service)
+
+        self._promissory_note.issue()
+
+        email_service.assert_called_once()

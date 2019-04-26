@@ -88,5 +88,14 @@ class PromissoryNote(Notifiable):
     def subscribers(self):
         return tuple(self._subscribers)
 
-    def add_subscribers(self, subscriber):
-        self._subscribers.append(subscriber)
+    def issue(self):
+        self.publish()
+
+    def add_subscribers(self, *subscribers):
+        for subscriber in subscribers:
+            self._subscribers.append(subscriber)
+            subscriber.attach(self)
+
+    def publish(self):
+        for it in self._subscribers:
+            it()

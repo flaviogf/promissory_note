@@ -30,12 +30,12 @@ class IssuePromissoryNoteTests(unittest.TestCase):
             promissory_note_issuance_service=self._promissory_note_issuance_service,
             email_service=self._email_service)
 
-    def test_should_perform_emit_method_of_promissory_note_issuance_service_when_promissory_note_is_issued(self):
+    def test_should_promissory_note_issuance_service_is_called_when_promissory_note_is_issued(self):
         self._issue_promissory_note.execute(command=self._issue_promissory_note_command)
 
-        self._promissory_note_issuance_service.emit.assert_called_once()
+        self._promissory_note_issuance_service.assert_called_once()
 
-    def test_should_perform_send_method_of_email_service_when_promissory_note_is_issued(self):
+    def test_should_email_service_is_called_when_promissory_note_is_issued(self):
         self._issue_promissory_note.execute(command=self._issue_promissory_note_command)
 
-        self._email_service.send.assert_called_once()
+        self._email_service.assert_called_once()

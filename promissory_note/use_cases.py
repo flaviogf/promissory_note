@@ -27,6 +27,6 @@ class IssuePromissoryNote:
                                          beneficiary=beneficiary,
                                          emitter=emitter)
 
-        if promissory_note.is_valid:
-            self._promissory_note_issuance_service.emit()
-            self._email_service.send()
+        promissory_note.add_subscribers(self._promissory_note_issuance_service, self._email_service)
+
+        promissory_note.issue()
