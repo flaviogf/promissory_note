@@ -7,6 +7,7 @@ from pyflunt.validations import Contract
 class Beneficiary(Notifiable):
     def __init__(self, name, cpf, email):
         super().__init__()
+
         self._name = name
         self._cpf = cpf
         self._email = email
@@ -17,6 +18,7 @@ class Beneficiary(Notifiable):
 class Emitter(Notifiable):
     def __init__(self, name, cpf, address, email):
         super().__init__()
+
         self._name = name
         self._cpf = cpf
         self._address = address
