@@ -379,30 +379,23 @@ class PromissoryNoteTests(unittest.TestCase):
     def test_should_add_subscriber_when_add_subscribers_is_called_with_a_callable(self):
         email_service = Mock()
 
-        self._promissory_note.add_subscribers(email_service)
+        self._promissory_note.attach(email_service)
 
         self.assertEqual(1, len(self._promissory_note.subscribers))
 
-    def test_should_call_attach_when_add_subscribers_is_called_with_a_callable(self):
+    def test_should_call_subscribers_when_notify_is_called(self):
         email_service = Mock()
 
-        self._promissory_note.add_subscribers(email_service)
+        self._promissory_note.attach(email_service)
 
-        email_service.attach.assert_called_with(self._promissory_note)
-
-    def test_should_call_subscribers_when_publish_is_called(self):
-        email_service = Mock()
-
-        self._promissory_note.add_subscribers(email_service)
-
-        self._promissory_note.publish()
+        self._promissory_note.notify()
 
         email_service.assert_called_once()
 
     def test_should_call_subscribers_when_issue_is_called(self):
         email_service = Mock()
 
-        self._promissory_note.add_subscribers(email_service)
+        self._promissory_note.attach(email_service)
 
         self._promissory_note.issue()
 
