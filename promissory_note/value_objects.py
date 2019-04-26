@@ -31,6 +31,7 @@ class Cpf(Notifiable):
 class Email(Notifiable):
     def __init__(self, email):
         super().__init__()
+
         self._email = email
 
         contract = Contract().requires().is_email(value=email,
