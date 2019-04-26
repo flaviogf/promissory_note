@@ -373,3 +373,35 @@ class PromissoryNoteTests(unittest.TestCase):
                                          emitter=emitter)
 
         self.assertFalse(promissory_note.is_valid)
+
+    def test_should_add_subscriber_when_add_subscribers_is_called_with_a_callable(self):
+        number = 100
+        due_date = date.today()
+        value = 100.99
+        currency = 'real'
+        city_payment = 'New York'
+        state_payment = 'New York'
+        issuance_date = date.today()
+
+        beneficiary = Beneficiary(name=Name('Steve'),
+                                  cpf=Cpf('11111111199'),
+                                  email=Email('captain@marvel.com'))
+
+        emitter = Emitter(name=Name('Tony Stark'),
+                          cpf=Cpf('11111111188'),
+                          address='New York',
+                          email=Email('iron_man@marvel.com.br'))
+
+        promissory_note = PromissoryNote(number=number,
+                                         due_date=due_date,
+                                         value=value,
+                                         currency=currency,
+                                         city_payment=city_payment,
+                                         state_payment=state_payment,
+                                         issuance_date=issuance_date,
+                                         beneficiary=beneficiary,
+                                         emitter=emitter)
+
+        promissory_note.add_subscribers(lambda: print('OK'))
+
+        self.assertEqual(1, len(promissory_note.subscribers))

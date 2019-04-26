@@ -53,6 +53,7 @@ class PromissoryNote(Notifiable):
         self._issuance_date = issuance_date
         self._beneficiary = beneficiary
         self._emitter = emitter
+        self._subscribers = []
 
         contract = (Contract().requires()
                     .is_greater_than(value=number,
@@ -82,3 +83,10 @@ class PromissoryNote(Notifiable):
                                                message='issuance date should be greater or equals than today'))
 
         self.add_notifications(contract, beneficiary, emitter)
+
+    @property
+    def subscribers(self):
+        return tuple(self._subscribers)
+
+    def add_subscribers(self, subscriber):
+        self._subscribers.append(subscriber)

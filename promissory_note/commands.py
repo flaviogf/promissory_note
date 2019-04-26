@@ -17,4 +17,4 @@ class IssuePromissoryNoteCommand:
     emitter_cpf: str
     emitter_address: str
     emitter_email: str
-    issuance_date: str
+    issuance_date: date
