@@ -20,3 +20,8 @@ class PromissoryNoteIssued:
     emitter_email: str
     issuance_date: date
     notifications: list = []
+
+
+@dataclass
+class PromissoryNoteNotIssued:
+    notifications: list

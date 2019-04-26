@@ -1,7 +1,7 @@
 import unittest
 from datetime import date
 
-from promissory_note.events import PromissoryNoteIssued
+from promissory_note.events import PromissoryNoteIssued, PromissoryNoteNotIssued
 
 
 class PromissoryNoteIssuedTests(unittest.TestCase):
@@ -65,3 +65,10 @@ class PromissoryNoteIssuedTests(unittest.TestCase):
 
     def test_should_promissory_note_issued_contains_notifications(self):
         self.assertListEqual([], self._promissory_note_issued.notifications)
+
+
+class PromissoryNoteNotIssuedTests(unittest.TestCase):
+    def test_should_promissory_note_not_issued_contains_notifications(self):
+        promissory_note_not_issued = PromissoryNoteNotIssued(notifications=[])
+
+        self.assertListEqual([], promissory_note_not_issued.notifications)
