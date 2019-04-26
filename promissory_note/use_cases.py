@@ -27,6 +27,6 @@ class IssuePromissoryNote:
                                          beneficiary=beneficiary,
                                          emitter=emitter)
 
-        promissory_note.add_subscribers(self._promissory_note_issuance_service, self._email_service)
+        promissory_note.attach(self._promissory_note_issuance_service, self._email_service)
 
         promissory_note.issue()
