@@ -13,6 +13,9 @@ class Name(Notifiable):
                                                                     message='invalid name')
         self.add_notifications(contract)
 
+    def __str__(self):
+        return self._name
+
 
 class Cpf(Notifiable):
     def __init__(self, cpf):
@@ -27,6 +30,9 @@ class Cpf(Notifiable):
 
         self.add_notifications(contract)
 
+    def __str__(self):
+        return self._cpf
+
 
 class Email(Notifiable):
     def __init__(self, email):
@@ -39,3 +45,6 @@ class Email(Notifiable):
                                                   message='invalid email')
 
         self.add_notifications(contract)
+
+    def __str__(self):
+        return self._email
