@@ -26,6 +26,11 @@ class NameTests(unittest.TestCase):
 
         self.assertEqual('invalid name', notification.message)
 
+    def test_should_str_return_name_string(self):
+        name = Name('Steve')
+
+        self.assertEqual('Steve', str(name))
+
 
 class CpfTests(unittest.TestCase):
     def test_should_is_valid_true_when_length_cpf_is_equal_to_eleven(self):
@@ -45,6 +50,11 @@ class CpfTests(unittest.TestCase):
 
         self.assertEqual('invalid cpf', notification.message)
 
+    def test_should_str_return_cpf_string(self):
+        cpf = Cpf('11111111111')
+
+        self.assertEqual('11111111111', str(cpf))
+
 
 class EmailTests(unittest.TestCase):
     def test_should_is_valid_true_when_email_is_valid(self):
@@ -63,3 +73,8 @@ class EmailTests(unittest.TestCase):
         notification = email.notifications[0]
 
         self.assertEqual('invalid email', notification.message)
+
+    def test_should_str_return_email_string(self):
+        email = Email('captain@marvel.com')
+
+        self.assertEqual('captain@marvel.com', str(email))

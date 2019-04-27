@@ -3,6 +3,8 @@ from datetime import date
 from pyflunt.notifications import Notifiable
 from pyflunt.validations import Contract
 
+from promissory_note.events import PromissoryNoteIssued, PromissoryNoteNotIssued
+
 
 class Beneficiary(Notifiable):
     def __init__(self, name, cpf, email):
@@ -13,6 +15,18 @@ class Beneficiary(Notifiable):
         self._email = email
 
         self.add_notifications(name, cpf, email)
+
+    @property
+    def name(self):
+        return str(self._name)
+
+    @property
+    def cpf(self):
+        return str(self._cpf)
+
+    @property
+    def email(self):
+        return str(self._email)
 
 
 class Emitter(Notifiable):
@@ -29,6 +43,22 @@ class Emitter(Notifiable):
                                                                     message='invalid address')
 
         self.add_notifications(contract, name, cpf, email)
+
+    @property
+    def name(self):
+        return str(self._name)
+
+    @property
+    def cpf(self):
+        return str(self._cpf)
+
+    @property
+    def address(self):
+        return self._address
+
+    @property
+    def email(self):
+        return str(self._email)
 
 
 class PromissoryNote(Notifiable):
@@ -54,6 +84,7 @@ class PromissoryNote(Notifiable):
         self._beneficiary = beneficiary
         self._emitter = emitter
         self._subscribers = []
+        self._event = None
 
         contract = (Contract().requires()
                     .is_greater_than(value=number,
@@ -89,12 +120,33 @@ class PromissoryNote(Notifiable):
         return tuple(self._subscribers)
 
     def issue(self):
-        self.notify()
+        self._create_event()
+        self._notify()
+
+    def _create_event(self):
+        if not self.is_valid:
+            self._event = PromissoryNoteNotIssued(notifications=self.notifications)
+            return
+
+        self._event = PromissoryNoteIssued(number=self._number,
+                                           due_date=self._due_date,
+                                           value=self._value,
+                                           beneficiary_name=self._beneficiary.name,
+                                           beneficiary_cpf=self._beneficiary.cpf,
+                                           beneficiary_email=self._beneficiary.email,
+                                           currency=self._currency,
+                                           city_payment=self._city_payment,
+                                           state_payment=self._state_payment,
+                                           emitter_name=self._emitter.name,
+                                           emitter_cpf=self._emitter.cpf,
+                                           emitter_address=self._emitter.address,
+                                           emitter_email=self._emitter.email,
+                                           issuance_date=self._issuance_date)
+
+    def _notify(self):
+        for it in self._subscribers:
+            it(self._event)
 
     def attach(self, *subscribers):
         for subscriber in subscribers:
             self._subscribers.append(subscriber)
-
-    def notify(self):
-        for it in self._subscribers:
-            it(self)
