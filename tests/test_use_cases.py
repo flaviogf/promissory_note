@@ -8,7 +8,7 @@ from promissory_note.use_cases import IssuePromissoryNote
 
 class IssuePromissoryNoteTests(unittest.TestCase):
     def setUp(self):
-        self._promissory_note_issuance_service = Mock()
+        self._image_generation_service = Mock()
         self._email_service = Mock()
 
         self._issue_promissory_note_command = IssuePromissoryNoteCommand(number=1,
@@ -27,13 +27,13 @@ class IssuePromissoryNoteTests(unittest.TestCase):
                                                                          issuance_date=date.today())
 
         self._issue_promissory_note = IssuePromissoryNote(
-            promissory_note_issuance_service=self._promissory_note_issuance_service,
+            image_generation_service=self._image_generation_service,
             email_service=self._email_service)
 
-    def test_should_promissory_note_issuance_service_is_called_when_promissory_note_is_issued(self):
+    def test_should_image_generation_service_is_called_when_promissory_note_is_issued(self):
         self._issue_promissory_note.execute(command=self._issue_promissory_note_command)
 
-        self._promissory_note_issuance_service.assert_called_once()
+        self._image_generation_service.assert_called_once()
 
     def test_should_email_service_is_called_when_promissory_note_is_issued(self):
         self._issue_promissory_note.execute(command=self._issue_promissory_note_command)

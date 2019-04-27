@@ -3,8 +3,8 @@ from promissory_note.value_objects import Name, Cpf, Email
 
 
 class IssuePromissoryNote:
-    def __init__(self, promissory_note_issuance_service, email_service):
-        self._promissory_note_issuance_service = promissory_note_issuance_service
+    def __init__(self, image_generation_service, email_service):
+        self.image_generation_service = image_generation_service
         self._email_service = email_service
 
     def execute(self, command):
@@ -27,6 +27,6 @@ class IssuePromissoryNote:
                                          beneficiary=beneficiary,
                                          emitter=emitter)
 
-        promissory_note.attach(self._promissory_note_issuance_service, self._email_service)
+        promissory_note.attach(self.image_generation_service, self._email_service)
 
         promissory_note.issue()
