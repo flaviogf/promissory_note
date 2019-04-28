@@ -3,8 +3,18 @@ from datetime import date, datetime
 from os import chdir, listdir, path, remove
 from unittest.mock import patch
 
-from promissory_note.gateways.cli import Cli, print_green, print_blue
+from pyfiglet import Figlet
+
+from promissory_note.gateways.cli import Cli, print_green, print_blue, print_application_name, print_description
 from promissory_note.gateways.services import CONTENT_DIR, PROMISSORY_NOTE_IMAGE, OPEN_SANS
+
+
+class PrintBlueTests(unittest.TestCase):
+    @patch('builtins.print')
+    def test_should_print_text_when_print_green_is_called_with_text(self, print):
+        print_blue('Tony', begin='\n')
+
+        print.assert_called_with('\033[34m\nTony\033[0m')
 
 
 class PrintGreenTests(unittest.TestCase):
@@ -15,12 +25,25 @@ class PrintGreenTests(unittest.TestCase):
         print.assert_called_with('\033[32m\nTony\033[0m')
 
 
-class PrintBlueTests(unittest.TestCase):
-    @patch('builtins.print')
-    def test_should_print_text_when_print_green_is_called_with_text(self, print):
-        print_blue('Tony', begin='\n')
+class PrintApplicationNameTests(unittest.TestCase):
+    @patch('promissory_note.gateways.cli.print_blue')
+    def test_should_print_application_name_when_is_called(self, print_blue):
+        font = Figlet(font='pepper')
+        application_name = font.renderText('Promissory Note')
 
-        print.assert_called_with('\033[34m\nTony\033[0m')
+        print_application_name()
+
+        print_blue.assert_called_with(application_name)
+
+
+class PrintDescriptionTests(unittest.TestCase):
+    @patch('promissory_note.gateways.cli.print_blue')
+    def test_should_print_description_when_is_called(self, print_blue):
+        description = 'Welcome, send your promissory notes'
+
+        print_description()
+
+        print_blue.assert_called_with(description, end='\n\n')
 
 
 class CliTests(unittest.TestCase):

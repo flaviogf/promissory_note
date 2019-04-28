@@ -16,6 +16,17 @@ def print_green(text, begin='', *args, **kwargs):
     print(f'\033[32m{begin}{text}\033[0m', *args, **kwargs)
 
 
+def print_application_name():
+    font = Figlet(font='pepper')
+    application_name = font.renderText('Promissory Note')
+    print_blue(application_name)
+
+
+def print_description():
+    description = 'Welcome, send your promissory notes'
+    print_blue(description, end='\n\n')
+
+
 @click.command()
 @click.option('--number',
               default=1,
@@ -236,18 +247,7 @@ class Cli:
                                                                          issuance_date=self.issuance_date)
 
 
-def print_application_name():
-    font = Figlet(font='pepper')
-    application_name = font.renderText('Promissory Note')
-    print_blue(application_name)
-    print_description()
-
-
-def print_description():
-    description = 'Welcome, send your promissory notes'
-    print_blue(description, end='\n\n')
-
-
 if __name__ == '__main__':
     print_application_name()
+    print_description()
     main()
