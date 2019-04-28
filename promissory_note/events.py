@@ -1,6 +1,5 @@
+from dataclasses import dataclass, field
 from datetime import date
-
-from attr import dataclass
 
 
 @dataclass
@@ -19,7 +18,7 @@ class PromissoryNoteIssued:
     emitter_address: str
     emitter_email: str
     issuance_date: date
-    notifications: list = []
+    notifications: list = field(default_factory=list)
 
 
 @dataclass
