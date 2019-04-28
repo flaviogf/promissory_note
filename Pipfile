@@ -12,6 +12,7 @@ coverage = "*"
 pyflunt = "==1.0.0"
 pillow = "==6.0.0"
 click = "==7.0"
+pyfiglet = "*"
 
 [requires]
 python_version = "3.7"
