@@ -84,20 +84,20 @@ def print_description():
               default=date.today().strftime('%d/%m/%Y'),
               prompt=True,
               type=click.DateTime(('%d/%m/%Y',)))
-def main(number,
-         due_date,
-         value,
-         beneficiary_name,
-         beneficiary_cpf,
-         beneficiary_email,
-         currency,
-         city_payment,
-         state_payment,
-         emitter_name,
-         emitter_cpf,
-         emitter_address,
-         emitter_email,
-         issuance_date):
+def issue_promissory_note(number,
+                          due_date,
+                          value,
+                          beneficiary_name,
+                          beneficiary_cpf,
+                          beneficiary_email,
+                          currency,
+                          city_payment,
+                          state_payment,
+                          emitter_name,
+                          emitter_cpf,
+                          emitter_address,
+                          emitter_email,
+                          issuance_date):
     Cli().issued_promissory_note(number,
                                  due_date,
                                  value,
@@ -247,7 +247,11 @@ class Cli:
                                                                          issuance_date=self.issuance_date)
 
 
-if __name__ == '__main__':
+def main():
     print_application_name()
     print_description()
+    issue_promissory_note()
+
+
+if __name__ == '__main__':
     main()

@@ -5,7 +5,7 @@ from unittest.mock import patch
 
 from pyfiglet import Figlet
 
-from promissory_note.gateways.cli import Cli, print_green, print_blue, print_application_name, print_description
+from promissory_note.gateways.cli import Cli, print_green, print_blue, print_application_name, print_description, main
 from promissory_note.gateways.services import CONTENT_DIR, PROMISSORY_NOTE_IMAGE, OPEN_SANS
 
 
@@ -127,3 +127,38 @@ class CliTests(unittest.TestCase):
 
         for image in created_images:
             remove(image)
+
+
+class MainTests(unittest.TestCase):
+    @patch('promissory_note.gateways.cli.print_application_name')
+    @patch('promissory_note.gateways.cli.print_description')
+    @patch('promissory_note.gateways.cli.issue_promissory_note')
+    def test_should_main_called_print_application_name(self,
+                                                       print_application_name,
+                                                       print_description,
+                                                       issue_promissory_note):
+        main()
+
+        print_application_name.assert_called_once()
+
+    @patch('promissory_note.gateways.cli.print_application_name')
+    @patch('promissory_note.gateways.cli.print_description')
+    @patch('promissory_note.gateways.cli.issue_promissory_note')
+    def test_should_main_called_print_description(self,
+                                                  print_application_name,
+                                                  print_description,
+                                                  issue_promissory_note):
+        main()
+
+        print_description.assert_called_once()
+
+    @patch('promissory_note.gateways.cli.print_application_name')
+    @patch('promissory_note.gateways.cli.print_description')
+    @patch('promissory_note.gateways.cli.issue_promissory_note')
+    def test_should_main_called_issue_promissory_note(self,
+                                                      print_application_name,
+                                                      print_description,
+                                                      issue_promissory_note):
+        main()
+
+        issue_promissory_note.assert_called_once()

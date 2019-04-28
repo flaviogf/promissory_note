@@ -8,7 +8,7 @@ from promissory_note.events import PromissoryNoteIssued
 
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
-ROOT_DIR = dirname(dirname(dirname(__file__)))
+ROOT_DIR = dirname(dirname(__file__))
 
 CONTENT_DIR = path.join(ROOT_DIR, 'content')
 

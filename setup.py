@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='promissory_note',
@@ -8,13 +8,7 @@ setup(
     url='https://github.com/flaviogf/promissory_note',
     author='Flavio Fernandes',
     author_email='flavio.fernandes6@gmail.com',
-    packages=[
-        'promissory_note',
-        'promissory_note.gateways',
-    ],
-    package_date={
-        'content': ['*'],
-    },
+    packages=find_packages(),
     include_package_data=True,
     install_requires=[
         'pyflunt==1.0.0',
@@ -25,4 +19,5 @@ setup(
     entry_points={
         'console_scripts': ['promissory-note=promissory_note.gateways.cli:main'],
     },
+    zip_safe=False,
 )
