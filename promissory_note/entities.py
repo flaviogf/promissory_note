@@ -123,6 +123,10 @@ class PromissoryNote(Notifiable):
         self._create_event()
         self._notify()
 
+    def attach(self, *subscribers):
+        for subscriber in subscribers:
+            self._subscribers.append(subscriber)
+
     def _create_event(self):
         if not self.is_valid:
             self._event = PromissoryNoteNotIssued(notifications=self.notifications)
@@ -146,7 +150,3 @@ class PromissoryNote(Notifiable):
     def _notify(self):
         for it in self._subscribers:
             it(self._event)
-
-    def attach(self, *subscribers):
-        for subscriber in subscribers:
-            self._subscribers.append(subscriber)

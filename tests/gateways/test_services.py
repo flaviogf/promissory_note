@@ -2,7 +2,7 @@ import unittest
 from datetime import date
 from os import chdir, listdir, remove, path
 
-from promissory_note.events import PromissoryNoteIssued
+from promissory_note.events import PromissoryNoteIssued, PromissoryNoteNotIssued
 from promissory_note.gateways.services import PillowImageGenerationService, CONTENT_DIR, PROMISSORY_NOTE_IMAGE, \
     OPEN_SANS
 
@@ -59,11 +59,22 @@ class PillowImageGenerationServiceTests(unittest.TestCase):
                                                       emitter_email='iron_man@marvel.com',
                                                       issuance_date=date.today())
 
-        self._image_generation_service(promissory_note_issued=promissory_note_issued)
+        self._image_generation_service(event=promissory_note_issued)
 
         filename = f'{promissory_note_issued.number}_promissory_note.jpg'
 
         self.assertTrue(filename in listdir(CONTENT_DIR))
+
+    def test_should_pillow_image_generation_dont_create_image_in_content_dir_when__call_is_called_with_promissory_note_not_issued(
+            self):
+        created_images = [file for file in listdir(CONTENT_DIR) if
+                          file not in (path.basename(PROMISSORY_NOTE_IMAGE), path.basename(OPEN_SANS))]
+
+        promissory_note_not_issued = PromissoryNoteNotIssued(notifications=[])
+
+        self._image_generation_service(event=promissory_note_not_issued)
+
+        self.assertListEqual([], created_images)
 
     def _remove_created_images(self):
         chdir(CONTENT_DIR)

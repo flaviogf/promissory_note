@@ -4,6 +4,8 @@ from os.path import dirname
 
 from PIL import Image, ImageDraw, ImageFont
 
+from promissory_note.events import PromissoryNoteIssued
+
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 ROOT_DIR = dirname(dirname(dirname(__file__)))
@@ -68,8 +70,11 @@ class PillowImageGenerationService:
         self._filename = None
         self._promissory_note_issued = None
 
-    def __call__(self, promissory_note_issued):
-        return self.generate(promissory_note_issued)
+    def __call__(self, event):
+        if not isinstance(event, PromissoryNoteIssued):
+            return
+
+        self.generate(event)
 
     def generate(self, promissory_note_issued):
         self._promissory_note_issued = promissory_note_issued
