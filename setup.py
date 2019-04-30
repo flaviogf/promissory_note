@@ -15,9 +15,10 @@ setup(
         'pillow==6.0.0',
         'click==7.0',
         'pyfiglet==0.8.post1',
+        'sendgrid==6.0.4',
     ],
     entry_points={
-        'console_scripts': ['promissory-note=promissory_note.gateways.cli:main'],
+        'console_scripts': ['promissory-note-cli=promissory_note.gateways.cli:main'],
     },
     zip_safe=False,
 )
