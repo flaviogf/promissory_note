@@ -1,8 +1,11 @@
+import base64
 import locale
-from os import path
-from os.path import dirname
+import uuid
+from os import getenv
+from os.path import dirname, join
 
 from PIL import Image, ImageDraw, ImageFont
+from sendgrid import Mail, SendGridAPIClient, Attachment, FileContent, FileType, FileName, Disposition, ContentId
 
 from promissory_note.events import PromissoryNoteIssued
 
@@ -10,11 +13,11 @@ locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 ROOT_DIR = dirname(dirname(__file__))
 
-CONTENT_DIR = path.join(ROOT_DIR, 'content')
+CONTENT_DIR = join(ROOT_DIR, 'content')
 
-PROMISSORY_NOTE_IMAGE = path.join(CONTENT_DIR, 'promissory_note.jpg')
+PROMISSORY_NOTE_IMAGE = join(CONTENT_DIR, 'promissory_note.jpg')
 
-OPEN_SANS = path.join(CONTENT_DIR, 'open_sans.ttf')
+OPEN_SANS = join(CONTENT_DIR, 'open_sans.ttf')
 
 TEXT_FONT = ImageFont.truetype(OPEN_SANS, size=16)
 
@@ -51,6 +54,18 @@ ISSUANCE_DATE_YEAR_POSITION = 735, 238
 EMITTER_CPF_POSITION = 225, 264
 
 EMITTER_ADDRESS_POSITION = 525, 264
+
+SEND_GRID_KEY = getenv('SEND_GRID_KEY', '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')
+
+FROM_EMAIL = 'flavio.fernandes6@gmail.com'
+
+SUBJECT = 'Promissory note'
+
+CONTENT = '<p>Promissory note issued with success !!!</p>'
+
+FILE_TYPE = 'image/jpeg'
+
+DISPOSITION = 'attachment'
 
 
 def write(fn):
@@ -188,10 +203,93 @@ class PillowImageGenerationService:
 
     def _create_filename(self):
         basename = f'{self._promissory_note_issued.number}_promissory_note.jpg'
-        self._filename = path.join(CONTENT_DIR, basename)
+        self._filename = join(CONTENT_DIR, basename)
 
     def _save_image(self):
         self._image.save(self._filename)
 
     def _write(self):
         self._draw.text(self._position, self._text, fill=TEXT_COLOR, font=TEXT_FONT)
+
+
+class SendGridEmailService:
+    def __init__(self):
+        self._send_grid = SendGridAPIClient(SEND_GRID_KEY)
+
+        self._promissory_note_issued = None
+
+        self._from_email = None
+        self._from_to_emails = None
+        self._subject = None
+        self._content = None
+        self._attachment = None
+
+        self._mail = None
+
+    def __call__(self, event):
+        if isinstance(event, PromissoryNoteIssued):
+            self.send_promissory_note_issued(promissory_note_issued=event)
+
+    def send_promissory_note_issued(self, promissory_note_issued):
+        self._promissory_note_issued = promissory_note_issued
+
+        self._create_mail()
+
+        self._send_grid.send(self._mail)
+
+    def _create_mail(self):
+        self._create_from_email()
+        self._create_to_emails()
+        self._create_subject()
+        self._create_content()
+        self._create_attachment()
+
+        self._mail = Mail(
+            from_email=self._from_email,
+            to_emails=self._to_emails,
+            subject=self._subject,
+            html_content=self._content,
+        )
+
+        self._mail.attachment = self._attachment
+
+    def _create_from_email(self):
+        self._from_email = FROM_EMAIL
+
+    def _create_to_emails(self):
+        self._to_emails = [
+            self._promissory_note_issued.beneficiary_email,
+            self._promissory_note_issued.emitter_email
+        ]
+
+    def _create_subject(self):
+        self._subject = SUBJECT
+
+    def _create_content(self):
+        self._content = CONTENT
+
+    def _create_attachment(self):
+        promissory_note_image_name = f'{self._promissory_note_issued.number}_promissory_note.jpg'
+
+        with open(join(CONTENT_DIR, promissory_note_image_name), 'rb') as img:
+            data = img.read()
+
+        encoded = base64.b64encode(data).decode()
+
+        file_content = FileContent(encoded)
+
+        file_type = FileType(FILE_TYPE)
+
+        file_name = FileName(promissory_note_image_name)
+
+        disposition = Disposition(DISPOSITION)
+
+        content_id = ContentId(str(uuid.uuid4()))
+
+        attachment = Attachment(file_content=file_content,
+                                file_name=file_name,
+                                file_type=file_type,
+                                disposition=disposition,
+                                content_id=content_id)
+
+        self._attachment = attachment
