@@ -116,10 +116,10 @@ def issue_promissory_note(number,
 
 class Cli:
     def __init__(self):
-        image_generation_service = PillowImageGenerationService()
-        email_service = SendGridEmailService()
+        self._image_generation_service = PillowImageGenerationService()
+        self._email_service = SendGridEmailService()
 
-        self._issue_promissory_note = IssuePromissoryNote(image_generation_service, email_service)
+        self._issue_promissory_note = IssuePromissoryNote(self._image_generation_service, self._email_service)
 
         self._number = None
         self._due_date = None
