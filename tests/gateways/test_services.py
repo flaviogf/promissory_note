@@ -5,7 +5,7 @@ from unittest.mock import Mock
 
 from promissory_note.events import PromissoryNoteIssued, PromissoryNoteNotIssued
 from promissory_note.gateways.services import (PillowImageGenerationService,
-                                               SendGridEmailService,
+                                               SendGridEmailPromissoryNoteIssued,
                                                CONTENT_DIR,
                                                PROMISSORY_NOTE_IMAGE,
                                                OPEN_SANS)
@@ -90,11 +90,11 @@ class PillowImageGenerationServiceTests(unittest.TestCase):
             remove(image)
 
 
-class SendGridEmailServiceTests(unittest.TestCase):
+class SendGridEmailPromissoryNoteIssuedTests(unittest.TestCase):
     def setUp(self):
         self._remove_created_images()
 
-        self._email_service = SendGridEmailService()
+        self._email_service = SendGridEmailPromissoryNoteIssued()
         self._email_service._send_grid = Mock()
 
     def tearDown(self):
@@ -150,10 +150,6 @@ class SendGridEmailServiceTests(unittest.TestCase):
         self._email_service.send_promissory_note_issued(promissory_note_issued=promissory_note_issued)
 
         self._email_service._send_grid.send.assert_called_once()
-
-    def test_should_send_promissory_note_not_issued_call_send_grid_api(self):
-        # TODO implementation
-        pass
 
     def _remove_created_images(self):
         chdir(CONTENT_DIR)

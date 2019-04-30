@@ -57,7 +57,7 @@ EMITTER_ADDRESS_POSITION = 525, 264
 
 SEND_GRID_KEY = getenv('SEND_GRID_KEY', 'YOUR_SEND_GRID_KEY')
 
-FROM_EMAIL = 'flavio.fernandes6@gmail.com'
+FROM_EMAIL = getenv('FROM_EMAIL', 'YOUR_FROM_EMAIL')
 
 SUBJECT = 'Promissory note'
 
@@ -86,10 +86,8 @@ class PillowImageGenerationService:
         self._promissory_note_issued = None
 
     def __call__(self, event):
-        if not isinstance(event, PromissoryNoteIssued):
-            return
-
-        self.generate(event)
+        if isinstance(event, PromissoryNoteIssued):
+            self.generate(event)
 
     def generate(self, promissory_note_issued):
         self._promissory_note_issued = promissory_note_issued
@@ -212,7 +210,7 @@ class PillowImageGenerationService:
         self._draw.text(self._position, self._text, fill=TEXT_COLOR, font=TEXT_FONT)
 
 
-class SendGridEmailService:
+class SendGridEmailPromissoryNoteIssued:
     def __init__(self):
         self._send_grid = SendGridAPIClient(SEND_GRID_KEY)
 

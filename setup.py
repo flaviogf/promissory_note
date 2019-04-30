@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='promissory_note',
-    version='0.0.4',
+    version='0.0.5',
     description='Simple promissory note issuance',
     long_description='Simple promissory note issuance',
     url='https://github.com/flaviogf/promissory_note',
