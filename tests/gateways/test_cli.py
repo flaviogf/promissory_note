@@ -1,7 +1,7 @@
 import unittest
 from datetime import date, datetime
 from os import chdir, listdir, path, remove
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from pyfiglet import Figlet
 
@@ -49,17 +49,19 @@ class PrintDescriptionTests(unittest.TestCase):
 class CliTests(unittest.TestCase):
     def setUp(self):
         self._cli = Cli()
+
+        self._cli._image_generation_service = Mock()
+        self._cli._email_service = Mock()
+        self._cli._issue_promissory_note = Mock()
+
         self._execute_issued_promissory_note()
         self._remove_created_images()
 
     def tearDown(self):
         self._remove_created_images()
 
-    @patch('promissory_note.gateways.cli.print_green')
-    def test_should_cli_print_promissory_note_issued_success(self, print):
-        self._execute_issued_promissory_note()
-
-        print.assert_called_with('Emission request sent !!!', begin='\n\n')
+    def test_should_cli_print_promissory_note_issued_success(self):
+        self._cli._issue_promissory_note.execute.assert_called_once()
 
     def test_should_cli_contains_number(self):
         self.assertEqual(1, self._cli.number)

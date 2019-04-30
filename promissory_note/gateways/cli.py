@@ -4,7 +4,7 @@ import click
 from pyfiglet import Figlet
 
 from promissory_note.commands import IssuePromissoryNoteCommand
-from promissory_note.gateways.services import PillowImageGenerationService
+from promissory_note.gateways.services import PillowImageGenerationService, SendGridEmailService
 from promissory_note.use_cases import IssuePromissoryNote
 
 
@@ -116,10 +116,10 @@ def issue_promissory_note(number,
 
 class Cli:
     def __init__(self):
-        image_generation_service = PillowImageGenerationService()
-        email_service = lambda x: print(f'Send email {x}...')
+        self._image_generation_service = PillowImageGenerationService()
+        self._email_service = SendGridEmailService()
 
-        self._issue_promissory_note = IssuePromissoryNote(image_generation_service, email_service)
+        self._issue_promissory_note = IssuePromissoryNote(self._image_generation_service, self._email_service)
 
         self._number = None
         self._due_date = None
