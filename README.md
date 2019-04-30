@@ -27,8 +27,8 @@ python setup.py install
 ## Environment
 
 ```bash
-export SEND_GRID_KEY
-export FROM_EMAIL
+export SEND_GRID_KEY=YOUR_SEND_GRID_KEY
+export FROM_EMAIL=YOUR_FROM_EMAIL
 ```
 
 ## Usage
