@@ -107,4 +107,4 @@ venv.bak/
 .idea
 
 # content
-content/*_promissory_note.jpg
+promissory_note/gateways/static/*_promissory_note.jpg

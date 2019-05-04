@@ -6,7 +6,7 @@ from unittest.mock import patch, Mock
 from pyfiglet import Figlet
 
 from promissory_note.gateways.cli import Cli, print_green, print_blue, print_application_name, print_description, main
-from promissory_note.gateways.services import CONTENT_DIR, PROMISSORY_NOTE_IMAGE, OPEN_SANS
+from promissory_note.gateways.services import STATIC_DIR, PROMISSORY_NOTE_IMAGE, OPEN_SANS
 
 
 class PrintBlueTests(unittest.TestCase):
@@ -122,9 +122,9 @@ class CliTests(unittest.TestCase):
                                          issuance_date=datetime(day=12, month=12, year=2020))
 
     def _remove_created_images(self):
-        chdir(CONTENT_DIR)
+        chdir(STATIC_DIR)
 
-        created_images = [file for file in listdir(CONTENT_DIR) if
+        created_images = [file for file in listdir(STATIC_DIR) if
                           file not in (path.basename(PROMISSORY_NOTE_IMAGE), path.basename(OPEN_SANS))]
 
         for image in created_images:

@@ -11,13 +11,13 @@ from promissory_note.events import PromissoryNoteIssued
 
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
-ROOT_DIR = dirname(dirname(__file__))
+ROOT_DIR = (dirname(__file__))
 
-CONTENT_DIR = join(ROOT_DIR, 'content')
+STATIC_DIR = join(ROOT_DIR, 'static')
 
-PROMISSORY_NOTE_IMAGE = join(CONTENT_DIR, 'promissory_note.jpg')
+PROMISSORY_NOTE_IMAGE = join(STATIC_DIR, 'promissory_note.jpg')
 
-OPEN_SANS = join(CONTENT_DIR, 'open_sans.ttf')
+OPEN_SANS = join(STATIC_DIR, 'open_sans.ttf')
 
 TEXT_FONT = ImageFont.truetype(OPEN_SANS, size=16)
 
@@ -201,7 +201,7 @@ class PillowImageGenerationService:
 
     def _create_filename(self):
         basename = f'{self._promissory_note_issued.number}_promissory_note.jpg'
-        self._filename = join(CONTENT_DIR, basename)
+        self._filename = join(STATIC_DIR, basename)
 
     def _save_image(self):
         self._image.save(self._filename)
@@ -269,7 +269,7 @@ class SendGridEmailPromissoryNoteIssued:
     def _create_attachment(self):
         promissory_note_image_name = f'{self._promissory_note_issued.number}_promissory_note.jpg'
 
-        with open(join(CONTENT_DIR, promissory_note_image_name), 'rb') as img:
+        with open(join(STATIC_DIR, promissory_note_image_name), 'rb') as img:
             data = img.read()
 
         encoded = base64.b64encode(data).decode()

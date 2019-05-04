@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promissory Note</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <style>
+        .ui.container {
+            padding-top: 5em;
+            padding-bottom: 5em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="ui container">
+    <div class="ui segment">
+        <div class="ui header">Promissory Note</div>
+        <div class="ui divider"></div>
+        <form method="post" novalidate>
+            <div class="ui stackable two column grid centered">
+                {% for field in issue_promissory_note_form %}
+                <div class="column">
+                    <div class="field">
+                        <div class="ui input fluid">
+                            {{ field }}
+                        </div>
+
+                        {% if field.errors %}
+                        <div class="ui error message">
+                            {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="sixteen wide column">
+                    <button class="ui right floated button primary">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+</body>
+</html>

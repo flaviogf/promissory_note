@@ -1,1 +1,2 @@
-recursive-include promissory_note/content/ *
+recursive-include promissory_note/gateways/static *
+recursive-include promissory_note/gateways/templates *

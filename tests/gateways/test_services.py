@@ -6,7 +6,7 @@ from unittest.mock import Mock
 from promissory_note.events import PromissoryNoteIssued, PromissoryNoteNotIssued
 from promissory_note.gateways.services import (PillowImageGenerationService,
                                                SendGridEmailPromissoryNoteIssued,
-                                               CONTENT_DIR,
+                                               STATIC_DIR,
                                                PROMISSORY_NOTE_IMAGE,
                                                OPEN_SANS)
 
@@ -44,7 +44,7 @@ class PillowImageGenerationServiceTests(unittest.TestCase):
 
         filename = f'{promissory_note_issued.number}_promissory_note.jpg'
 
-        self.assertTrue(filename in listdir(CONTENT_DIR))
+        self.assertTrue(filename in listdir(STATIC_DIR))
 
     def test_should_pillow_image_generation_create_image_in_content_dir_when_call_is_called_with_promissory_note_issued(
             self):
@@ -67,11 +67,11 @@ class PillowImageGenerationServiceTests(unittest.TestCase):
 
         filename = f'{promissory_note_issued.number}_promissory_note.jpg'
 
-        self.assertTrue(filename in listdir(CONTENT_DIR))
+        self.assertTrue(filename in listdir(STATIC_DIR))
 
     def test_should_pillow_image_generation_dont_create_image_in_content_dir_when__call_is_called_with_promissory_note_not_issued(
             self):
-        created_images = [file for file in listdir(CONTENT_DIR) if
+        created_images = [file for file in listdir(STATIC_DIR) if
                           file not in (path.basename(PROMISSORY_NOTE_IMAGE), path.basename(OPEN_SANS))]
 
         promissory_note_not_issued = PromissoryNoteNotIssued(notifications=[])
@@ -81,9 +81,9 @@ class PillowImageGenerationServiceTests(unittest.TestCase):
         self.assertListEqual([], created_images)
 
     def _remove_created_images(self):
-        chdir(CONTENT_DIR)
+        chdir(STATIC_DIR)
 
-        created_images = [file for file in listdir(CONTENT_DIR) if
+        created_images = [file for file in listdir(STATIC_DIR) if
                           file not in (path.basename(PROMISSORY_NOTE_IMAGE), path.basename(OPEN_SANS))]
 
         for image in created_images:
@@ -152,9 +152,9 @@ class SendGridEmailPromissoryNoteIssuedTests(unittest.TestCase):
         self._email_service._send_grid.send.assert_called_once()
 
     def _remove_created_images(self):
-        chdir(CONTENT_DIR)
+        chdir(STATIC_DIR)
 
-        created_images = [file for file in listdir(CONTENT_DIR) if
+        created_images = [file for file in listdir(STATIC_DIR) if
                           file not in (path.basename(PROMISSORY_NOTE_IMAGE), path.basename(OPEN_SANS))]
 
         for image in created_images:
