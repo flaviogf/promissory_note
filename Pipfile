@@ -14,6 +14,8 @@ pillow = "==6.0.0"
 click = "==7.0"
 pyfiglet = "==0.8.post1"
 sendgrid = "==6.0.4"
+flask = "==1.0.2"
+wtforms = "==2.2.1"
 
 [requires]
 python_version = "3.7"
