@@ -31,7 +31,14 @@ export SEND_GRID_KEY=YOUR_SEND_GRID_KEY
 export FROM_EMAIL=YOUR_FROM_EMAIL
 ```
 
-## Usage
+## Usage cli
 ```bash
 promissory-note-cli
+```
+
+## Usage web
+```bash
+export FLASK_APP=promissory_note.gateways.web
+export FLASK_ENV=development
+flask run
 ```
